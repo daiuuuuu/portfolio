@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>组件库集合 / Component Library Collection</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+<style>
+  body { font-family: 'Inter', sans-serif; background: #fcf9f8; color: #1c1b1b; }
+  html { scroll-behavior: smooth; }
+  /* Hide scrollbars */
+  html, body { scrollbar-width: none; -ms-overflow-style: none; }
+  html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
+  .sidebar { scrollbar-width: none; -ms-overflow-style: none; }
+  .sidebar::-webkit-scrollbar { display: none; }
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+
+  /* Sidebar */
+  .sidebar { position: fixed; top: 0; left: 0; width: 260px; height: 100vh; overflow-y: auto;
+             background: #fcf9f8; border-right: 1px solid #75777a; z-index: 40; padding: 1.5rem 1rem; }
+  .sidebar a { display: block; padding: 0.35rem 0.5rem; font-size: 11px; font-weight: 600;
+               text-transform: uppercase; letter-spacing: 0.05em; color: #44474a; text-decoration: none;
+               border-left: 2px solid transparent; transition: none; }
+  .sidebar a:hover, .sidebar a.active { color: #1c1b1b; border-left-color: #8A84A3; background: #f0eded; }
+  .sidebar .cat-title { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+                        color: #8A84A3; margin-top: 1.25rem; margin-bottom: 0.35rem; padding-left: 0.5rem; }
+
+  /* Main */
+  .main { margin-left: 260px; padding: 2rem; }
+
+  /* Category header */
+  .cat-header { border-top: 1px solid #75777a; padding-top: 2rem; margin-top: 3rem; margin-bottom: 1.5rem; }
+  .cat-header:first-of-type { border-top: none; margin-top: 0; }
+
+  /* Component card */
+  .comp-card { border: 1px solid #75777a; margin-bottom: 2rem; background: #fff; }
+  .comp-card-header { display: flex; justify-content: space-between; align-items: center;
+                      padding: 0.75rem 1rem; background: #f0eded; border-bottom: 1px solid #75777a; }
+  .comp-card iframe { width: 100%; border: none; display: block; overflow: hidden; }
+
+  /* Source badge */
+  .badge { display: inline-block; font-size: 8px; font-weight: 700; text-transform: uppercase;
+           letter-spacing: 0.08em; padding: 2px 6px; border: 1px solid; }
+  .badge-dw { color: #5d5e60; border-color: #5d5e60; }
+  .badge-dg { color: #605b78; border-color: #605b78; }
+  .badge-de { color: #ba1a1a; border-color: #ba1a1a; }
+  .badge-ph { color: #1c1b1b; border-color: #1c1b1b; }
+  .badge-pi { color: #44474a; border-color: #44474a; }
+
+  /* Heading CRT scanline effect */
+  .heading-scanlines {
+    position: relative; overflow: hidden;
+  }
+  .heading-scanlines::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background:
+      linear-gradient(rgba(0,0,0,0) 50%, rgba(0,0,0,0.04) 50%),
+      linear-gradient(90deg, rgba(0,0,0,0.01), rgba(0,0,0,0.02), rgba(0,0,0,0.01));
+    background-size: 100% 3px, 4px 100%;
+    pointer-events: none;
+    z-index: 1;
+    mix-blend-mode: multiply;
+  }
+
+  @media (max-width: 768px) {
+    .sidebar { display: none; }
+    .main { margin-left: 0; }
+  }
+</style>
+<style>
+*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}[type='text'],input:where(:not([type])),[type='email'],[type='url'],[type='password'],[type='number'],[type='date'],[type='datetime-local'],[type='month'],[type='search'],[type='tel'],[type='time'],[type='week'],[multiple],textarea,select{-webkit-appearance:none;appearance:none;background-color:#fff;border-color:#6b7280;border-width:1px;border-radius:0px;padding-top:0.5rem;padding-right:0.75rem;padding-bottom:0.5rem;padding-left:0.75rem;font-size:1rem;line-height:1.5rem;--tw-shadow:0 0 #0000;}[type='text']:focus, input:where(:not([type])):focus, [type='email']:focus, [type='url']:focus, [type='password']:focus, [type='number']:focus, [type='date']:focus, [type='datetime-local']:focus, [type='month']:focus, [type='search']:focus, [type='tel']:focus, [type='time']:focus, [type='week']:focus, [multiple]:focus, textarea:focus, select:focus{outline:2px solid transparent;outline-offset:2px;--tw-ring-inset:var(--tw-empty,/*!*/ /*!*/);--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:#2563eb;--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);border-color:#2563eb}input::placeholder,textarea::placeholder{color:#6b7280;opacity:1}::-webkit-datetime-edit-fields-wrapper{padding:0}::-webkit-date-and-time-value{min-height:1.5em;text-align:inherit}::-webkit-datetime-edit{display:inline-flex}::-webkit-datetime-edit,::-webkit-datetime-edit-year-field,::-webkit-datetime-edit-month-field,::-webkit-datetime-edit-day-field,::-webkit-datetime-edit-hour-field,::-webkit-datetime-edit-minute-field,::-webkit-datetime-edit-second-field,::-webkit-datetime-edit-millisecond-field,::-webkit-datetime-edit-meridiem-field{padding-top:0;padding-bottom:0}select{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");background-position:right 0.5rem center;background-repeat:no-repeat;background-size:1.5em 1.5em;padding-right:2.5rem;print-color-adjust:exact}[multiple],[size]:where(select:not([size="1"])){background-image:initial;background-position:initial;background-repeat:unset;background-size:initial;padding-right:0.75rem;print-color-adjust:unset}[type='checkbox'],[type='radio']{-webkit-appearance:none;appearance:none;padding:0;print-color-adjust:exact;display:inline-block;vertical-align:middle;background-origin:border-box;-webkit-user-select:none;user-select:none;flex-shrink:0;height:1rem;width:1rem;color:#2563eb;background-color:#fff;border-color:#6b7280;border-width:1px;--tw-shadow:0 0 #0000}[type='checkbox']{border-radius:0px}[type='radio']{border-radius:100%}[type='checkbox']:focus,[type='radio']:focus{outline:2px solid transparent;outline-offset:2px;--tw-ring-inset:var(--tw-empty,/*!*/ /*!*/);--tw-ring-offset-width:2px;--tw-ring-offset-color:#fff;--tw-ring-color:#2563eb;--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow)}[type='checkbox']:checked,[type='radio']:checked{border-color:transparent;background-color:currentColor;background-size:100% 100%;background-position:center;background-repeat:no-repeat}[type='checkbox']:checked{background-image:url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");}@media (forced-colors: active) {[type='checkbox']:checked{-webkit-appearance:auto;appearance:auto}}[type='radio']:checked{background-image:url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='8' cy='8' r='3'/%3e%3c/svg%3e");}@media (forced-colors: active) {[type='radio']:checked{-webkit-appearance:auto;appearance:auto}}[type='checkbox']:checked:hover,[type='checkbox']:checked:focus,[type='radio']:checked:hover,[type='radio']:checked:focus{border-color:transparent;background-color:currentColor}[type='checkbox']:indeterminate{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 16 16'%3e%3cpath stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8h8'/%3e%3c/svg%3e");border-color:transparent;background-color:currentColor;background-size:100% 100%;background-position:center;background-repeat:no-repeat;}@media (forced-colors: active) {[type='checkbox']:indeterminate{-webkit-appearance:auto;appearance:auto}}[type='checkbox']:indeterminate:hover,[type='checkbox']:indeterminate:focus{border-color:transparent;background-color:currentColor}[type='file']{background:unset;border-color:inherit;border-width:0;border-radius:0;padding:0;font-size:unset;line-height:inherit}[type='file']:focus{outline:1px solid ButtonText;outline:1px auto -webkit-focus-ring-color}.mb-0\.5{margin-bottom:0.125rem}.mb-1{margin-bottom:0.25rem}.mb-12{margin-bottom:3rem}.mb-2{margin-bottom:0.5rem}.mb-4{margin-bottom:1rem}.ml-2{margin-left:0.5rem}.mt-4{margin-top:1rem}.mt-16{margin-top:4rem}.block{display:block}.flex{display:flex}.max-w-2xl{max-width:42rem}.flex-wrap{flex-wrap:wrap}.items-center{align-items:center}.justify-between{justify-content:space-between}.gap-3{gap:0.75rem}.truncate{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.border{border-width:1px}.border-t{border-top-width:1px}.border-outline-variant{--tw-border-opacity:1;border-color:rgb(197 199 201 / var(--tw-border-opacity, 1))}.border-outline{--tw-border-opacity:1;border-color:rgb(117 119 122 / var(--tw-border-opacity, 1))}.bg-surface{--tw-bg-opacity:1;background-color:rgb(252 249 248 / var(--tw-bg-opacity, 1))}.px-2{padding-left:0.5rem;padding-right:0.5rem}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem}.pb-12{padding-bottom:3rem}.pt-8{padding-top:2rem}.font-body-md{font-family:Inter}.font-display-hero{font-family:Inter}.font-headline-lg-mobile{font-family:Inter}.font-label-micro{font-family:Inter}.font-mono-technical{font-family:Inter}.text-\[10px\]{font-size:10px}.text-\[8px\]{font-size:8px}.text-\[9px\]{font-size:9px}.text-body-md{font-size:14px;line-height:20px;letter-spacing:0em;font-weight:400}.text-display-hero{font-size:120px;line-height:100px;letter-spacing:-0.06em;font-weight:900}.text-headline-lg-mobile{font-size:40px;line-height:44px;letter-spacing:-0.02em;font-weight:600}.text-label-micro{font-size:10px;line-height:12px;letter-spacing:0.05em;font-weight:600}.text-mono-technical{font-size:12px;line-height:16px;letter-spacing:-0.01em;font-weight:400}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xs{font-size:0.75rem;line-height:1rem}.font-bold{font-weight:700}.font-medium{font-weight:500}.uppercase{text-transform:uppercase}.leading-none{line-height:1}.leading-relaxed{line-height:1.625}.tracking-tighter{letter-spacing:-0.05em}.tracking-widest{letter-spacing:0.1em}.text-brand-accent{--tw-text-opacity:1;color:rgb(138 132 163 / var(--tw-text-opacity, 1))}.text-on-surface{--tw-text-opacity:1;color:rgb(28 27 27 / var(--tw-text-opacity, 1))}.text-on-surface-variant{--tw-text-opacity:1;color:rgb(68 71 74 / var(--tw-text-opacity, 1))}.opacity-40{opacity:0.4}
+</style>
+</head>
+<body class="bg-surface text-on-surface">
+
+<!-- ===== SIDEBAR ===== -->
+<nav class="sidebar">
+  <div class="font-headline-lg-mobile text-headline-lg-mobile font-bold tracking-tighter mb-4">组件库<br/>集合</div>
+  <p class="text-[9px] text-on-surface-variant mb-2 leading-relaxed">43 Components<br/>Radical Helvetica-Modernism<br/>+ SYNTAX_OS Dark<br/>5 Reference Sites</p>
+  <!-- Current component status -->
+  <div class="border border-outline-variant px-2 py-1.5 mb-4">
+    <div class="text-[8px] uppercase tracking-widest text-brand-accent mb-0.5">NOW VIEWING</div>
+    <div id="sidebar-status" class="text-[10px] font-medium text-on-surface truncate">—</div>
+  </div>
+
+  <div class="cat-title">导航 Navigation</div>
+  <a href="#nav-01">01 · TopNavBar</a>
+  <a href="#nav-02">02 · FixedSideIndicator</a>
+
+  <div class="cat-title">英雄区 Hero</div>
+  <a href="#hero-03">03 · HeroSection</a>
+  <a href="#hero-21">21 · DarkEdgeHero</a>
+  <a href="#hero-25">25 · OverlappingHeroTitle</a>
+
+  <div class="cat-title">概览/背景 Overview</div>
+  <a href="#over-04">04 · StatsSection</a>
+  <a href="#over-15">15 · OverviewPositioning</a>
+  <a href="#over-16">16 · PainPointsTarget</a>
+  <a href="#over-22">22 · VerticalLabelLayout</a>
+  <a href="#over-26">26 · PhilosophyImage</a>
+
+  <div class="cat-title">流程/架构 Pipeline</div>
+  <a href="#pipe-05">05 · AgentPipelineCards</a>
+  <a href="#pipe-06">06 · WorkflowVisualization</a>
+  <a href="#pipe-23">23 · HorizontalAgentPipeline</a>
+
+  <div class="cat-title">决策/Q&A Decisions</div>
+  <a href="#dec-07">07 · QADecisionsSection</a>
+  <a href="#dec-19">19 · KeyDecisionsCards</a>
+
+  <div class="cat-title">代码/技术 Code</div>
+  <a href="#code-08">08 · CodeBlockDisplay</a>
+
+  <div class="cat-title">对比/方案 Comparison</div>
+  <a href="#cmp-09">09 · BeforeAfterComparison</a>
+  <a href="#cmp-17">17 · StrategyComparison</a>
+
+  <div class="cat-title">数据/统计 Metrics</div>
+  <a href="#met-10">10 · QualityChecklist</a>
+  <a href="#met-18">18 · QualityAuditTable</a>
+  <a href="#met-20">20 · OutputsStatsGrid</a>
+  <a href="#met-24">24 · LargeMetricsGrid</a>
+
+  <div class="cat-title">列表/索引 Lists</div>
+  <a href="#lst-11">11 · DirectoryTree</a>
+  <a href="#lst-27">27 · FeaturedWorksList</a>
+  <a href="#lst-29">29 · ProjectIndexHeader</a>
+  <a href="#lst-30">30 · ProjectArticleCard</a>
+
+  <div class="cat-title">按钮/CTA Buttons</div>
+  <a href="#btn-28">28 · GatewayCTASection</a>
+  <a href="#btn-31">31 · LoadMoreButton</a>
+
+  <div class="cat-title">页脚 Footer</div>
+  <a href="#ftr-12">12 · Footer</a>
+
+  <div class="cat-title">设计标记 Design Tokens</div>
+  <a href="#tok-13">13 · ColorPalette</a>
+  <a href="#tok-14">14 · TypographySystem</a>
+  <a href="#tok-32">32 · GridLinesBackground</a>
+
+  <div class="cat-title">暗色终端 Dark Terminal</div>
+  <a href="#dark-33">33 · DarkSideNav</a>
+  <a href="#dark-34">34 · DarkTopAppBar</a>
+  <a href="#dark-35">35 · DarkHeroTypographic</a>
+  <a href="#dark-36">36 · TerminalBootPanel</a>
+  <a href="#dark-37">37 · CoordinatesStatus</a>
+  <a href="#dark-38">38 · BentoGridCells</a>
+  <a href="#dark-39">39 · SystemLogTable</a>
+  <a href="#dark-40">40 · IconSquareGrid</a>
+  <a href="#dark-41">41 · DarkFooter</a>
+  <a href="#dark-42">42 · ScanlinesCRTEffect</a>
+  <a href="#dark-43">43 · DarkGridBackground</a>
+</nav>
+
+<!-- ===== MAIN CONTENT ===== -->
+<main class="main">
+
+  <!-- Page Header -->
+  <section class="mb-12">
+    <span class="font-label-micro text-label-micro uppercase text-brand-accent mb-2 block">Component Library Collection</span>
+    <h1 class="font-display-hero text-display-hero uppercase mb-4 leading-none heading-scanlines">
+      COMPONENT<br/>LIBRARY
+    </h1>
+    <p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">
+      43个独立组件 · 按功能分为13个类别 · 来源5个参考网站<br/>
+      统一设计系统：<strong>Radical Helvetica-Modernism</strong> (Swiss Modernism) + <strong>SYNTAX_OS</strong> (Dark Terminal)
+    </p>
+    <!-- Legend -->
+    <div class="flex flex-wrap gap-3 mt-4">
+      <span class="badge badge-dw">对位 · DIGIT_ARCHIVE</span>
+      <span class="badge badge-dg">对位geng · DUANFU_TECH</span>
+      <span class="badge badge-de">更 · Dark Variant</span>
+      <span class="badge badge-ph">更 · Portfolio Home</span>
+      <span class="badge badge-pi">更 · Portfolio Index</span>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- CATEGORY: 导航 Navigation -->
+  <!-- ============================================================ -->
+  <div class="cat-header" id="cat-nav">
+    <h2 class="font-headline-lg-mobile text-headline-lg-mobile uppercase mb-1 heading-scanlines">导航 Navigation</h2>
+    <p class="font-mono-technical text-mono-technical text-on-surface-variant">固定导航栏 · 侧边指示器 · 品牌标识</p>
+  </div>
+
+  <!-- 01 TopNavBar -->
+  <div class="comp-card" id="nav-01">
+    <div class="comp-card-header">
+      <div>
+        <span class="text-brand-accent text-xs font-bold">01</span>
+        <span class="font-bold uppercase ml-2 text-sm">TopNavBar / 顶部导航栏</span>
+      </div>
+      <span class="badge badge-dw">对位</span>
+    </div>
+    <iframe src="../组件库/01-TopNavBar-顶部导航栏.html" loading="lazy" title="01-TopNavBar"></iframe>
+  </div>
+
+  <!-- 02 FixedSideIndicator -->
+  <div class="comp-card" id="nav-02">
+    <div class="comp-card-header">
+      <div>
+        <span class="text-brand-accent text-xs font-bold">02</span>
+        <span class="font-bold uppercase ml-2 text-sm">FixedSideIndicator / 固定侧边指示器</span>
+      </div>
+      <span class="badge badge-dw">对位</span>
+    </div>
+    <iframe src="../组件库/02-FixedSideIndicator-固定侧边指示器.html" loading="lazy" title="02-FixedSideIndicator"></iframe>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- CATEGORY: 英雄区 Hero -->
+  <!-- ============================================================ -->
+  <div class="cat-header" id="cat-hero">
+    <h2 class="font-headline-lg-mobile text-headline-lg-mobile uppercase mb-1 heading-scanlines">英雄区 Hero</h2>
+    <p class="font-mono-technical text-mono-technical text-on-surface-variant">首屏展示 · 超大标题 · 视觉冲击</p>
+  </div>
+
+  <!-- 03 HeroSection -->
+  <div class="comp-card" id="hero-03">
+    <div class="comp-card-header">
+      <div>
+        <span class="text-brand-accent text-xs font-bold">03</span>
+        <span class="font-bold uppercase ml-2 text-sm">HeroSection / 英雄区首屏</span>
+        <span class="text-[10px] opacity-40 ml-2">120px display-hero · 8+4 grid</span>
+      </div>
+      <span class="badge badge-dw">对位</span>
+    </div>
+    <iframe src="../组件库/03-HeroSection-英雄区首屏.html" loading="lazy" title="03-HeroSection"></iframe>
+  </div>
+
+  <!-- 21 DarkEdgeHero -->
+  <div class="comp-card" id="hero-21">
+    <div class="comp-card-header">
+      <div>
+        <span class="text-brand-accent text-xs font-bold">21</span>
+        <span class="font-bold uppercase ml-2 text-sm">DarkEdgeHero / 暗色边缘裁剪英雄区</span>
+        <span class="text-[10px] opacity-40 ml-2">180px · edge-crop · SVG decor</span>
+      </div>
+      <span class="badge badge-de">更 · Dark</span>
+    </div>
+    <iframe src="../组件库/21-DarkEdgeHero-暗色边缘裁剪英雄区.html" loading="lazy" title="21-DarkEdgeHero"></iframe>
+  </div>
+
+  <!-- 25 OverlappingHeroTitle -->
+  <div class="comp-card" id="hero-25">
+    <div class="comp-card-header">
+      <div>
+        <span class="text-brand-accent text-xs font-bold">25</span>
+        <span class="font-bold uppercase ml-2 text-sm">OverlappingHeroTitle / 重叠文字英雄标题</span>
+        <span class="text-[10px] opacity-40 ml-2">clip-path · two-layer · status bar</span>
+      </div>
+      <span class="badge badge-ph">更 · Portfolio Home</span>
+    </div>
+    <iframe src="../组件库/25-OverlappingHeroTitle-重叠文字英雄标题.html" loading="lazy" title="25-OverlappingHeroTitle"></iframe>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- CATEGORY: 概览/背景 Overview -->
+  <!-- ============================================================ -->
+  <div class="cat-header" id="cat-over">
+    <h2 class="font-headline-lg-mobile text-headline-lg-mobile uppercase mb-1 heading-scanlines">概览/背景 Overview</h2>
+    <p class="font-mono-technical text-mono-technical text-on-surface-variant">项目介绍 · 定位说明 · 痛点分析 · 图文展示</p>
+  </div>
+
+  <!-- 04 StatsSection -->
+  <div class="comp-card" id="over-04">
+    <div class="comp-card-header">
+      <div>
+        <span class="text-brand-accent text-xs font-bold">04</span>
+        <span class="font-bold uppercase ml-2 text-sm">StatsSection / 背景统计区</span>
+        <span class="text-[10px] opacity-40 ml-2">6+6 grid · stat cards</span>
+      </div>
+      <span class="badge badge-dw">对位</span>
+    </div>
+    <iframe src="../组件库/04-StatsSection-背景统计区.html" loading="lazy" title="04-StatsSection"></iframe>
+  </div>
+
+  <!-- 15 OverviewPositioning -->
+  <div class="comp-card" id="over-15">
+    <div class="comp-card-header">
+      <div>
+        <span class="text-brand-accent text-xs font-bold">15</span>
+        <span class="font-bold uppercase ml-2 text-sm">OverviewPositioning / 概览定位区</span>
+        <span class="text-[10px] opacity-40 ml-2">sticky 4-col · detail card · large image</span>
+      </div>
+      <span class="badge badge-dg">对位geng</span>
+    </div>
+    <iframe src="../组件库/15-OverviewPositioning-概览定位区.html" loading="lazy" title="15-OverviewPositioning"></iframe>
+  </div>
+
+  <!-- 16 PainPointsTargetVector -->
+  <div class="comp-card" id="over-16">
+    <div class="comp-card-header">
+      <div>
+        <span class="text-brand-accent text-xs font-bold">16</span>
+        <span class="font-bold uppercase ml-2 text-sm">PainPointsTargetVector / 痛点与目标向量</span>
+        <span class="text-[10px] opacity-40 ml-2">numbered list · target grid · crosshair</span>
+      </div>
+      <span class="badge badge-dg">对位geng</span>
+    </div>
+    <iframe src="../组件库/16-PainPointsTargetVector-痛点与目标向量.html" loading="lazy" title="16-PainPointsTargetVector"></iframe>
+  </div>
+
+  <!-- 22 VerticalLabelLayout -->
+  <div class="comp-card" id="over-22">
+    <div class="comp-card-header">
+      <div>
+        <span class="text-brand-accent text-xs font-bold">22</span>
+        <span class="font-bold uppercase ml-2 text-sm">VerticalLabelLayout / 垂直标签布局区</span>
+        <span class="text-[10px] opacity-40 ml-2">vertical-rl label · 3+9 grid</span>
+      </div>
+      <span class="badge badge-de">更 · Dark</span>
+    </div>
+    <iframe src="../组件库/22-VerticalLabelLayout-垂直标签布局区.html" loading="lazy" title="22-VerticalLabelLayout"></iframe>
+  </div>
+
+  <!-- 26 PhilosophyImageSection -->
+  <div class="comp-card" id="over-26">
+    <div class="comp-card-header">
+      <div>
+        <span class="text-brand-accent text-xs font-bold">26</span>
+        <span class="font-bold uppercase ml-2 text-sm">PhilosophyImageSection / 理念图文区</span>
+        <span class="text-[10px] opacity-40 ml-2">border-l · bilingual · grayscale</span>
+      </div>
+      <span class="badge badge-ph">更 · Portfolio Home</span>
+    </div>
+    <iframe src="../组件库/26-PhilosophyImageSection-理念图文区.html" loading="lazy" title="26-PhilosophyImageSection"></iframe>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- CATEGORY: 流程/架构 Pipeline -->
+  <!-- ============================================================ -->
+  <div class="cat-header" id="cat-pipe">
+    <h2 class="font-headline-lg-mobile text-headline-lg-mobile uppercase mb-1 heading-scanlines">流程/架构 Pipeline</h2>
+    <p class="font-mono-technical text-mono-technical text-on-surface-variant">多Agent管线 · 工作流可视化 · 数据处理流程</p>
+  </div>
+
+  <!-- 05 AgentPipelineCards -->
+  <div class="comp-card" id="pipe-05">
+    <div class="comp-card-header">
+      <div>
+        <span class="text-brand-accent text-xs font-bold">05</span>
+        <span class="font-bold uppercase ml-2 text-sm">AgentPipelineCards / 三列Agent流程卡片</span>
+        <span class="text-[10px] opacity-40 ml-2">3-col · watermarks · icon circles</span>
+      </div>
+      <span class="badge badge-dw">对位</span>
+    </div>
+    <iframe src="../组件库/05-AgentPipelineCards-三列Agent流程卡片.html" loading="lazy" title="05-AgentPipelineCards"></iframe>
+  </div>
+
+  <!-- 06 WorkflowVisualization -->
+  <div class="comp-card" id="pipe-06">
+    <div class="comp-card-header">
+      <div>
+        <span class="text-brand-accent text-xs font-bold">06</span>
+        <span class="font-bold uppercase ml-2 text-sm">WorkflowVisualization / 工作流可视化</span>
+        <span class="text-[10px] opacity-40 ml-2">5-col flow · dashed/solid</span>
+      </div>
+      <span class="badge badge-dw">对位</span>
+    </div>
+    <iframe src="../组件库/06-WorkflowVisualization-工作流可视化.html" loading="lazy" title="06-WorkflowVisualization"></iframe>
+  </div>
+
+  <!-- 23 HorizontalAgentPipeline -->
+  <div class="comp-card" id="pipe-23">
+    <div class="comp-card-header">
+      <div>
+        <span class="text-brand-accent text-xs font-bold">23</span>
+        <span class="font-bold uppercase ml-2 text-sm">HorizontalAgentPipeline / 横向Agent管线</span>
+        <span class="text-[10px] opacity-40 ml-2">colored strips · vertical text · 3-row</span>
+      </div>
+      <span class="badge badge-de">更 · Dark</span>
+    </div>
+    <iframe src="../组件库/23-HorizontalAgentPipeline-横向Agent管线.html" loading="lazy" title="23-HorizontalAgentPipeline"></iframe>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- CATEGORY: 决策/Q&A Decisions -->
+  <!-- ============================================================ -->
+  <div class="cat-header" id="cat-dec">
+    <h2 class="font-headline-lg-mobile text-headline-lg-mobile uppercase mb-1 heading-scanlines">决策/Q&A Decisions</h2>
+    <p class="font-mono-technical text-mono-technical text-on-surface-variant">设计决策展示 · 关键问答 · 架构取舍</p>
+  </div>
+
+  <!-- 07 QADecisionsSection -->
+  <div class="comp-card" id="dec-07">
+    <div class="comp-card-header">
+      <div>
+        <span class="text-brand-accent text-xs font-bold">07</span>
+        <span class="font-bold uppercase ml-2 text-sm">QADecisionsSection / 问答关键决策区</span>
+        <span class="text-[10px] opacity-40 ml-2">inverse-surface · divide-y</span>
+      </div>
+      <span class="badge badge-dw">对位</span>
+    </div>
+    <iframe src="../组件库/07-QADecisionsSection-问答关键决策区.html" loading="lazy" title="07-QADecisionsSection"></iframe>
+  </div>
+
+  <!-- 19 KeyDecisionsCards -->
+  <div class="comp-card" id="dec-19">
+    <div class="comp-card-header">
+      <div>
+        <span class="text-brand-accent text-xs font-bold">19</span>
+        <span class="font-bold uppercase ml-2 text-sm">KeyDecisionsCards / 关键决策问答卡片</span>
+        <span class="text-[10px] opacity-40 ml-2">border-l-4 · Q_01/Q_02/Q_03</span>
+      </div>
+      <span class="badge badge-dg">对位geng</span>
+    </div>
+    <iframe src="../组件库/19-KeyDecisionsCards-关键决策问答卡片.html" loading="lazy" title="19-KeyDecisionsCards"></iframe>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- CATEGORY: 代码/技术 Code -->
+  <!-- ============================================================ -->
+  <div class="cat-header" id="cat-code">
+    <h2 class="font-headline-lg-mobile text-headline-lg-mobile uppercase mb-1 heading-scanlines">代码/技术 Code</h2>
+    <p class="font-mono-technical text-mono-technical text-on-surface-variant">代码展示 · 语法高亮 · 技术细节</p>
+  </div>
+
+  <!-- 08 CodeBlockDisplay -->
+  <div class="comp-card" id="code-08">
+    <div class="comp-card-header">
+      <div>
+        <span class="text-brand-accent text-xs font-bold">08</span>
+        <span class="font-bold uppercase ml-2 text-sm">CodeBlockDisplay / 代码展示块</span>
+        <span class="text-[10px] opacity-40 ml-2">dark bg · syntax highlight · macOS dots</span>
+      </div>
+      <span class="badge badge-dw">对位</span>
+    </div>
+    <iframe src="../组件库/08-CodeBlockDisplay-代码展示块.html" loading="lazy" title="08-CodeBlockDisplay"></iframe>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- CATEGORY: 对比/方案 Comparison -->
+  <!-- ============================================================ -->
+  <div class="cat-header" id="cat-cmp">
+    <h2 class="font-headline-lg-mobile text-headline-lg-mobile uppercase mb-1 heading-scanlines">对比/方案 Comparison</h2>
+    <p class="font-mono-technical text-mono-technical text-on-surface-variant">前后对比 · 方案对比 · 多版本展示</p>
+  </div>
+
+  <!-- 09 BeforeAfterComparison -->
+  <div class="comp-card" id="cmp-09">
+    <div class="comp-card-header">
+      <div>
+        <span class="text-brand-accent text-xs font-bold">09</span>
+        <span class="font-bold uppercase ml-2 text-sm">BeforeAfterComparison / 前后对比展示</span>
+        <span class="text-[10px] opacity-40 ml-2">7+5 grid · side-by-side</span>
+      </div>
+      <span class="badge badge-dw">对位</span>
+    </div>
+    <iframe src="../组件库/09-BeforeAfterComparison-前后对比展示.html" loading="lazy" title="09-BeforeAfterComparison"></iframe>
+  </div>
+
+  <!-- 17 StrategyComparison -->
+  <div class="comp-card" id="cmp-17">
+    <div class="comp-card-header">
+      <div>
+        <span class="text-brand-accent text-xs font-bold">17</span>
+        <span class="font-bold uppercase ml-2 text-sm">StrategyComparison / 三方案对比</span>
+        <span class="text-[10px] opacity-40 ml-2">3-card · PRIMARY/REJECTED/FLAGGED</span>
+      </div>
+      <span class="badge badge-dg">对位geng</span>
+    </div>
+    <iframe src="../组件库/17-StrategyComparison-三方案对比.html" loading="lazy" title="17-StrategyComparison"></iframe>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- CATEGORY: 数据/统计 Metrics -->
+  <!-- ============================================================ -->
+  <div class="cat-header" id="cat-met">
+    <h2 class="font-headline-lg-mobile text-headline-lg-mobile uppercase mb-1 heading-scanlines">数据/统计 Metrics</h2>
+    <p class="font-mono-technical text-mono-technical text-on-surface-variant">质量审查 · 统计数字 · 数据表格 · 指标展示</p>
+  </div>
+
+  <!-- 10 QualityChecklist -->
+  <div class="comp-card" id="met-10">
+    <div class="comp-card-header">
+      <div>
+        <span class="text-brand-accent text-xs font-bold">10</span>
+        <span class="font-bold uppercase ml-2 text-sm">QualityChecklist / 质量清单</span>
+        <span class="text-[10px] opacity-40 ml-2">mono numbers · flex gap-4</span>
+      </div>
+      <span class="badge badge-dw">对位</span>
+    </div>
+    <iframe src="../组件库/10-QualityChecklist-质量清单.html" loading="lazy" title="10-QualityChecklist"></iframe>
+  </div>
+
+  <!-- 18 QualityAuditTable -->
+  <div class="comp-card" id="met-18">
+    <div class="comp-card-header">
+      <div>
+        <span class="text-brand-accent text-xs font-bold">18</span>
+        <span class="font-bold uppercase ml-2 text-sm">QualityAuditTable / 质量审查数据表</span>
+        <span class="text-[10px] opacity-40 ml-2">data table · pass/fail · error row</span>
+      </div>
+      <span class="badge badge-dg">对位geng</span>
+    </div>
+    <iframe src="../组件库/18-QualityAuditTable-质量审查数据表.html" loading="lazy" title="18-QualityAuditTable"></iframe>
+  </div>
+
+  <!-- 20 OutputsStatsGrid -->
+  <div class="comp-card" id="met-20">
+    <div class="comp-card-header">
+      <div>
+        <span class="text-brand-accent text-xs font-bold">20</span>
+        <span class="font-bold uppercase ml-2 text-sm">OutputsStatsGrid / 产出统计网格</span>
+        <span class="text-[10px] opacity-40 ml-2">aspect-square · 4-col · hover accent</span>
+      </div>
+      <span class="badge badge-dg">对位geng</span>
+    </div>
+    <iframe src="../组件库/20-OutputsStatsGrid-产出统计网格.html" loading="lazy" title="20-OutputsStatsGrid"></iframe>
+  </div>
+
+  <!-- 24 LargeMetricsGrid -->
+  <div class="comp-card" id="met-24">
+    <div class="comp-card-header">
+      <div>
+        <span class="text-brand-accent text-xs font-bold">24</span>
+        <span class="font-bold uppercase ml-2 text-sm">LargeMetricsGrid / 大字统计网格</span>
+        <span class="text-[10px] opacity-40 ml-2">180px numbers · letter-stretch · brutal</span>
+      </div>
+      <span class="badge badge-de">更 · Dark</span>
+    </div>
+    <iframe src="../组件库/24-LargeMetricsGrid-大字统计网格.html" loading="lazy" title="24-LargeMetricsGrid"></iframe>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- CATEGORY: 列表/索引 Lists -->
+  <!-- ============================================================ -->
+  <div class="cat-header" id="cat-lst">
+    <h2 class="font-headline-lg-mobile text-headline-lg-mobile uppercase mb-1 heading-scanlines">列表/索引 Lists</h2>
+    <p class="font-mono-technical text-mono-technical text-on-surface-variant">项目列表 · 目录树 · 索引页 · 条目卡片</p>
+  </div>
+
+  <!-- 11 DirectoryTree -->
+  <div class="comp-card" id="lst-11">
+    <div class="comp-card-header">
+      <div>
+        <span class="text-brand-accent text-xs font-bold">11</span>
+        <span class="font-bold uppercase ml-2 text-sm">DirectoryTree / 目录树结构</span>
+        <span class="text-[10px] opacity-40 ml-2">mono · tree chars</span>
+      </div>
+      <span class="badge badge-dw">对位</span>
+    </div>
+    <iframe src="../组件库/11-DirectoryTree-目录树结构.html" loading="lazy" title="11-DirectoryTree"></iframe>
+  </div>
+
+  <!-- 27 FeaturedWorksList -->
+  <div class="comp-card" id="lst-27">
+    <div class="comp-card-header">
+      <div>
+        <span class="text-brand-accent text-xs font-bold">27</span>
+        <span class="font-bold uppercase ml-2 text-sm">FeaturedWorksList / 重点作品列表</span>
+        <span class="text-[10px] opacity-40 ml-2">bg-number · alternating L/R · crosshair</span>
+      </div>
+      <span class="badge badge-ph">更 · Portfolio Home</span>
+    </div>
+    <iframe src="../组件库/27-FeaturedWorksList-重点作品列表.html" loading="lazy" title="27-FeaturedWorksList"></iframe>
+  </div>
+
+  <!-- 29 ProjectIndexHeader -->
+  <div class="comp-card" id="lst-29">
+    <div class="comp-card-header">
+      <div>
+        <span class="text-brand-accent text-xs font-bold">29</span>
+        <span class="font-bold uppercase ml-2 text-sm">ProjectIndexHeader / 作品索引页头</span>
+        <span class="text-[10px] opacity-40 ml-2">filter/sort metadata · bilingual</span>
+      </div>
+      <span class="badge badge-pi">更 · Portfolio Index</span>
+    </div>
+    <iframe src="../组件库/29-ProjectIndexHeader-作品索引页头.html" loading="lazy" title="29-ProjectIndexHeader"></iframe>
+  </div>
+
+  <!-- 30 ProjectArticleCard -->
+  <div class="comp-card" id="lst-30">
+    <div class="comp-card-header">
+      <div>
+        <span class="text-brand-accent text-xs font-bold">30</span>
+        <span class="font-bold uppercase ml-2 text-sm">ProjectArticleCard / 项目条目卡片</span>
+        <span class="text-[10px] opacity-40 ml-2">metadata strip · edge-breaking title</span>
+      </div>
+      <span class="badge badge-pi">更 · Portfolio Index</span>
+    </div>
+    <iframe src="../组件库/30-ProjectArticleCard-项目条目卡片.html" loading="lazy" title="30-ProjectArticleCard"></iframe>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- CATEGORY: 按钮/CTA Buttons -->
+  <!-- ============================================================ -->
+  <div class="cat-header" id="cat-btn">
+    <h2 class="font-headline-lg-mobile text-headline-lg-mobile uppercase mb-1 heading-scanlines">按钮/CTA Buttons</h2>
+    <p class="font-mono-technical text-mono-technical text-on-surface-variant">召唤按钮 · 加载更多 · 交互入口</p>
+  </div>
+
+  <!-- 28 GatewayCTASection -->
+  <div class="comp-card" id="btn-28">
+    <div class="comp-card-header">
+      <div>
+        <span class="text-brand-accent text-xs font-bold">28</span>
+        <span class="font-bold uppercase ml-2 text-sm">GatewayCTASection / 入口召唤按钮</span>
+        <span class="text-[10px] opacity-40 ml-2">full-width CTA · hover violet</span>
+      </div>
+      <span class="badge badge-ph">更 · Portfolio Home</span>
+    </div>
+    <iframe src="../组件库/28-GatewayCTASection-入口召唤按钮.html" loading="lazy" title="28-GatewayCTASection"></iframe>
+  </div>
+
+  <!-- 31 LoadMoreButton -->
+  <div class="comp-card" id="btn-31">
+    <div class="comp-card-header">
+      <div>
+        <span class="text-brand-accent text-xs font-bold">31</span>
+        <span class="font-bold uppercase ml-2 text-sm">LoadMoreButton / 加载更多按钮</span>
+        <span class="text-[10px] opacity-40 ml-2">centered · outline · invert hover</span>
+      </div>
+      <span class="badge badge-pi">更 · Portfolio Index</span>
+    </div>
+    <iframe src="../组件库/31-LoadMoreButton-加载更多按钮.html" loading="lazy" title="31-LoadMoreButton"></iframe>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- CATEGORY: 页脚 Footer -->
+  <!-- ============================================================ -->
+  <div class="cat-header" id="cat-ftr">
+    <h2 class="font-headline-lg-mobile text-headline-lg-mobile uppercase mb-1 heading-scanlines">页脚 Footer</h2>
+    <p class="font-mono-technical text-mono-technical text-on-surface-variant">版权信息 · 链接 · 状态</p>
+  </div>
+
+  <!-- 12 Footer -->
+  <div class="comp-card" id="ftr-12">
+    <div class="comp-card-header">
+      <div>
+        <span class="text-brand-accent text-xs font-bold">12</span>
+        <span class="font-bold uppercase ml-2 text-sm">Footer / 页脚</span>
+        <span class="text-[10px] opacity-40 ml-2">flex-between · copyright · links</span>
+      </div>
+      <span class="badge badge-dw">对位</span>
+    </div>
+    <iframe src="../组件库/12-Footer-页脚.html" loading="lazy" title="12-Footer"></iframe>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- CATEGORY: 设计标记 Design Tokens -->
+  <!-- ============================================================ -->
+  <div class="cat-header" id="cat-tok">
+    <h2 class="font-headline-lg-mobile text-headline-lg-mobile uppercase mb-1 heading-scanlines">设计标记 Design Tokens</h2>
+    <p class="font-mono-technical text-mono-technical text-on-surface-variant">色彩系统 · 字体系统 · 网格背景</p>
+  </div>
+
+  <!-- 13 ColorPalette -->
+  <div class="comp-card" id="tok-13">
+    <div class="comp-card-header">
+      <div>
+        <span class="text-brand-accent text-xs font-bold">13</span>
+        <span class="font-bold uppercase ml-2 text-sm">ColorPalette / 色彩系统</span>
+      </div>
+      <span class="badge badge-dw">对位</span>
+    </div>
+    <iframe src="../组件库/13-ColorPalette-色彩系统.html" loading="lazy" title="13-ColorPalette"></iframe>
+  </div>
+
+  <!-- 14 TypographySystem -->
+  <div class="comp-card" id="tok-14">
+    <div class="comp-card-header">
+      <div>
+        <span class="text-brand-accent text-xs font-bold">14</span>
+        <span class="font-bold uppercase ml-2 text-sm">TypographySystem / 字体系统</span>
+      </div>
+      <span class="badge badge-dw">对位</span>
+    </div>
+    <iframe src="../组件库/14-TypographySystem-字体系统.html" loading="lazy" title="14-TypographySystem"></iframe>
+  </div>
+
+  <!-- 32 GridLinesBackground -->
+  <div class="comp-card" id="tok-32">
+    <div class="comp-card-header">
+      <div>
+        <span class="text-brand-accent text-xs font-bold">32</span>
+        <span class="font-bold uppercase ml-2 text-sm">GridLinesBackground / 网格线背景</span>
+        <span class="text-[10px] opacity-40 ml-2">CSS gradient · 12-col Swiss grid</span>
+      </div>
+      <span class="badge badge-pi">更 · Portfolio Index</span>
+    </div>
+    <iframe src="../组件库/32-GridLinesBackground-网格线背景.html" loading="lazy" title="32-GridLinesBackground"></iframe>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- CATEGORY: 暗色终端 Dark Terminal (SYNTAX_OS_V.4) -->
+  <!-- ============================================================ -->
+  <div class="cat-header" id="cat-dark">
+    <h2 class="font-headline-lg-mobile text-headline-lg-mobile uppercase mb-1 heading-scanlines">暗色终端 Dark Terminal</h2>
+    <p class="font-mono-technical text-mono-technical text-on-surface-variant">SYNTAX_OS_V.4 · JetBrains Mono · CRT扫描线 · 荧光发光 · 暗色主题</p>
+  </div>
+
+  <!-- 33 DarkSideNav -->
+  <div class="comp-card" id="dark-33">
+    <div class="comp-card-header">
+      <div>
+        <span class="text-brand-accent text-xs font-bold">33</span>
+        <span class="font-bold uppercase ml-2 text-sm">DarkSideNav / 暗色侧边导航栏</span>
+        <span class="text-[10px] opacity-40 ml-2">icon nav · ROOT branding · glow</span>
+      </div>
+      <span class="badge" style="color:#cbbeff;border-color:#cbbeff;">SYNTAX_OS</span>
+    </div>
+    <iframe src="../组件库/33-DarkSideNav-暗色侧边导航栏.html" loading="lazy" title="33-DarkSideNav"></iframe>
+  </div>
+
+  <!-- 34 DarkTopAppBar -->
+  <div class="comp-card" id="dark-34">
+    <div class="comp-card-header">
+      <div>
+        <span class="text-brand-accent text-xs font-bold">34</span>
+        <span class="font-bold uppercase ml-2 text-sm">DarkTopAppBar / 暗色顶部应用栏</span>
+        <span class="text-[10px] opacity-40 ml-2">sticky header · terminal icons</span>
+      </div>
+      <span class="badge" style="color:#cbbeff;border-color:#cbbeff;">SYNTAX_OS</span>
+    </div>
+    <iframe src="../组件库/34-DarkTopAppBar-暗色顶部应用栏.html" loading="lazy" title="34-DarkTopAppBar"></iframe>
+  </div>
+
+  <!-- 35 DarkHeroTypographic -->
+  <div class="comp-card" id="dark-35">
+    <div class="comp-card-header">
+      <div>
+        <span class="text-brand-accent text-xs font-bold">35</span>
+        <span class="font-bold uppercase ml-2 text-sm">DarkHeroTypographic / 暗色文字排版英雄区</span>
+        <span class="text-[10px] opacity-40 ml-2">140px hero · glow-text · ASCII divider</span>
+      </div>
+      <span class="badge" style="color:#cbbeff;border-color:#cbbeff;">SYNTAX_OS</span>
+    </div>
+    <iframe src="../组件库/35-DarkHeroTypographic-暗色文字排版英雄区.html" loading="lazy" title="35-DarkHeroTypographic"></iframe>
+  </div>
+
+  <!-- 36 TerminalBootPanel -->
+  <div class="comp-card" id="dark-36">
+    <div class="comp-card-header">
+      <div>
+        <span class="text-brand-accent text-xs font-bold">36</span>
+        <span class="font-bold uppercase ml-2 text-sm">TerminalBootPanel / 终端启动面板</span>
+        <span class="text-[10px] opacity-40 ml-2">pulse dot · boot sequence · binary</span>
+      </div>
+      <span class="badge" style="color:#cbbeff;border-color:#cbbeff;">SYNTAX_OS</span>
+    </div>
+    <iframe src="../组件库/36-TerminalBootPanel-终端启动面板.html" loading="lazy" title="36-TerminalBootPanel"></iframe>
+  </div>
+
+  <!-- 37 CoordinatesStatus -->
+  <div class="comp-card" id="dark-37">
+    <div class="comp-card-header">
+      <div>
+        <span class="text-brand-accent text-xs font-bold">37</span>
+        <span class="font-bold uppercase ml-2 text-sm">CoordinatesStatus / 坐标与状态面板</span>
+        <span class="text-[10px] opacity-40 ml-2">lat/lng/alt/uptime · core status bar</span>
+      </div>
+      <span class="badge" style="color:#cbbeff;border-color:#cbbeff;">SYNTAX_OS</span>
+    </div>
+    <iframe src="../组件库/37-CoordinatesStatus-坐标与状态面板.html" loading="lazy" title="37-CoordinatesStatus"></iframe>
+  </div>
+
+  <!-- 38 BentoGridCells -->
+  <div class="comp-card" id="dark-38">
+    <div class="comp-card-header">
+      <div>
+        <span class="text-brand-accent text-xs font-bold">38</span>
+        <span class="font-bold uppercase ml-2 text-sm">BentoGridCells / 暗色Bento网格卡片</span>
+        <span class="text-[10px] opacity-40 ml-2">image overlay · threat counter</span>
+      </div>
+      <span class="badge" style="color:#cbbeff;border-color:#cbbeff;">SYNTAX_OS</span>
+    </div>
+    <iframe src="../组件库/38-BentoGridCells-暗色Bento网格卡片.html" loading="lazy" title="38-BentoGridCells"></iframe>
+  </div>
+
+  <!-- 39 SystemLogTable -->
+  <div class="comp-card" id="dark-39">
+    <div class="comp-card-header">
+      <div>
+        <span class="text-brand-accent text-xs font-bold">39</span>
+        <span class="font-bold uppercase ml-2 text-sm">SystemLogTable / 系统日志数据表</span>
+        <span class="text-[10px] opacity-40 ml-2">4-col · TIMESTAMP/EVENT/NODE/STATUS</span>
+      </div>
+      <span class="badge" style="color:#cbbeff;border-color:#cbbeff;">SYNTAX_OS</span>
+    </div>
+    <iframe src="../组件库/39-SystemLogTable-系统日志数据表.html" loading="lazy" title="39-SystemLogTable"></iframe>
+  </div>
+
+  <!-- 40 IconSquareGrid -->
+  <div class="comp-card" id="dark-40">
+    <div class="comp-card-header">
+      <div>
+        <span class="text-brand-accent text-xs font-bold">40</span>
+        <span class="font-bold uppercase ml-2 text-sm">IconSquareGrid / 图标方形网格</span>
+        <span class="text-[10px] opacity-40 ml-2">4-icon grid · REBOOT CTA · hover glow</span>
+      </div>
+      <span class="badge" style="color:#cbbeff;border-color:#cbbeff;">SYNTAX_OS</span>
+    </div>
+    <iframe src="../组件库/40-IconSquareGrid-图标方形网格.html" loading="lazy" title="40-IconSquareGrid"></iframe>
+  </div>
+
+  <!-- 41 DarkFooter -->
+  <div class="comp-card" id="dark-41">
+    <div class="comp-card-header">
+      <div>
+        <span class="text-brand-accent text-xs font-bold">41</span>
+        <span class="font-bold uppercase ml-2 text-sm">DarkFooter / 暗色页脚</span>
+        <span class="text-[10px] opacity-40 ml-2">copyright+coords · links · build ver</span>
+      </div>
+      <span class="badge" style="color:#cbbeff;border-color:#cbbeff;">SYNTAX_OS</span>
+    </div>
+    <iframe src="../组件库/41-DarkFooter-暗色页脚.html" loading="lazy" title="41-DarkFooter"></iframe>
+  </div>
+
+  <!-- 42 ScanlinesCRTEffect -->
+  <div class="comp-card" id="dark-42">
+    <div class="comp-card-header">
+      <div>
+        <span class="text-brand-accent text-xs font-bold">42</span>
+        <span class="font-bold uppercase ml-2 text-sm">ScanlinesCRTEffect / CRT扫描线效果</span>
+        <span class="text-[10px] opacity-40 ml-2">fixed overlay · RGB shift · phosphor glow</span>
+      </div>
+      <span class="badge" style="color:#cbbeff;border-color:#cbbeff;">SYNTAX_OS</span>
+    </div>
+    <iframe src="../组件库/42-ScanlinesCRTEffect-CRT扫描线效果.html" loading="lazy" title="42-ScanlinesCRTEffect"></iframe>
+  </div>
+
+  <!-- 43 DarkGridBackground -->
+  <div class="comp-card" id="dark-43">
+    <div class="comp-card-header">
+      <div>
+        <span class="text-brand-accent text-xs font-bold">43</span>
+        <span class="font-bold uppercase ml-2 text-sm">DarkGridBackground / 暗色网格线背景</span>
+        <span class="text-[10px] opacity-40 ml-2">crosshair grid · ASCII divider</span>
+      </div>
+      <span class="badge" style="color:#cbbeff;border-color:#cbbeff;">SYNTAX_OS</span>
+    </div>
+    <iframe src="../组件库/43-DarkGridBackground-暗色网格线背景.html" loading="lazy" title="43-DarkGridBackground"></iframe>
+  </div>
+
+  <!-- Footer -->
+  <footer class="border-t border-outline mt-16 pt-8 pb-12">
+    <div class="flex justify-between items-center">
+      <span class="font-mono-technical text-mono-technical">©2026 COMPONENT_LIBRARY · 43 COMPONENTS · 5 SOURCES</span>
+      <span class="font-label-micro text-label-micro text-on-surface-variant uppercase">Radical Helvetica-Modernism + SYNTAX_OS</span>
+    </div>
+  </footer>
+
+</main>
+
+<script>
+// ─── 1. IFRAME AUTO-HEIGHT ───────────────────────────────────────────────────
+// Measure content height on load; re-measure with ResizeObserver for dynamic content.
+function fitIframe(iframe) {
+  try {
+    var doc = iframe.contentDocument || iframe.contentWindow.document;
+    var measure = function() {
+      var h = Math.max(
+        doc.documentElement.scrollHeight,
+        doc.documentElement.offsetHeight,
+        doc.body ? doc.body.scrollHeight : 0,
+        doc.body ? doc.body.offsetHeight : 0
+      );
+      if (h > 0) iframe.style.height = h + 'px';
+    };
+    measure();
+    // Watch for content changes (e.g. fonts loading, dynamic height changes)
+    if (window.ResizeObserver && doc.body) {
+      var ro = new ResizeObserver(measure);
+      ro.observe(doc.body);
+    }
+    // Also re-measure after fonts finish loading (iframes load their own fonts)
+    if (doc.fonts && doc.fonts.ready) {
+      doc.fonts.ready.then(measure);
+    }
+  } catch(e) {
+    iframe.style.minHeight = '420px';
+  }
+}
+
+document.querySelectorAll('.comp-card iframe').forEach(function(iframe) {
+  if (iframe.complete || iframe.readyState === 'complete') {
+    fitIframe(iframe);
+  } else {
+    iframe.addEventListener('load', function() { fitIframe(iframe); });
+  }
+});
+
+// ─── 2. SCROLL-SPY ───────────────────────────────────────────────────────────
+// Highlight the active sidebar link as the user scrolls through components.
+// Uses IntersectionObserver with a top-biased rootMargin so the topmost
+// visible card wins (not the bottom-most).
+(function() {
+  var sidebarLinks = document.querySelectorAll('.sidebar a[href^="#"]');
+  var cards = document.querySelectorAll('.comp-card[id]');
+  if (!cards.length || !sidebarLinks.length) return;
+
+  // Build lookup: card id → sidebar link
+  var linkMap = {};
+  sidebarLinks.forEach(function(a) {
+    var id = a.getAttribute('href').slice(1);
+    linkMap[id] = a;
+  });
+
+  var activeId = null;
+
+  function setActive(id) {
+    if (id === activeId) return;
+    activeId = id;
+    sidebarLinks.forEach(function(a) { a.classList.remove('active'); });
+    if (linkMap[id]) {
+      linkMap[id].classList.add('active');
+      // Scroll sidebar so the active link is always visible
+      linkMap[id].scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }
+  }
+
+  // Track which cards are currently intersecting; pick the topmost one
+  var visible = new Set();
+
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        visible.add(entry.target.id);
+      } else {
+        visible.delete(entry.target.id);
+      }
+    });
+    // Pick the topmost visible card (DOM order = document order)
+    var topId = null;
+    cards.forEach(function(card) {
+      if (visible.has(card.id) && topId === null) topId = card.id;
+    });
+    if (topId) setActive(topId);
+  }, {
+    // Trigger when the card enters the top 60% of the viewport
+    rootMargin: '0px 0px -40% 0px',
+    threshold: 0
+  });
+
+  cards.forEach(function(card) { observer.observe(card); });
+})();
+
+// ─── 4. OPEN-IN-NEW-TAB BUTTONS ─────────────────────────────────────────────
+// Dynamically inject an "OPEN ↗" button into every component card header.
+// Clicking it opens the iframe source in a new full-screen tab.
+document.querySelectorAll('.comp-card').forEach(function(card) {
+  var iframe = card.querySelector('iframe');
+  var header = card.querySelector('.comp-card-header');
+  if (!iframe || !header) return;
+  var src = iframe.getAttribute('src');
+  var btn = document.createElement('a');
+  btn.href = src;
+  btn.target = '_blank';
+  btn.rel = 'noopener';
+  btn.title = '全屏预览 / Full Preview';
+  btn.style.cssText = [
+    'font-size:9px','font-weight:700','letter-spacing:0.06em',
+    'text-transform:uppercase','padding:3px 8px',
+    'border:1px solid #75777a','color:#44474a',
+    'text-decoration:none','flex-shrink:0','cursor:pointer',
+    'margin-left:8px','white-space:nowrap'
+  ].join(';');
+  btn.textContent = 'OPEN ↗';
+  btn.addEventListener('mouseover', function() {
+    this.style.background = '#1c1b1b'; this.style.color = '#fcf9f8';
+    this.style.borderColor = '#1c1b1b';
+  });
+  btn.addEventListener('mouseout', function() {
+    this.style.background = ''; this.style.color = '#44474a';
+    this.style.borderColor = '#75777a';
+  });
+  header.appendChild(btn);
+});
+
+// Show a small status line at the top of the sidebar with the active component name.
+(function() {
+  var statusEl = document.getElementById('sidebar-status');
+  if (!statusEl) return;
+  var originalLinks = document.querySelectorAll('.sidebar a[href^="#"]');
+  var observer = new MutationObserver(function() {
+    var active = document.querySelector('.sidebar a.active');
+    statusEl.textContent = active ? active.textContent.trim() : '—';
+  });
+  originalLinks.forEach(function(a) {
+    observer.observe(a, { attributes: true, attributeFilter: ['class'] });
+  });
+})();
+</script>
+</body>
+</html>

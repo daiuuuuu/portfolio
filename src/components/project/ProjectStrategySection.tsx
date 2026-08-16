@@ -36,7 +36,11 @@ export default function ProjectStrategySection({ project }: ProjectStrategySecti
      </h2>
     </div>
 
-    <div className={`grid grid-cols-1 border border-outline ${
+    {/* portfolio-site: no outer frame / no cell dividers — spacing separates
+        (user: don't want the table look). Other projects keep the frame. */}
+    <div className={`grid grid-cols-1 ${
+      project.slug === 'portfolio-site' ? 'gap-6' : 'border border-outline'
+     } ${
      project.strategies.length >= 3 ? 'md:grid-cols-3' :
      project.strategies.length === 2 ? 'md:grid-cols-2' : ''
     }`}>
@@ -45,7 +49,7 @@ export default function ProjectStrategySection({ project }: ProjectStrategySecti
       return (
        <div
         key={s.id}
-        className="p-8 border-r border-outline last:border-r-0 relative"
+        className={`p-8 relative ${project.slug === 'portfolio-site' ? '' : 'border-r border-outline last:border-r-0'}`}
         data-index={idx}
         data-reveal
         data-reveal-group="strategy"

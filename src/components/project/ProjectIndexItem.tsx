@@ -111,7 +111,7 @@ export default function ProjectIndexItem({ project, index, total }: ProjectIndex
  return (
   <article
    ref={articleRef}
-   className="relative min-h-[calc(100vh-4rem)] grid grid-cols-12 gap-gutter border-b border-outline px-margin-outer py-16 md:py-20 overflow-hidden"
+   className="relative min-h-viewport-nav grid grid-cols-12 gap-gutter border-b border-outline px-margin-outer py-16 md:py-20 overflow-hidden"
    data-project-index={index + 1}
    // Leave the whole card also closes the inverted overlay (fallback).
    onMouseLeave={leaveAny}

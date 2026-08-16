@@ -23,7 +23,7 @@ export default function ProfileSection() {
           {/* Giant name — English only, Geologica 900, extreme scale */}
           <h2
             className="text-on-surface leading-none mb-6"
-            style={{ ...DISPLAY, fontSize: 'clamp(64px, 12vw, 160px)', lineHeight: 0.85 }}
+            style={{ ...DISPLAY, fontSize: 'clamp(36px, 12vw, 160px)', lineHeight: 0.85 }}
           >
             KONG<br />DEYU
           </h2>
@@ -34,8 +34,9 @@ export default function ProfileSection() {
             {SITE_CONFIG.owner.role} · {SITE_CONFIG.owner.location}
           </p>
 
-          {/* Two-column bio: Chinese left · English right */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-8 mb-16">
+          {/* Two-column bio: Chinese left · English right — prose spans the
+              full row on mobile (readable), back to 2 columns at md. */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 md:gap-x-16 gap-y-8 mb-16">
             <div>
               <span className="font-mono-technical text-[10px] text-brand-accent uppercase tracking-widest block mb-4">
                 // 中文
@@ -56,15 +57,17 @@ export default function ProfileSection() {
             </div>
           </div>
 
-          {/* Stats row — large mono numbers, full-bleed border grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 border border-outline mt-8"
+          {/* Stats row — large mono numbers, full-bleed border grid. 4 columns
+              kept on mobile (desktop proportions); padding/font tighten so the
+              numbers fit the narrower cells. */}
+          <div className="grid grid-cols-4 border border-outline mt-8"
                data-reveal data-reveal-group="about-stats">
             {SITE_CONFIG.aboutHighlights.map((h) => (
               <div key={h.label}
-                className="p-5 md:p-7 border-r border-outline last:border-r-0
+                className="p-2 md:p-7 border-r border-outline last:border-r-0
                            hover:bg-surface-container-low transition-none group">
                 <p className="text-on-surface leading-none mb-1.5"
-                  style={{ ...STATS_FONT, fontSize: 'clamp(36px, 5.5vw, 64px)' }}>
+                  style={{ ...STATS_FONT, fontSize: 'clamp(18px, 5.5vw, 64px)' }}>
                   {h.label}
                 </p>
                 <p className="font-label-micro text-label-micro uppercase text-on-surface-variant tracking-widest">
@@ -105,7 +108,7 @@ export default function ProfileSection() {
 
       {SITE_CONFIG.experience.map((exp, idx) => (
         <div key={idx}
-          className="border-b border-outline py-24 md:py-36 relative"
+          className="border-b border-outline py-24 md:py-36 relative overflow-hidden"
           data-reveal>
 
           {/* Watermark — the start year rendered at ~20vw, nearly invisible */}
@@ -182,7 +185,7 @@ export default function ProfileSection() {
           {/* Numbered directory list — no outer frame, no column separators.
               Only the per-row underline stays, so the four skill stacks read
               as a clean ledger. */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-4">
             {SITE_CONFIG.skills.map((group) => (
               <div
                 key={group.category}
@@ -202,7 +205,7 @@ export default function ProfileSection() {
                         </span>
                         <span
                           className="text-on-surface uppercase leading-none"
-                          style={{ ...DISPLAY, fontWeight: 400, fontSize: 'clamp(7.11px, 1.07vw, 16.89px)' }}
+                          style={{ ...DISPLAY, fontWeight: 400, fontSize: 'clamp(11px, 1.07vw, 16.89px)' }}
                         >
                           {skill}
                         </span>

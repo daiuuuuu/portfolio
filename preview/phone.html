@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PHONE PREVIEW · Portfolio</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; background: #1c1b1b;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+  }
+  .bar {
+    position: sticky; top: 0; z-index: 10;
+    display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+    padding: 10px 14px; background: #111318; border-bottom: 1px solid #2a2a2e;
+  }
+  .bar .title { font-size: 11px; color: #cbbeff; letter-spacing: 0.12em; margin-right: 10px; white-space: nowrap; }
+  .bar .btn {
+    font-family: inherit; font-size: 11px; color: #e2e2e8;
+    background: transparent; border: 1px solid #48454f;
+    padding: 5px 9px; cursor: pointer; border-radius: 2px;
+  }
+  .bar .btn.active { background: #2E1065; border-color: #2E1065; color: #fff; }
+  .bar .url { font-size: 10px; color: #777; margin-left: auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 55vw; }
+  .stage { display: flex; justify-content: center; padding: 44px 24px 60px; }
+  .phone {
+    width: calc(var(--sw, 390) * 1px); height: calc(var(--sh, 844) * 1px);
+    background: #000; border-radius: 46px; padding: 12px;
+    box-shadow: 0 0 0 2px #3a3a3e, 0 40px 80px rgba(0,0,0,0.65);
+    position: relative; flex-shrink: 0; transition: width .25s, height .25s;
+  }
+  .phone::before {
+    content: ''; position: absolute; top: 13px; left: 50%; transform: translateX(-50%);
+    width: 118px; height: 26px; background: #000; border-radius: 15px; z-index: 3;
+  }
+  .phone iframe { width: 100%; height: 100%; border: 0; border-radius: 36px; background: #fff; }
+  .hint { position: fixed; bottom: 14px; left: 0; right: 0; text-align: center; font-size: 10px; color: #555; letter-spacing: .08em; }
+</style>
+</head>
+<body>
+  <div class="bar">
+    <span class="title">PHONE PREVIEW</span>
+    <button class="btn" data-w="430" data-h="932">Pro Max 430</button>
+    <button class="btn active" data-w="390" data-h="844">iPhone 390</button>
+    <button class="btn" data-w="375" data-h="667">SE 375</button>
+    <button class="btn" data-w="412" data-h="915">Pixel 412</button>
+    <button class="btn" data-w="768" data-h="1024">Pad 768</button>
+    <span class="url" id="url"></span>
+  </div>
+  <div class="stage">
+    <div class="phone" id="phone">
+      <iframe id="frame" title="手机端预览"></iframe>
+    </div>
+  </div>
+  <div class="hint">在电脑上预览手机效果 · 点击上方切换机型宽度</div>
+<script>
+  const frame = document.getElementById('frame');
+  const DEFAULT = 'http://localhost:5173/portfolio/';
+  const TARGET = new URLSearchParams(location.search).get('target') || DEFAULT;
+  document.getElementById('url').textContent = TARGET;
+  frame.src = TARGET;
+  document.querySelectorAll('.btn').forEach((b) => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('.btn').forEach((x) => x.classList.remove('active'));
+      b.classList.add('active');
+      document.documentElement.style.setProperty('--sw', b.dataset.w);
+      document.documentElement.style.setProperty('--sh', b.dataset.h);
+    });
+  });
+</script>
+</body>
+</html>

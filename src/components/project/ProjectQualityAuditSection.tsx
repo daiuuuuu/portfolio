@@ -29,7 +29,7 @@ export default function ProjectQualityAuditSection({ project }: ProjectQualityAu
         {/* Borderless grid — the row form stays (index + name + note per cell),
             just the outer frame and inner hairlines are dropped; spacing carries
             the separation instead. */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-8" data-reveal>
+        <div className="grid grid-cols-3 gap-x-6 gap-y-8" data-reveal>
           {project.qualityAudit.map((row, idx) => (
             <div key={row.item}>
               <span className="font-mono-technical text-mono-technical text-on-surface-variant mr-2">

@@ -10,7 +10,7 @@ export default function ProjectPhilosophySection({ project }: ProjectPhilosophyS
   return (
     <section className="border-b border-outline py-12" data-section="philosophy">
       <div className="px-margin-outer grid grid-cols-12 gap-gutter">
-        <div className={`col-span-12 flex flex-col justify-center ${project.philosophyImage ? 'md:col-span-8' : 'md:col-span-12'}`} data-reveal>
+        <div className={`flex flex-col justify-center ${project.philosophyImage ? 'col-span-8' : 'col-span-12'}`} data-reveal>
           <span className="font-label-micro text-label-micro uppercase text-on-surface-variant mb-3 block">
             DESIGN PHILOSOPHY / 设计理念
           </span>
@@ -20,7 +20,7 @@ export default function ProjectPhilosophySection({ project }: ProjectPhilosophyS
           >
             {project.approach.tagline}
           </h2>
-          <div className={`grid gap-6 border-l border-brand-accent pl-5 ${project.philosophyImage ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1 md:grid-cols-2'}`}>
+          <div className="grid grid-cols-2 gap-4 md:gap-6 border-l border-brand-accent pl-5">
             <p className="text-[13px] leading-relaxed text-on-surface">
               {project.approach.philosophy}
             </p>
@@ -35,7 +35,7 @@ export default function ProjectPhilosophySection({ project }: ProjectPhilosophyS
         </div>
 
         {project.philosophyImage && (
-          <div className="col-span-12 md:col-span-4 mt-6 md:mt-0 flex items-start justify-center">
+          <div className="col-span-4 flex items-start justify-center">
             <img
               src={project.philosophyImage}
               alt={project.approach?.tagline ?? ''}

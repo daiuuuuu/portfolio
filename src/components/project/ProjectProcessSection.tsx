@@ -27,11 +27,13 @@ export default function ProjectProcessSection({ project }: ProjectProcessSection
    <div className="px-margin-outer">
     <SectionLabel label="PROCESS" labelZh="流程架构" className="mb-8" />
 
-    <div className={`grid grid-cols-1 ${colClass} border border-outline`}>
+    {/* portfolio-site: no outer frame / no cell dividers — spacing separates
+        (user: don't want the table look). Other projects keep the frame. */}
+    <div className={`grid grid-cols-1 ${colClass} ${project.slug === 'portfolio-site' ? 'gap-6' : 'border border-outline'}`}>
      {process.map((step, idx) => (
       <div
        key={step.id}
-       className="p-6 border-r border-outline last:border-r-0 relative group overflow-hidden"
+       className={`p-6 relative group overflow-hidden ${project.slug === 'portfolio-site' ? '' : 'border-r border-outline last:border-r-0'}`}
        data-animate="project-process-step"
        data-index={idx}
        data-reveal

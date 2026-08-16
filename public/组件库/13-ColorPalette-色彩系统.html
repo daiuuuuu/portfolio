@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ColorPalette / 色彩系统</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+
+<style>
+  html,body{scrollbar-width:none;-ms-overflow-style:none;}html::-webkit-scrollbar,body::-webkit-scrollbar{display:none;}
+body { font-family: 'Inter', sans-serif; background-color: #fcf9f8; color: #1c1b1b; overflow-x: hidden; }
+.swatch { width: 64px; height: 64px; border: 1px solid #75777a; }
+</style>
+<style>
+*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}[type='text'],input:where(:not([type])),[type='email'],[type='url'],[type='password'],[type='number'],[type='date'],[type='datetime-local'],[type='month'],[type='search'],[type='tel'],[type='time'],[type='week'],[multiple],textarea,select{-webkit-appearance:none;appearance:none;background-color:#fff;border-color:#6b7280;border-width:1px;border-radius:0px;padding-top:0.5rem;padding-right:0.75rem;padding-bottom:0.5rem;padding-left:0.75rem;font-size:1rem;line-height:1.5rem;--tw-shadow:0 0 #0000;}[type='text']:focus, input:where(:not([type])):focus, [type='email']:focus, [type='url']:focus, [type='password']:focus, [type='number']:focus, [type='date']:focus, [type='datetime-local']:focus, [type='month']:focus, [type='search']:focus, [type='tel']:focus, [type='time']:focus, [type='week']:focus, [multiple]:focus, textarea:focus, select:focus{outline:2px solid transparent;outline-offset:2px;--tw-ring-inset:var(--tw-empty,/*!*/ /*!*/);--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:#2563eb;--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);border-color:#2563eb}input::placeholder,textarea::placeholder{color:#6b7280;opacity:1}::-webkit-datetime-edit-fields-wrapper{padding:0}::-webkit-date-and-time-value{min-height:1.5em;text-align:inherit}::-webkit-datetime-edit{display:inline-flex}::-webkit-datetime-edit,::-webkit-datetime-edit-year-field,::-webkit-datetime-edit-month-field,::-webkit-datetime-edit-day-field,::-webkit-datetime-edit-hour-field,::-webkit-datetime-edit-minute-field,::-webkit-datetime-edit-second-field,::-webkit-datetime-edit-millisecond-field,::-webkit-datetime-edit-meridiem-field{padding-top:0;padding-bottom:0}select{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");background-position:right 0.5rem center;background-repeat:no-repeat;background-size:1.5em 1.5em;padding-right:2.5rem;print-color-adjust:exact}[multiple],[size]:where(select:not([size="1"])){background-image:initial;background-position:initial;background-repeat:unset;background-size:initial;padding-right:0.75rem;print-color-adjust:unset}[type='checkbox'],[type='radio']{-webkit-appearance:none;appearance:none;padding:0;print-color-adjust:exact;display:inline-block;vertical-align:middle;background-origin:border-box;-webkit-user-select:none;user-select:none;flex-shrink:0;height:1rem;width:1rem;color:#2563eb;background-color:#fff;border-color:#6b7280;border-width:1px;--tw-shadow:0 0 #0000}[type='checkbox']{border-radius:0px}[type='radio']{border-radius:100%}[type='checkbox']:focus,[type='radio']:focus{outline:2px solid transparent;outline-offset:2px;--tw-ring-inset:var(--tw-empty,/*!*/ /*!*/);--tw-ring-offset-width:2px;--tw-ring-offset-color:#fff;--tw-ring-color:#2563eb;--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow)}[type='checkbox']:checked,[type='radio']:checked{border-color:transparent;background-color:currentColor;background-size:100% 100%;background-position:center;background-repeat:no-repeat}[type='checkbox']:checked{background-image:url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");}@media (forced-colors: active) {[type='checkbox']:checked{-webkit-appearance:auto;appearance:auto}}[type='radio']:checked{background-image:url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='8' cy='8' r='3'/%3e%3c/svg%3e");}@media (forced-colors: active) {[type='radio']:checked{-webkit-appearance:auto;appearance:auto}}[type='checkbox']:checked:hover,[type='checkbox']:checked:focus,[type='radio']:checked:hover,[type='radio']:checked:focus{border-color:transparent;background-color:currentColor}[type='checkbox']:indeterminate{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 16 16'%3e%3cpath stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8h8'/%3e%3c/svg%3e");border-color:transparent;background-color:currentColor;background-size:100% 100%;background-position:center;background-repeat:no-repeat;}@media (forced-colors: active) {[type='checkbox']:indeterminate{-webkit-appearance:auto;appearance:auto}}[type='checkbox']:indeterminate:hover,[type='checkbox']:indeterminate:focus{border-color:transparent;background-color:currentColor}[type='file']{background:unset;border-color:inherit;border-width:0;border-radius:0;padding:0;font-size:unset;line-height:inherit}[type='file']:focus{outline:1px solid ButtonText;outline:1px auto -webkit-focus-ring-color}.mx-auto{margin-left:auto;margin-right:auto}.mb-12{margin-bottom:3rem}.mb-2{margin-bottom:0.5rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.mt-1{margin-top:0.25rem}.mt-4{margin-top:1rem}.block{display:block}.grid{display:grid}.max-w-2xl{max-width:42rem}.max-w-5xl{max-width:64rem}.grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.gap-4{gap:1rem}.space-y-3 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.75rem * var(--tw-space-y-reverse))}.border{border-width:1px}.border-b{border-bottom-width:1px}.border-t{border-top-width:1px}.border-outline{--tw-border-opacity:1;border-color:rgb(117 119 122 / var(--tw-border-opacity, 1))}.border-white\/30{border-color:rgb(255 255 255 / 0.3)}.bg-brand-accent{--tw-bg-opacity:1;background-color:rgb(138 132 163 / var(--tw-bg-opacity, 1))}.bg-surface{--tw-bg-opacity:1;background-color:rgb(252 249 248 / var(--tw-bg-opacity, 1))}.p-4{padding:1rem}.p-margin-outer{padding:1rem}.px-margin-outer{padding-left:1rem;padding-right:1rem}.py-8{padding-top:2rem;padding-bottom:2rem}.pb-2{padding-bottom:0.5rem}.font-body-md{font-family:Inter}.font-headline-lg-mobile{font-family:Inter}.font-label-micro{font-family:Inter}.font-mono-technical{font-family:Inter}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-\[10px\]{font-size:10px}.text-\[11px\]{font-size:11px}.text-body-md{font-size:14px;line-height:20px;letter-spacing:0em;font-weight:400}.text-headline-lg-mobile{font-size:40px;line-height:44px;letter-spacing:-0.02em;font-weight:600}.text-label-micro{font-size:10px;line-height:12px;letter-spacing:0.05em;font-weight:600}.text-sm{font-size:0.875rem;line-height:1.25rem}.font-black{font-weight:900}.font-bold{font-weight:700}.uppercase{text-transform:uppercase}.text-brand-accent{--tw-text-opacity:1;color:rgb(138 132 163 / var(--tw-text-opacity, 1))}.text-on-surface{--tw-text-opacity:1;color:rgb(28 27 27 / var(--tw-text-opacity, 1))}.text-on-surface-variant{--tw-text-opacity:1;color:rgb(68 71 74 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.opacity-60{opacity:0.6}.opacity-80{opacity:0.8}@media (min-width: 768px){.md\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.md\:grid-cols-4{grid-template-columns:repeat(4, minmax(0, 1fr))}}
+</style>
+</head>
+<body class="bg-surface text-on-surface">
+
+<!-- ============================================ -->
+<!-- DESIGN TOKEN: ColorPalette / 色彩系统          -->
+<!-- ============================================ -->
+<!--
+  设计理念 Design Philosophy:
+  - 建筑感冷灰色基调，营造"画廊式"的临床感、高端中性环境
+  - 灰度分层：通过明度阶梯构建Z轴深度（Surface Tonal Layering）
+  - 品牌色 #8A84A3（去饱和紫罗兰）—— 唯一的"功能色"
+  - 仅用于交互高亮、状态指示、技术细节，不得压倒灰度基础
+  - 无渐变、无阴影 —— Swiss Modernism 的平面层级
+-->
+
+<section class="p-margin-outer max-w-5xl mx-auto">
+
+  <!-- 标题 -->
+  <div class="mb-12">
+    <span class="font-label-micro text-label-micro uppercase text-brand-accent mb-2 block">Design Token</span>
+    <h1 class="font-headline-lg-mobile text-headline-lg-mobile font-bold uppercase">Color Palette / 色彩系统</h1>
+    <p class="font-body-md text-body-md text-on-surface-variant mt-4 max-w-2xl">
+      Architectural and restrained palette. Cool light gray base establishes a clinical, gallery-like environment.
+      Grayscale tiering for structural division. Desaturated Violet (#8A84A3) as the sole functional color.
+    </p>
+  </div>
+
+  <!-- ========= Surface 层级 ========= -->
+  <h2 class="font-label-micro uppercase font-black text-on-surface border-b border-outline pb-2 mb-6">Surface Tonal Layers / 表面层级</h2>
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+    <div class="border border-outline p-4">
+      <div class="swatch mb-2" style="background:#ffffff"></div>
+      <span class="font-mono-technical text-[10px] font-bold block">surface-container-lowest</span>
+      <span class="font-mono-technical text-[10px] opacity-60">#FFFFFF</span>
+    </div>
+    <div class="border border-outline p-4">
+      <div class="swatch mb-2" style="background:#fcf9f8"></div>
+      <span class="font-mono-technical text-[10px] font-bold block">surface / background</span>
+      <span class="font-mono-technical text-[10px] opacity-60">#FCF9F8</span>
+    </div>
+    <div class="border border-outline p-4">
+      <div class="swatch mb-2" style="background:#f6f3f2"></div>
+      <span class="font-mono-technical text-[10px] font-bold block">surface-container-low</span>
+      <span class="font-mono-technical text-[10px] opacity-60">#F6F3F2</span>
+    </div>
+    <div class="border border-outline p-4">
+      <div class="swatch mb-2" style="background:#f0eded"></div>
+      <span class="font-mono-technical text-[10px] font-bold block">surface-container</span>
+      <span class="font-mono-technical text-[10px] opacity-60">#F0EDED</span>
+    </div>
+    <div class="border border-outline p-4">
+      <div class="swatch mb-2" style="background:#eae7e7"></div>
+      <span class="font-mono-technical text-[10px] font-bold block">surface-container-high</span>
+      <span class="font-mono-technical text-[10px] opacity-60">#EAE7E7</span>
+    </div>
+    <div class="border border-outline p-4">
+      <div class="swatch mb-2" style="background:#e5e2e1"></div>
+      <span class="font-mono-technical text-[10px] font-bold block">surface-container-highest</span>
+      <span class="font-mono-technical text-[10px] opacity-60">#E5E2E1</span>
+    </div>
+    <div class="border border-outline p-4">
+      <div class="swatch mb-2" style="background:#dcd9d9"></div>
+      <span class="font-mono-technical text-[10px] font-bold block">surface-dim</span>
+      <span class="font-mono-technical text-[10px] opacity-60">#DCD9D9</span>
+    </div>
+  </div>
+
+  <!-- ========= 文字颜色 ========= -->
+  <h2 class="font-label-micro uppercase font-black text-on-surface border-b border-outline pb-2 mb-6">On-Surface Text Colors / 文字颜色</h2>
+  <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-12">
+    <div class="border border-outline p-4">
+      <div class="swatch mb-2" style="background:#1c1b1b"></div>
+      <span class="font-mono-technical text-[10px] font-bold block">on-surface</span>
+      <span class="font-mono-technical text-[10px] opacity-60">#1C1B1B</span>
+      <p class="text-[11px] mt-1" style="color:#1c1b1b">Primary text color</p>
+    </div>
+    <div class="border border-outline p-4">
+      <div class="swatch mb-2" style="background:#44474a"></div>
+      <span class="font-mono-technical text-[10px] font-bold block">on-surface-variant</span>
+      <span class="font-mono-technical text-[10px] opacity-60">#44474A</span>
+      <p class="text-[11px] mt-1" style="color:#44474a">Secondary text</p>
+    </div>
+  </div>
+
+  <!-- ========= 品牌色 ========= -->
+  <h2 class="font-label-micro uppercase font-black text-brand-accent border-b border-outline pb-2 mb-6">Brand Accent / 品牌强调色</h2>
+  <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-12">
+    <div class="border border-outline p-4 bg-brand-accent text-white">
+      <div class="swatch mb-2 border-white/30" style="background:#8A84A3"></div>
+      <span class="font-mono-technical text-[10px] font-bold block">brand-accent</span>
+      <span class="font-mono-technical text-[10px] opacity-60">#8A84A3</span>
+      <p class="text-[11px] mt-1 opacity-80">Desaturated Violet — sole functional color</p>
+    </div>
+  </div>
+
+  <!-- ========= 暗色模式 ========= -->
+  <h2 class="font-label-micro uppercase font-black text-on-surface border-b border-outline pb-2 mb-6">Inverse / Dark Mode / 暗色模式</h2>
+  <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-12">
+    <div class="border border-outline p-4" style="background:#313030">
+      <div class="swatch mb-2" style="background:#313030;border-color:#555"></div>
+      <span class="font-mono-technical text-[10px] font-bold block" style="color:#f3f0ef">inverse-surface</span>
+      <span class="font-mono-technical text-[10px] opacity-60" style="color:#f3f0ef">#313030</span>
+    </div>
+    <div class="border border-outline p-4" style="background:#313030">
+      <span class="font-mono-technical text-[10px] font-bold block" style="color:#f3f0ef">inverse-on-surface</span>
+      <span class="font-mono-technical text-[10px] opacity-60" style="color:#f3f0ef">#F3F0EF</span>
+    </div>
+    <div class="border border-outline p-4" style="background:#313030">
+      <span class="font-mono-technical text-[10px] font-bold block" style="color:#c6c6c8">inverse-primary</span>
+      <span class="font-mono-technical text-[10px] opacity-60" style="color:#c6c6c8">#C6C6C8</span>
+    </div>
+  </div>
+
+  <!-- ========= 设计规则 ========= -->
+  <h2 class="font-label-micro uppercase font-black text-on-surface border-b border-outline pb-2 mb-6">Usage Rules / 使用规则</h2>
+  <div class="space-y-3 text-sm text-on-surface-variant mb-12">
+    <p><strong>1. Z-Axis Layering:</strong> 深度通过堆叠平面容器实现，而非阴影。"surface"层直接位于"base"之上。</p>
+    <p><strong>2. Zero Softness:</strong> 无模糊、无渐变、无环境光遮蔽。界面应如机械加工般锐利。</p>
+    <p><strong>3. Accent Restraint:</strong> brand-accent (#8A84A3) 仅用于交互高亮、状态指示器或引导视线至单一技术细节。</p>
+    <p><strong>4. Outline System:</strong> outline (#75777A) 用于主要边框；outline-variant (#C5C7C9) 用于暗色模式边框。</p>
+    <p><strong>5. Error:</strong> error (#BA1A1A) / error-container (#FFDAD6) — 仅用于关键错误状态。</p>
+  </div>
+
+</section>
+
+<!-- 文档区 -->
+<div class="px-margin-outer max-w-5xl mx-auto py-8 border-t border-outline">
+  <h1 class="text-3xl font-bold mb-4">ColorPalette / 色彩系统</h1>
+  <div class="space-y-3 text-sm text-on-surface-variant">
+    <p><strong>来源：</strong>参考网站"对位" — DESIGN.md 色彩定义</p>
+    <p><strong>设计风格：</strong>Swiss Modernism / Architectural Gray / Minimalist-Brutalist</p>
+    <p><strong>色彩哲学：</strong>灰度分层构建深度（7级Surface层级）| 单一功能色 | 无阴影</p>
+    <p><strong>Token数量：</strong>45个颜色标记 | 覆盖 Surface / Primary / Secondary / Tertiary / Error</p>
+    <p><strong>暗色模式：</strong>inverse-surface (#313030) + 对应 inverse-* 变体</p>
+  </div>
+</div>
+
+</body>
+</html>

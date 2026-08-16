@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>43-DarkGridBackground-暗色网格线背景</title>
+<style>
+  html,body{scrollbar-width:none;-ms-overflow-style:none;}html::-webkit-scrollbar,body::-webkit-scrollbar{display:none;}
+  body {
+    margin: 0; min-height: 100vh;
+    background-color: #111318; color: #e2e2e8;
+    font-family: 'JetBrains Mono', monospace;
+    overflow-x: hidden; cursor: crosshair;
+  }
+
+  /* === 暗色网格线背景 === */
+  .grid-container {
+    position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: 0.2;
+  }
+  .grid-line-v {
+    width: 1px; background-color: #2D2D33; height: 100%; position: absolute;
+  }
+  .grid-line-h {
+    height: 1px; background-color: #2D2D33; width: 100%; position: absolute;
+  }
+
+  /* === ASCII分隔线 === */
+  .ascii-divider::before {
+    content: "[ + ]------------------------------------------------------------------------------------------------------------------------------------------------";
+    font-family: 'JetBrains Mono', monospace; font-size: 10px; opacity: 0.3; white-space: nowrap;
+  }
+  .scanlines::after{content:" ";display:block;position:fixed;top:0;left:0;bottom:0;right:0;background:linear-gradient(rgba(18,16,16,0) 50%,rgba(0,0,0,0.1) 50%),linear-gradient(90deg,rgba(255,0,0,0.02),rgba(0,255,0,0.01),rgba(0,0,155,0.02));z-index:100;background-size:100% 2px,3px 100%;pointer-events:none;}
+</style>
+</head>
+<body class="scanlines">
+<!--
+  组件来源: 1.html (SYNTAX_OS_V.4)
+  设计系统: SYNTAX_OS Dark Terminal
+  组件类型: 暗色网格线背景 - 固定定位的十字准线网格 + ASCII装饰分隔线
+
+  用法:
+  1. 复制 .grid-container 及内部的 .grid-line-v / .grid-line-h 到页面
+  2. 使用 .ascii-divider 类添加ASCII风格的分隔线
+  3. 网格线颜色为 #2D2D33，可根据需要调整
+-->
+<!-- 网格线层 -->
+<div class="grid-container">
+  <div class="grid-line-v" style="left:25%;"></div>
+  <div class="grid-line-v" style="left:50%;"></div>
+  <div class="grid-line-v" style="left:75%;"></div>
+  <div class="grid-line-h" style="top:25%;"></div>
+  <div class="grid-line-h" style="top:50%;"></div>
+  <div class="grid-line-h" style="top:75%;"></div>
+</div>
+
+<!-- 演示内容 -->
+<div style="position:relative;z-index:10;display:flex;align-items:center;justify-content:center;min-height:100vh;flex-direction:column;gap:40px;">
+  <h1 style="font-family:Inter;font-size:60px;font-weight:900;">DARK GRID</h1>
+  <div class="ascii-divider" style="max-width:600px;overflow:hidden;"></div>
+  <p style="opacity:0.5;">Grid lines at 25% / 50% / 75% positions</p>
+</div>
+</body>
+</html>

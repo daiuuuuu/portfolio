@@ -6,10 +6,13 @@ import MarqueeStrip from '@/components/ui/MarqueeStrip'
 import { SITE_CONFIG } from '@/config/site'
 
 /** The five ticker bands, defined once — rendered as two stacked groups. */
+/* Mobile floors lowered so the tilted band stack stays readable and compact at
+   375px (clamp's vw term would otherwise floor at the desktop minimum). Desktop
+   maxima unchanged — the bands keep their 312px display scale on wide screens. */
 const BANDS = [
-  { text: 'DESIGN',               direction: 'left' as const,  fontSize: 'clamp(90px, 13vw, 312px)',  speed: 0.35 },
-  { text: 'WORK/ ARCHIVE · ',     direction: 'right' as const, fontSize: 'clamp(48px, 8vw, 150px)',   speed: 0.6 },
-  { text: 'AIGC',                 direction: 'left' as const,  fontSize: 'clamp(90px, 13vw, 312px)',  speed: 0.5 },
+  { text: 'DESIGN',               direction: 'left' as const,  fontSize: 'clamp(36px, 13vw, 312px)',  speed: 0.35 },
+  { text: 'WORK/ ARCHIVE · ',     direction: 'right' as const, fontSize: 'clamp(22px, 8vw, 150px)',   speed: 0.6 },
+  { text: 'AIGC',                 direction: 'left' as const,  fontSize: 'clamp(36px, 13vw, 312px)',  speed: 0.5 },
   { text: 'XUCHANG UNIVERSITY · ', direction: 'right' as const, fontSize: 'clamp(14px, 2.2vw, 32px)', speed: 1.4 },
   { text: 'KONGDEYU · ',          direction: 'left' as const,  fontSize: 'clamp(20px, 3.5vw, 56px)',  speed: 1.0 },
 ]
@@ -161,7 +164,7 @@ export default function HeroSection() {
     <section
       ref={rootRef}
       id="home"
-      className="h-screen -mt-16 bg-brand-accent border-b border-outline relative overflow-hidden flex flex-col justify-center"
+      className="h-viewport -mt-16 bg-brand-accent border-b border-outline relative overflow-hidden flex flex-col justify-center"
       data-section="home-hero"
     >
       {/* ── Sculpture — left aligned, top layer, occludes the ticker bands.
@@ -173,15 +176,17 @@ export default function HeroSection() {
         src="/portfolio/images/首屏-天使雕塑-紫色.webp"
         alt=""
         data-hero="sculpture"
-        className="absolute inset-y-0 left-0 h-full w-auto max-w-none object-contain select-none pointer-events-none z-50 will-change-transform"
+        /* Mobile: ~55% height anchored bottom-left, base pressed against the
+           bottom edge (overlapping the bookmark bar — the user's intended look);
+           desktop: full height edge-to-edge as designed. */
+        className="absolute left-0 bottom-0 h-[55%] md:h-full md:inset-y-0 w-auto max-w-none object-contain select-none pointer-events-none z-50 will-change-transform"
         draggable={false}
         decoding="async"
       />
 
       {/* ── Ticker bands — 5 bands as one group, duplicated as a second group below, tilted 45° ── */}
       <div
-        className="relative z-10 ticker-group flex flex-col justify-center pt-[14vh]"
-        style={{ transform: 'rotate(45deg)', transformOrigin: 'center center', marginLeft: -140, marginTop: 300 }}
+        className="relative z-10 ticker-group hero-ticker-group flex flex-col justify-center pt-[14vh]"
       >
         {/* Ticker sequence wrapper — rectangle anchors to its top edge */}
         <div className="relative">
@@ -192,13 +197,15 @@ export default function HeroSection() {
             style={{ bottom: 'calc(100% + 6px)' }}
             aria-hidden="true"
           >
-            <div className="w-[44vw] h-[72vh] bg-[rgba(56,26,116,0.9)]" />
-            <div className="w-[44vw] h-[72vh] bg-[rgba(56,26,116,0.9)]" />
-            <div className="w-[44vw] h-[72vh] bg-[rgba(56,26,116,0.9)]" />
+            <div className="w-[44vw] h-[44vh] md:h-[72vh] bg-[rgba(56,26,116,0.9)]" />
+            <div className="w-[44vw] h-[44vh] md:h-[72vh] bg-[rgba(56,26,116,0.9)]" />
+            <div className="w-[44vw] h-[44vh] md:h-[72vh] bg-[rgba(56,26,116,0.9)]" />
           </div>
 
           {[0, 1].map((group) => (
-            <div key={group} className="flex flex-col">
+            /* The second layered band group is desktop-only — one stack is
+               enough texture on a phone, and it halves the tilted block's height. */
+            <div key={group} className={`flex flex-col ${group === 1 ? 'hidden md:block' : ''}`}>
               {BANDS.map((b) => (
                 <MarqueeStrip
                   key={`${group}-${b.text}`}
@@ -221,7 +228,9 @@ export default function HeroSection() {
 
       {/* ── Bookmark tag — spans the full screen, right end anchored to right edge, text all on the right (left is occluded by sculpture) ── */}
       <div
-        className="absolute left-0 right-0 bottom-5 z-20"
+        /* bottom max(): keeps the tag off the notched-phone home indicator
+           (safe-area bottom) while staying at 1.25rem on regular screens. */
+        className="absolute left-0 right-0 bottom-[max(1.25rem,env(safe-area-inset-bottom))] z-20"
         style={{ transform: 'rotate(2deg)', transformOrigin: 'right center' }}
       >
         {/* data-hero on the inner wrapper: the slide (translateX) happens along
@@ -269,7 +278,9 @@ export default function HeroSection() {
         src="/portfolio/images/素材-蜡封.webp"
         alt=""
         data-hero="seal"
-        className="absolute right-[152px] top-[58px] z-[60] w-[360px] select-none pointer-events-none"
+        /* Mobile: smaller seal below the nav bar, right-aligned; desktop keeps
+           the calibrated 360px wax seal at top-right. */
+        className="absolute right-4 md:right-[152px] top-[88px] md:top-[58px] z-[60] w-[110px] md:w-[360px] select-none pointer-events-none"
         draggable={false}
         decoding="async"
       />

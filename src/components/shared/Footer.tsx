@@ -5,7 +5,7 @@ import { SITE_CONFIG } from '@/config/site'
  */
 export default function Footer() {
   return (
-    <footer className="flex flex-col md:flex-row justify-between items-start md:items-center w-full px-margin-outer py-8 bg-surface border-t border-outline transition-none mt-stack-lg gap-6">
+    <footer className="flex flex-col md:flex-row justify-between items-start md:items-center w-full px-margin-outer py-8 pb-safe bg-surface border-t border-outline transition-none mt-stack-lg gap-6">
       <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-12">
         <span className="font-mono-technical text-mono-technical text-on-surface font-black tracking-widest">
           ©2026 AIGC_CORE_LOGIC

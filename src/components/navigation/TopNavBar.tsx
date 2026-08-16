@@ -1,5 +1,5 @@
-import { useEffect, useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useEffect, useRef, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useGSAP } from '@gsap/react'
 import { gsap, ScrollTrigger } from '@/animations/scrollReveal'
 import { setSuppressSnap } from '@/animations/smoothWheel'
@@ -27,8 +27,23 @@ const PROJECT_SECTIONS = [
 
 export default function TopNavBar({ isProjectPage = false }: TopNavBarProps) {
   const navigate = useNavigate()
+  const { pathname } = useLocation()
   const navRef = useRef<HTMLElement>(null)
   const topTweenRef = useRef<gsap.core.Tween | null>(null)
+  // Mobile nav: <lg the inline links are hidden and a hamburger + drawer take
+  // over. Kept as state so the drawer can lock scroll while open.
+  const [menuOpen, setMenuOpen] = useState(false)
+  const closeMenu = () => setMenuOpen(false)
+
+  // Close the drawer on any route change (e.g. HOME via the curtain transition).
+  useEffect(() => { setMenuOpen(false) }, [pathname])
+
+  // Lock page scroll while the drawer is open (smoothWheel keeps running but
+  // the page can't move under the fixed sheet).
+  useEffect(() => {
+    document.documentElement.style.overflow = menuOpen ? 'hidden' : ''
+    return () => { document.documentElement.style.overflow = '' }
+  }, [menuOpen])
 
   // Smoothly glide the CURRENT page to a y position — the shared engine behind
   // "↑ Top" and the project quick-jumps. Suppresses the catalog snap redirect
@@ -73,6 +88,27 @@ export default function TopNavBar({ isProjectPage = false }: TopNavBarProps) {
     if (!el) return
     const TOP_OFFSET = Math.round(window.innerHeight * 0.15)
     scrollToY(el.getBoundingClientRect().top + window.scrollY - TOP_OFFSET)
+  }
+
+  // Mobile drawer navigation: close the drawer, then glide (reusing the shared
+  // ↑ Top engine, so the suppressed-snap logic applies to every jump).
+  const goSection = (id: string) => {
+    const el = document.getElementById(id)
+    closeMenu()
+    if (!el) return
+    scrollToY(el.getBoundingClientRect().top + window.scrollY)
+  }
+  const goHome = () => {
+    closeMenu()
+    curtainTransition({ path: '/', navigate })
+  }
+  const goProj = (section: string) => {
+    closeMenu()
+    goProjectSection(section)
+  }
+  const goTop = () => {
+    closeMenu()
+    scrollTop()
   }
 
   // Project pages always keep an opaque surface background — the home
@@ -140,67 +176,143 @@ export default function TopNavBar({ isProjectPage = false }: TopNavBarProps) {
     }
   }, { scope: navRef, dependencies: [isProjectPage], revertOnUpdate: true })
 
+  // Drawer rows — every item is a ≥44px tap target. Home = section anchors,
+  // project page = HOME + the three key sections.
+  const menuItems = isProjectPage
+    ? [
+        { key: 'home', label: 'HOME', onClick: goHome },
+        { key: 'overview', label: 'OVERVIEW', onClick: () => goProj('project-overview') },
+        { key: 'qa', label: 'Q&A', onClick: () => goProj('project-decisions') },
+        { key: 'next', label: 'NEXT', onClick: () => goProj('project-next') },
+      ]
+    : NAV_SECTIONS.map(({ id, label }) => ({
+        key: id, label, onClick: () => goSection(id),
+      }))
+
   return (
-    <nav ref={navRef} className={`fixed top-0 z-50 w-full h-16 bg-surface border-b border-outline transition-none ${isProjectPage ? 'nav-project-solid' : ''}`}>
-      <div className="h-full px-margin-outer flex items-center justify-between gap-4">
+    <>
+      <nav
+        ref={navRef}
+        className={`fixed top-0 z-50 w-full pt-safe bg-surface border-b border-outline transition-none ${isProjectPage ? 'nav-project-solid' : ''}`}
+      >
+        {/* pt-safe on the nav + h-16 on this inner row = the total nav height is
+            64px + the notch inset, and the bar's content never sits under the
+            status bar. --nav-h tracks the same total for the drawer and the
+            full-screen section offsets. */}
+        <div className="h-16 px-margin-outer flex items-center justify-between gap-4">
 
-        {/* Logo is a static mark — no navigation (HOME in the nav handles it). */}
-        <span className="nav-link font-headline-lg-mobile text-[28px] md:text-headline-lg-mobile leading-none font-bold text-on-surface tracking-tighter whitespace-nowrap">
-          DAIU_ARCHIVE
-        </span>
+          {/* Logo is a static mark — no navigation (HOME in the nav handles it). */}
+          <span className="nav-link font-headline-lg-mobile text-[24px] md:text-headline-lg-mobile leading-none font-bold text-on-surface tracking-tighter whitespace-nowrap">
+            DAIU_ARCHIVE
+          </span>
 
-        <div className="flex items-center gap-4 md:gap-6">
-          {isProjectPage ? (
-            /* Project page: HOME (returns to the home page) + quick-jumps to the
-               page's key sections. */
-            <div className="hidden lg:flex gap-5">
-              <a
-                href="/"
-                onClick={(e) => {
-                  e.preventDefault()
-                  curtainTransition({ path: '/', navigate })
-                }}
-                className="nav-link font-label-micro text-label-micro uppercase tracking-widest text-on-surface border-b border-on-surface"
-              >
-                HOME
-              </a>
-              {PROJECT_SECTIONS.map(({ section, label }) => (
-                <button
-                  key={section}
-                  onClick={() => goProjectSection(section)}
-                  className="nav-link font-label-micro text-label-micro uppercase tracking-widest text-on-surface-variant scanlines-hover"
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
-          ) : (
-            /* Home page: native section anchors. */
-            <div className="hidden lg:flex gap-5">
-              {NAV_SECTIONS.map(({ id, label }) => (
+          <div className="flex items-center gap-4 md:gap-6">
+            {isProjectPage ? (
+              /* Project page: HOME (returns to the home page) + quick-jumps to the
+                 page's key sections. */
+              <div className="hidden lg:flex gap-5">
                 <a
-                  key={id}
-                  href={`#${id}`}
-                  className={`nav-link font-label-micro text-label-micro uppercase tracking-widest ${id === 'home' ? 'text-on-surface border-b border-on-surface' : 'text-on-surface-variant scanlines-hover'}`}
+                  href="/"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    curtainTransition({ path: '/', navigate })
+                  }}
+                  className="nav-link font-label-micro text-label-micro uppercase tracking-widest text-on-surface border-b border-on-surface"
                 >
-                  {label}
+                  HOME
                 </a>
-              ))}
+                {PROJECT_SECTIONS.map(({ section, label }) => (
+                  <button
+                    key={section}
+                    onClick={() => goProjectSection(section)}
+                    className="nav-link font-label-micro text-label-micro uppercase tracking-widest text-on-surface-variant scanlines-hover"
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+            ) : (
+              /* Home page: native section anchors. */
+              <div className="hidden lg:flex gap-5">
+                {NAV_SECTIONS.map(({ id, label }) => (
+                  <a
+                    key={id}
+                    href={`#${id}`}
+                    className={`nav-link font-label-micro text-label-micro uppercase tracking-widest ${id === 'home' ? 'text-on-surface border-b border-on-surface' : 'text-on-surface-variant scanlines-hover'}`}
+                  >
+                    {label}
+                  </a>
+                ))}
+              </div>
+            )}
+
+            {/* Desktop only: ↑ Top + GitHub. On mobile these live in the drawer
+                so the bar stays uncluttered at 320px. */}
+            <div className="hidden lg:flex items-center gap-4">
+              <button onClick={scrollTop} className="nav-link font-label-micro text-label-micro uppercase tracking-widest px-3 py-2 border border-outline hover:bg-on-surface hover:text-surface transition-none">
+                ↑ Top
+              </button>
+              <a href={SITE_CONFIG.owner.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="nav-link text-on-surface-variant hover:text-on-surface">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.605-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/>
+                </svg>
+              </a>
             </div>
-          )}
 
-          <button onClick={scrollTop} className="nav-link font-label-micro text-label-micro uppercase tracking-widest px-3 py-2 border border-outline hover:bg-on-surface hover:text-surface transition-none">
-            <span className="hidden sm:inline">↑ Top</span>
-            <span className="sm:hidden">↑</span>
-          </button>
-
-          <a href={SITE_CONFIG.owner.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="nav-link text-on-surface-variant hover:text-on-surface">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.605-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/>
-            </svg>
-          </a>
+            {/* Mobile hamburger — always visible (even over the hero) so the
+                drawer is reachable from the first screen. */}
+            <button
+              onClick={() => setMenuOpen(o => !o)}
+              aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={menuOpen}
+              aria-controls="mobile-menu"
+              className="lg:hidden font-label-micro text-label-micro uppercase tracking-widest px-3 py-2 min-h-[44px] border border-outline text-on-surface hover:bg-on-surface hover:text-surface transition-none"
+            >
+              {menuOpen ? 'CLOSE ✕' : 'MENU ☰'}
+            </button>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+
+      {/* Mobile drawer — hangs below the nav bar, full screen. Rows are ≥44px
+          tap targets; pb-safe keeps the last row off the home-indicator area.
+          top-[var(--nav-h)] tracks the real nav height incl. the notch. */}
+      {menuOpen && (
+        <div
+          id="mobile-menu"
+          /* z-[90]: above the hero's decorative layers (sculpture z-50, seal
+             z-60) so the drawer is a clean surface sheet; still below the boot
+             (100), curtain (110) and custom cursor (120). */
+          className="fixed top-[var(--nav-h)] bottom-0 left-0 right-0 z-[90] bg-surface lg:hidden overflow-y-auto scroll-container"
+        >
+          <div className="px-margin-outer pt-4 pb-safe">
+            {menuItems.map((item) => (
+              <button
+                key={item.key}
+                onClick={item.onClick}
+                className="w-full flex items-center justify-between py-5 border-b border-outline-variant font-label-micro text-label-micro uppercase tracking-widest text-on-surface transition-none"
+              >
+                <span>{item.label}</span>
+                <span className="text-on-surface-variant" aria-hidden="true">→</span>
+              </button>
+            ))}
+            <div className="flex flex-col gap-4 mt-8 pb-8">
+              <button onClick={goTop} className="flex items-center justify-between font-label-micro text-label-micro uppercase tracking-widest px-4 py-4 border border-outline text-on-surface transition-none">
+                ↑ TOP
+              </button>
+              <a
+                href={SITE_CONFIG.owner.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={closeMenu}
+                className="flex items-center justify-between font-label-micro text-label-micro uppercase tracking-widest px-4 py-4 border border-outline text-on-surface transition-none"
+              >
+                GITHUB ↗
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   )
 }

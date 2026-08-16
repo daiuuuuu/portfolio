@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>42-ScanlinesCRTEffect-CRT扫描线效果</title>
+<style>
+  html,body{scrollbar-width:none;-ms-overflow-style:none;}html::-webkit-scrollbar,body::-webkit-scrollbar{display:none;}
+  body {
+    margin: 0; min-height: 100vh;
+    background-color: #111318; color: #e2e2e8;
+    font-family: 'JetBrains Mono', monospace;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* === CRT 扫描线叠加层 === */
+  .scanlines::after {
+    content: " ";
+    display: block;
+    position: fixed;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background:
+      linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%),
+      linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 155, 0.02));
+    z-index: 100;
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+  }
+
+  /* 荧光文字发光 */
+  .glow-text {
+    text-shadow: 0 0 8px rgba(203, 190, 255, 0.4);
+  }
+
+  /* 自定义暗色滚动条 */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: #111318; }
+  ::-webkit-scrollbar-thumb { background: #48454f; }
+  .scanlines::after{content:" ";display:block;position:fixed;top:0;left:0;bottom:0;right:0;background:linear-gradient(rgba(18,16,16,0) 50%,rgba(0,0,0,0.1) 50%),linear-gradient(90deg,rgba(255,0,0,0.02),rgba(0,255,0,0.01),rgba(0,0,155,0.02));z-index:100;background-size:100% 2px,3px 100%;pointer-events:none;}
+</style>
+</head>
+<body class="scanlines scanlines">
+<!--
+  组件来源: 1.html (SYNTAX_OS_V.4)
+  设计系统: SYNTAX_OS Dark Terminal
+  组件类型: CRT扫描线效果 - 全屏固定覆盖层，模拟CRT显示器的扫描线 + RGB色偏 + 荧光发光
+
+  用法:
+  1. 在 body 上添加 class="scanlines" 启用扫描线
+  2. 在文字上添加 class="glow-text" 启用荧光发光
+  3. 暗色滚动条样式已包含
+-->
+<div style="text-align:center;position:relative;z-index:10;">
+  <h1 style="font-family:Inter;font-size:80px;font-weight:900;color:#cbbeff;" class="glow-text">SYNTAX_OS</h1>
+  <p style="font-size:14px;opacity:0.6;">CRT Scanline Effect Active</p>
+  <p style="font-size:11px;opacity:0.3;margin-top:20px;">Move scroll to see scanlines in action</p>
+  <div style="height:600px;"></div>
+</div>
+</body>
+</html>

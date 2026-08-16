@@ -261,7 +261,7 @@ export function GujiShowcase() {
                 OCR RESULT · 繁體原文
               </span>
             </div>
-            <div className="overflow-y-auto scrollbar-hide" style={{ maxHeight: '32vh' }}>
+            <div className="overflow-y-auto scrollbar-hide scroll-container" style={{ maxHeight: '32vh' }}>
               <p className="text-[13px] leading-loose text-on-surface tracking-wide whitespace-pre-line">
 {`哲學概論
 四
@@ -290,7 +290,7 @@ export function GujiShowcase() {
                 OCR RESULT · 简体转写
               </span>
             </div>
-            <div className="overflow-y-auto scrollbar-hide" style={{ maxHeight: '32vh' }}>
+            <div className="overflow-y-auto scrollbar-hide scroll-container" style={{ maxHeight: '32vh' }}>
               <p className="text-[13px] leading-loose text-on-surface tracking-wide whitespace-pre-line">
 {`哲学概论
 四
@@ -313,7 +313,7 @@ export function GujiShowcase() {
       </div>
 
       {/* 3-Agent Pipeline Architecture — uniform horizontal grid */}
-      <div className="px-margin-outer pb-8 pt-4 overflow-x-auto scrollbar-hide border-t border-outline-variant" data-reveal>
+      <div className="px-margin-outer pb-8 pt-4 overflow-x-auto scrollbar-hide scroll-container border-t border-outline-variant" data-reveal>
         <div className="pb-2">
           <span className="font-mono-technical text-[9px] text-on-surface-variant uppercase tracking-widest">
             PIPELINE · 三Agent管线架构
@@ -392,8 +392,10 @@ export function VideoFactoryShowcase() {
       </div>
 
       {/* Pipeline — uniform horizontal grid */}
-      <div className="px-margin-outer pb-8 overflow-x-auto scrollbar-hide border-t border-outline-variant pt-4" data-reveal>
-        <div className="grid grid-cols-3 md:grid-cols-6 gap-px bg-outline border border-outline">
+      <div className="px-margin-outer pb-8 overflow-x-auto scrollbar-hide scroll-container border-t border-outline-variant pt-4" data-reveal>
+        {/* grid-cols-2 on mobile so the 9px mono cells stay readable (3 cols of
+            ~110px would crush the text); md: the full 6-phase pipeline. */}
+        <div className="grid grid-cols-2 md:grid-cols-6 gap-px bg-outline border border-outline">
           {/* System 0: 素材库管理 — a supporting system, NOT a pipeline phase
               (the pipeline is the 5 phases PHASE 1–5 below). */}
           <div className="bg-surface-container p-4 flex flex-col" style={{ minHeight: '200px' }}>
@@ -608,7 +610,7 @@ export function ImageWorkflowShowcase() {
           {/* RIGHT (2/5): output preview — centered in column */}
           <div className="md:col-span-2 bg-surface p-4 flex flex-col items-center">
             <div
-              className="flex-1 min-h-0 overflow-y-auto scrollbar-hide border border-outline-variant"
+              className="flex-1 min-h-0 overflow-y-auto scrollbar-hide scroll-container border border-outline-variant"
               style={{ aspectRatio: '1086 / 1446', maxWidth: '440px' }}
             >
               <img
@@ -637,10 +639,31 @@ export function PortfolioShowcase() {
 
   return (
     <section className="border-t border-outline-variant" data-section="portfolio-showcase">
-      <div className="px-margin-outer pt-6 pb-3">
-        <p className="font-label-micro text-label-micro uppercase text-on-surface-variant tracking-widest">
-          COMPONENT SHOWCASE · 40组件设计系统
-        </p>
+      {/* Showcase header — big scanline title + a prominent purple CTA that
+          jumps to the FULL rendered 43-component library (public/design-system). */}
+      <div className="px-margin-outer pt-10 pb-5 flex flex-col lg:flex-row lg:items-end gap-5 lg:justify-between border-b border-outline">
+        <div>
+          <p className="font-label-micro text-label-micro uppercase text-brand-accent tracking-widest mb-3">
+            DESIGN SYSTEM / 设计系统组件库 · 43 COMPONENTS
+          </p>
+          <h3
+            className="heading-scanlines uppercase tracking-tighter text-on-surface"
+            style={{ fontSize: 'clamp(30px, 5vw, 64px)', lineHeight: 0.95 }}
+          >
+            COMPONENT<br />LIBRARY
+          </h3>
+        </div>
+        <a
+          href="/portfolio/design-system/index.html"
+          target="_blank"
+          rel="noopener noreferrer"
+          /* Vertical padding = the title's line-height (0.95 × its clamp size),
+             so the CTA's up/down matches the heading's; horizontal = 6× that
+             (doubled from the earlier 3× per user). */
+          className="self-start lg:self-auto inline-flex items-center gap-4 font-sans text-[18px] lg:text-[24px] font-black uppercase tracking-widest py-[calc(clamp(30px,5vw,64px)*0.95)] px-[calc(clamp(30px,5vw,64px)*0.95*6+100px)] bg-transparent text-on-surface border border-brand-accent hover:bg-brand-accent hover:text-surface hover:border-brand-accent transition-none"
+        >
+          查看完整组件库 ↗
+        </a>
       </div>
       <div className="px-margin-outer pb-6 space-y-3">
 
@@ -649,7 +672,7 @@ export function PortfolioShowcase() {
           <span className="font-mono-technical text-[8px] text-brand-accent font-bold uppercase tracking-widest">Navigation</span>
           <span className="flex-1 h-px bg-outline-variant" />
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-3">
           {/* 01 TopNavBar */}
           <B><H n="01" c="TOPBAR / 顶部导航栏"/>
             <div className="bg-surface p-3 flex items-center justify-between border-b border-outline-variant">
@@ -699,11 +722,11 @@ export function PortfolioShowcase() {
         <div className="flex items-center gap-3 mt-5 mb-1">
           <span className="font-mono-technical text-[8px] text-brand-accent font-bold uppercase tracking-widest">Overview / Background</span>
           <span className="flex-1 h-px bg-outline-variant" /></div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-3">
           {/* 04 StatsSection */}
           <B><H n="04" c="STATS SECTION / 统计卡片"/>
             <div className="grid grid-cols-2 gap-px bg-outline">
-              {[{v:'47',l:'源文件',d:'SOURCE FILES'},{v:'60+',l:'数据字段',d:'FIELDS'},{v:'6',l:'项目数',d:'PROJECTS'},{v:'12',l:'区块组件',d:'SECTIONS'}].map(s=>(<div key={s.l} className="bg-surface p-3"><div className="text-on-surface font-black tracking-tighter leading-none mb-0.5" style={{fontSize:'clamp(22px,3vw,34px)'}}>{s.v}</div><p className="text-label-micro text-on-surface tracking-wider mb-0.5">{s.l}</p><p className="text-[7px] text-on-surface-variant uppercase tracking-widest">{s.d}</p></div>))}</div></B>
+              {[{v:'53',l:'源文件',d:'SOURCE FILES'},{v:'60+',l:'数据字段',d:'FIELDS'},{v:'6',l:'项目数',d:'PROJECTS'},{v:'19',l:'区块组件',d:'SECTIONS'}].map(s=>(<div key={s.l} className="bg-surface p-3"><div className="text-on-surface font-black tracking-tighter leading-none mb-0.5" style={{fontSize:'clamp(22px,3vw,34px)'}}>{s.v}</div><p className="text-label-micro text-on-surface tracking-wider mb-0.5">{s.l}</p><p className="text-[7px] text-on-surface-variant uppercase tracking-widest">{s.d}</p></div>))}</div></B>
           {/* 15 OverviewPositioning */}
           <B><H n="15" c="OVERVIEW POSITIONING / 概览定位"/>
             <div className="p-3"><p className="text-body-md text-on-surface leading-relaxed mb-2">作为AIGC设计师，常规作品集平台无法承载"可复用的生产系统"这一核心叙事。自建网站不仅是展示载体，本身就是一个完整的设计工程项目。</p><p className="text-[9px] text-on-surface-variant">定位说明 · 能力概述 · 成果总结 — 三段式结构</p></div></B>
@@ -739,14 +762,14 @@ export function PortfolioShowcase() {
           {/* 23 HorizontalAgentPipeline */}
           <B><H n="23" c="HORIZONTAL PIPELINE / 横向管线"/>
             <div className="overflow-x-auto"><div className="flex gap-px bg-outline" style={{minWidth:500}}>
-              {[{p:'PHASE 1',l:'设计系统建立',s:'43 COMPONENTS'},{p:'PHASE 2',l:'数据模型设计',s:'60+ FIELDS'},{p:'PHASE 3',l:'组件开发',s:'47 SOURCES'},{p:'PHASE 4',l:'内容审查',s:'IMPECCABLE'},{p:'PHASE 5',l:'动效系统',s:'PLANNED'}].map(x=>(<div key={x.p} className="flex-1 bg-surface p-2.5 flex flex-col"><span className="font-mono-technical text-[7px] text-on-surface-variant mb-0.5">{x.p}</span><span className="font-mono-technical text-[8px] text-on-surface font-bold mb-1.5">{x.l}</span><span className="font-mono-technical text-[7px] text-on-surface-variant mt-auto">{x.s}</span></div>))}</div></div></B>
+              {[{p:'PHASE 1',l:'设计系统建立',s:'43 COMPONENTS'},{p:'PHASE 2',l:'数据模型设计',s:'60+ FIELDS'},{p:'PHASE 3',l:'组件开发',s:'53 SOURCES'},{p:'PHASE 4',l:'内容审查',s:'IMPECCABLE'},{p:'PHASE 5',l:'动效系统',s:'5 GSAP MODULES'}].map(x=>(<div key={x.p} className="flex-1 bg-surface p-2.5 flex flex-col"><span className="font-mono-technical text-[7px] text-on-surface-variant mb-0.5">{x.p}</span><span className="font-mono-technical text-[8px] text-on-surface font-bold mb-1.5">{x.l}</span><span className="font-mono-technical text-[7px] text-on-surface-variant mt-auto">{x.s}</span></div>))}</div></div></B>
         </div>
 
         {/* ══════ CATEGORY: 决策/Q&A DECISIONS ══════ */}
         <div className="flex items-center gap-3 mt-5 mb-1">
           <span className="font-mono-technical text-[8px] text-brand-accent font-bold uppercase tracking-widest">Decisions / Q&A</span>
           <span className="flex-1 h-px bg-outline-variant" /></div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-3">
           {/* 07 QADecisionsSection */}
           <B><H n="07" c="QA DECISIONS / 问答决策"/>
             <div className="p-3 space-y-2">
@@ -761,7 +784,7 @@ export function PortfolioShowcase() {
         <div className="flex items-center gap-3 mt-5 mb-1">
           <span className="font-mono-technical text-[8px] text-brand-accent font-bold uppercase tracking-widest">Code / Technical</span>
           <span className="flex-1 h-px bg-outline-variant" /></div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-3">
           {/* 08 CodeBlockDisplay */}
           <B><H n="08" c="CODE BLOCK / 代码展示"/>
             <div className="bg-on-surface p-4"><pre className="font-mono-technical text-[9px] leading-relaxed overflow-x-auto">
@@ -771,7 +794,7 @@ export function PortfolioShowcase() {
           <B><H n="11" c="DIRECTORY TREE / 目录树"/>
             <div className="bg-on-surface p-4"><pre className="font-mono-technical text-[8px] text-surface/80 leading-relaxed whitespace-pre-wrap">{`src/
 ├── components/     # React组件
-│   ├── project/    # 12个区块
+│   ├── project/    # 19个区块
 │   ├── ui/         # Badge·SectionLabel
 │   ├── navigation/ # TopNavBar
 │   └── shared/     # Footer
@@ -800,7 +823,7 @@ export function PortfolioShowcase() {
         <div className="flex items-center gap-3 mt-5 mb-1">
           <span className="font-mono-technical text-[8px] text-brand-accent font-bold uppercase tracking-widest">Data / Metrics</span>
           <span className="flex-1 h-px bg-outline-variant" /></div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-3">
           {/* 10 QualityChecklist */}
           <B><H n="10" c="QUALITY CHECKLIST / 质量清单"/>
             <div className="p-3 space-y-1.5">
@@ -813,7 +836,7 @@ export function PortfolioShowcase() {
           {/* 20 OutputsStatsGrid */}
           <B><H n="20" c="OUTPUT STATS / 产出统计"/>
             <div className="grid grid-cols-2 gap-px bg-outline">
-              {[{v:'100%',l:'通过率',d:'PASS RATE'},{v:'4/4',l:'检查通过',d:'CHECKS'},{v:'47',l:'源文件',d:'SOURCE FILES'},{v:'<2s',l:'构建时间',d:'BUILD TIME'}].map(x=>(<div key={x.l} className="bg-surface p-3 flex flex-col items-center text-center aspect-square justify-center"><div className="text-on-surface font-black tracking-tighter leading-none mb-1" style={{fontSize:'clamp(20px,3vw,32px)'}}>{x.v}</div><p className="text-label-micro text-on-surface tracking-wider mb-0.5">{x.l}</p><p className="text-[7px] text-on-surface-variant uppercase tracking-widest">{x.d}</p></div>))}</div></B>
+              {[{v:'100%',l:'通过率',d:'PASS RATE'},{v:'4/4',l:'检查通过',d:'CHECKS'},{v:'53',l:'源文件',d:'SOURCE FILES'},{v:'<2s',l:'构建时间',d:'BUILD TIME'}].map(x=>(<div key={x.l} className="bg-surface p-3 flex flex-col items-center text-center aspect-square justify-center"><div className="text-on-surface font-black tracking-tighter leading-none mb-1" style={{fontSize:'clamp(20px,3vw,32px)'}}>{x.v}</div><p className="text-label-micro text-on-surface tracking-wider mb-0.5">{x.l}</p><p className="text-[7px] text-on-surface-variant uppercase tracking-widest">{x.d}</p></div>))}</div></B>
           {/* 24 LargeMetricsGrid */}
           <B><H n="24" c="LARGE METRICS / 大字统计"/>
             <div className="grid grid-cols-2 gap-px bg-outline">
@@ -824,7 +847,7 @@ export function PortfolioShowcase() {
         <div className="flex items-center gap-3 mt-5 mb-1">
           <span className="font-mono-technical text-[8px] text-brand-accent font-bold uppercase tracking-widest">Lists / Index</span>
           <span className="flex-1 h-px bg-outline-variant" /></div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-3">
           {/* 27 FeaturedWorksList */}
           <B><H n="27" c="FEATURED WORKS / 重点作品"/>
             <div className="p-3 space-y-2">
@@ -844,7 +867,7 @@ export function PortfolioShowcase() {
         <div className="flex items-center gap-3 mt-5 mb-1">
           <span className="font-mono-technical text-[8px] text-brand-accent font-bold uppercase tracking-widest">Buttons / CTA</span>
           <span className="flex-1 h-px bg-outline-variant" /></div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-3">
           {/* 28 GatewayCTASection */}
           <B><H n="28" c="GATEWAY CTA / 行动召唤"/>
             <div className="p-4 flex flex-col items-center text-center">
@@ -867,7 +890,7 @@ export function PortfolioShowcase() {
         <div className="flex items-center gap-3 mt-5 mb-1">
           <span className="font-mono-technical text-[8px] text-brand-accent font-bold uppercase tracking-widest">Design Tokens</span>
           <span className="flex-1 h-px bg-outline-variant" /></div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-3">
           {/* 13 ColorPalette */}
           <B><H n="13" c="COLOR PALETTE / 色彩系统"/>
             <div className="flex flex-wrap gap-px bg-outline">
@@ -893,7 +916,7 @@ export function PortfolioShowcase() {
         <div className="flex items-center gap-3 mt-5 mb-1">
           <span className="font-mono-technical text-[8px] text-brand-accent font-bold uppercase tracking-widest">Dark Terminal</span>
           <span className="flex-1 h-px bg-outline-variant" /></div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-3">
           {/* 33 DarkSideNav */}
           <B><H n="33" c="DARK SIDE NAV / 暗色侧导航"/>
             <div className="bg-on-surface p-3 flex gap-3">
@@ -947,6 +970,29 @@ $ ready _`}</pre>
           <B><H n="40" c="ICON GRID / 图标网格"/>
             <div className="bg-on-surface p-3"><div className="grid grid-cols-4 gap-px bg-dark-outline-variant">
               {Array.from({length:8}).map((_,i)=>(<div key={i} className="aspect-square bg-dark-surface-container flex items-center justify-center"><span className="font-mono-technical text-[9px] text-surface/40">{String(i+1).padStart(2,'0')}</span></div>))}</div></div></B>
+          {/* 41 DarkFooter */}
+          <B><H n="41" c="DARK FOOTER / 暗色页脚"/>
+            <div className="bg-on-surface p-3">
+              <div className="flex items-center justify-between pb-2 border-b border-dark-outline-variant">
+                <span className="font-mono-technical text-[8px] text-surface font-bold tracking-widest">©2026 AIGC_CORE</span>
+                <span className="font-mono-technical text-[7px] text-surface/40">SYSTEM OK</span>
+              </div>
+              <div className="flex justify-between mt-2">{['GitHub','Email','WeChat'].map(x=><span key={x} className="font-mono-technical text-[7px] text-surface/50 uppercase tracking-widest">{x}</span>)}</div>
+            </div></B>
+          {/* 42 ScanlinesCRTEffect */}
+          <B><H n="42" c="CRT SCANLINES / 扫描线效果"/>
+            <div className="bg-on-surface p-4 relative overflow-hidden">
+              <div className="curtain-texture absolute inset-0" aria-hidden="true" />
+              <p style={{fontSize:'clamp(18px,2.5vw,28px)',fontWeight:900,lineHeight:.9}} className="text-surface relative">SCAN<br/>LINES</p>
+              <p className="font-mono-technical text-[7px] text-surface/50 mt-2 relative">repeating-linear-gradient · 4px周期</p>
+            </div></B>
+          {/* 43 DarkGridBackground */}
+          <B><H n="43" c="DARK GRID / 暗色网格背景"/>
+            <div className="bg-on-surface p-4 relative overflow-hidden">
+              <div className="absolute inset-0" aria-hidden="true"
+                style={{ backgroundImage:'linear-gradient(to right, rgba(203,190,255,0.10) 1px, transparent 1px), linear-gradient(to bottom, rgba(203,190,255,0.10) 1px, transparent 1px)', backgroundSize:'22px 22px' }} />
+              <p style={{fontSize:'clamp(20px,3vw,34px)',fontWeight:900,lineHeight:.9}} className="text-surface relative">GRID<br/>22PX</p>
+            </div></B>
         </div>
 
         {/* ══════ Text Effects ══════ */}
