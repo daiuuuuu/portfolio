@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="河南端孚科技有限公司，定位于人工智能数据服务商，提供数据标注、数据采集、人工内容审核和医学影像标注服务，100%自建团队，业务不转包。">
+<title>端孚科技 — AI数据服务商</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23ffffff'/%3E%3Crect x='4' y='4' width='24' height='24' rx='3' fill='%23E85D04'/%3E%3Ctext x='16' y='21' text-anchor='middle' font-family='system-ui' font-weight='700' font-size='16' fill='white'%3E端%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:oklch(0.985 0 0);
+  --surface:oklch(1 0 0);
+  --ink:oklch(0.14 0.005 260);
+  --ink-dim:oklch(0.14 0.005 260 / .65);
+  --ink-faint:oklch(0.14 0.005 260 / .45);
+  --accent:oklch(0.56 0.22 40);
+  --accent-subtle:oklch(0.56 0.22 40 / .08);
+  --border:oklch(0.14 0.005 260 / .1);
+  --shadow-sm:0 2px 8px oklch(0 0 0 / .04);
+  --shadow-md:0 4px 20px oklch(0 0 0 / .06);
+  --shadow-text:0 2px 4px oklch(0 0 0 / .06);
+  --font-display:"Noto Serif SC","Source Han Serif SC","STSong","SimSun",serif;
+  --font-body:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Helvetica Neue",sans-serif;
+}
+
+html{scroll-behavior:smooth;font-size:clamp(16px,1.4vw,18px);background:var(--bg);color:var(--ink)}
+body{font-family:var(--font-body);line-height:1.6;-webkit-font-smoothing:antialiased;background-image:radial-gradient(circle,oklch(0.14 0.005 260 / .07) 1px,transparent 1px);background-size:28px 28px;background-position:center}
+@media(prefers-contrast:high){body{background-image:radial-gradient(circle,oklch(0 0 0 / .12) 1px,transparent 1px)}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+.skip-link{position:absolute;top:-100%;left:2rem;z-index:100;padding:.5rem 1rem;background:var(--accent);color:#fff;font-weight:600;font-size:.875rem;border-radius:0 0 4px 4px}
+.skip-link:focus{top:0}
+
+h1,h2,h3{font-family:var(--font-display);font-weight:400;text-wrap:balance}
+h1{font-size:clamp(3rem,8vw,7rem);line-height:.95;letter-spacing:-0.02em;font-weight:700}
+h2{font-size:clamp(2rem,5vw,4.5rem);line-height:.98;letter-spacing:-0.01em;font-weight:700}
+h3{font-size:clamp(1.25rem,2vw,2rem);line-height:1.1;font-weight:600}
+p{text-wrap:pretty;color:var(--ink-dim);line-height:1.75}
+a{color:var(--ink);text-decoration:none;transition:color .2s}
+a:hover{color:var(--accent)}
+::selection{background:var(--accent);color:#fff}
+
+/* nav */
+.site-nav{display:flex;align-items:center;justify-content:space-between;padding:1.25rem clamp(1.5rem,5vw,3rem);position:sticky;top:0;z-index:50;background:oklch(0.985 0 0 / .92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);box-shadow:var(--shadow-sm)}
+.nav-brand{font-family:var(--font-display);font-size:1.15rem;font-weight:700;letter-spacing:.04em;color:var(--ink);text-decoration:none}
+.nav-links{display:flex;gap:2.5rem;list-style:none;align-items:center}
+.nav-links a{color:var(--ink-dim);font-size:.85rem;letter-spacing:.03em}
+.nav-links a:hover{color:var(--ink)}
+.nav-cta{display:inline-block;padding:.45rem 1.2rem;background:var(--accent);color:#fff!important;font-size:.8rem;font-weight:600;letter-spacing:.03em;transition:background .2s}
+.nav-cta:hover{background:oklch(0.50 0.20 40)}
+.nav-toggle{display:none;background:none;border:none;color:var(--ink);cursor:pointer;padding:.25rem}
+@media(max-width:767px){
+.nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--surface);flex-direction:column;padding:1.5rem;gap:1rem;border-bottom:1px solid var(--border);box-shadow:0 8px 32px rgba(0,0,0,.08)}
+.nav-links.open{display:flex}
+.nav-toggle{display:block}
+}
+
+/* container */
+.wrap{max-width:1280px;margin-inline:auto;padding-inline:clamp(1.5rem,5vw,3rem)}
+
+section{padding-block:clamp(4rem,10vw,8rem)}
+
+/* hero */
+.hero{padding-top:clamp(6rem,14vw,12rem);padding-bottom:clamp(3rem,6vw,5rem)}
+.hero h1{max-width:14em;margin-bottom:1.75rem}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero-tag{font-size:clamp(1rem,1.4vw,1.2rem);color:var(--ink-dim);max-width:44ch;line-height:1.7}
+.hero-stat-row{display:flex;gap:clamp(2rem,5vw,5rem);margin-top:clamp(3rem,6vw,5rem)}
+.hero-stat-num{font-family:var(--font-display);font-size:clamp(2.5rem,5vw,4rem);font-weight:700;line-height:1;color:var(--accent);text-shadow:var(--shadow-text)}
+.hero-stat-label{font-size:.85rem;color:var(--ink-faint);margin-top:.35rem}
+@media(max-width:767px){
+.hero-stat-row{flex-wrap:wrap;gap:2rem}
+}
+
+/* section label */
+.sec-eyebrow{font-size:.8rem;font-weight:600;letter-spacing:.08em;color:var(--accent);text-transform:uppercase;margin-bottom:1rem}
+
+/* about */
+.about-grid{display:grid;grid-template-columns:5fr 7fr;gap:clamp(2rem,5vw,5rem);align-items:start}
+.about-big-num{font-family:var(--font-display);font-size:clamp(7rem,16vw,18rem);font-weight:900;line-height:.78;letter-spacing:-0.04em;color:var(--accent);text-shadow:var(--shadow-text)}
+.about-big-num sup{font-size:.3em;vertical-align:super;letter-spacing:0;font-weight:600}
+.about-big-label{font-size:.95rem;color:var(--ink-faint);margin-top:.75rem}
+.about-text-list{list-style:none;display:flex;flex-direction:column;gap:2.5rem}
+.about-text-list h3{margin-bottom:.5rem}
+.about-text-list p{font-size:.95rem;max-width:44ch}
+@media(max-width:767px){
+.about-grid{grid-template-columns:1fr;gap:2.5rem}
+.about-big-num{font-size:clamp(5rem,24vw,9rem)}
+}
+
+/* image strip */
+.img-strip{aspect-ratio:21/9;overflow:hidden;position:relative;margin-block:clamp(2rem,4vw,4rem)}
+.img-strip img{width:100%;height:100%;object-fit:cover;filter:grayscale(100%) contrast(1.05);opacity:.92}
+.img-strip::after{content:"";position:absolute;inset:0;background:linear-gradient(to right,oklch(0.985 0 0 / .3),transparent 30%,transparent 70%,oklch(0.985 0 0 / .3))}
+@media(max-width:767px){.img-strip{aspect-ratio:16/9}}
+
+/* services */
+.services-intro{margin-bottom:clamp(3rem,5vw,5rem);max-width:48ch}
+.services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0}
+.service-card{padding:clamp(2rem,3vw,3rem) 0;border-top:1px solid var(--border)}
+.service-card:nth-child(-n+2){border-top:none}
+.service-card h3{font-size:clamp(1.5rem,2.5vw,2.2rem);margin-bottom:.6rem}
+.service-card .num{font-family:var(--font-display);font-size:.85rem;font-weight:700;color:var(--accent);margin-bottom:.75rem;letter-spacing:.04em}
+.service-card p{font-size:.9rem;line-height:1.7;max-width:36ch}
+@media(min-width:768px){
+.service-card:nth-child(odd){padding-right:clamp(1.5rem,3vw,3rem)}
+.service-card:nth-child(even){padding-left:clamp(1.5rem,3vw,3rem)}
+}
+@media(max-width:767px){
+.services-grid{grid-template-columns:1fr}
+.service-card:nth-child(-n+2){border-top:1px solid var(--border)}
+.service-card:first-child{border-top:none}
+}
+
+/* quality */
+.quality-header{margin-bottom:clamp(3rem,5vw,5rem)}
+.quality-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(1.5rem,2.5vw,2.5rem)}
+.quality-step .step-num{font-family:var(--font-display);font-size:clamp(2.5rem,4vw,5rem);font-weight:900;line-height:.85;color:var(--accent-subtle);margin-bottom:.75rem}
+.quality-step h3{font-size:clamp(1.1rem,1.6vw,1.4rem);margin-bottom:.5rem;color:var(--ink)}
+.quality-step p{font-size:.85rem;line-height:1.65}
+@media(max-width:767px){
+.quality-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+/* metrics */
+.metrics-wrap{padding-block:clamp(3rem,6vw,6rem)}
+.metrics-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,4vw,4rem);align-items:center}
+.metrics-big{font-family:var(--font-display);font-size:clamp(6rem,14vw,14rem);font-weight:900;line-height:.8;letter-spacing:-0.03em;color:var(--accent);text-shadow:var(--shadow-text)}
+.metrics-big sup{font-size:.3em;vertical-align:super;letter-spacing:0;font-weight:600}
+.metrics-label{font-size:1rem;color:var(--ink-faint);margin-top:.75rem}
+.metrics-subs{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1rem,2vw,2rem)}
+.metric-item{padding:1.25rem;background:var(--accent-subtle)}
+.metric-item .val{font-family:var(--font-display);font-size:clamp(2rem,3vw,3.5rem);font-weight:700;line-height:1;color:var(--ink)}
+.metric-item .lbl{font-size:.85rem;color:var(--ink-faint);margin-top:.4rem}
+@media(max-width:767px){
+.metrics-grid{grid-template-columns:1fr;gap:2rem}
+}
+
+/* cta */
+.cta{background:var(--accent);color:#fff;text-align:center;padding-block:clamp(4rem,8vw,7rem);box-shadow:var(--shadow-md)}
+.cta h2{color:#fff;font-size:clamp(2rem,5vw,4rem);margin-bottom:1.25rem}
+.cta p{color:oklch(1 0 0 / .8);max-width:40ch;margin-inline:auto;margin-bottom:2rem;font-size:1.05rem}
+.cta-email{display:inline-block;font-family:var(--font-display);font-size:clamp(1.25rem,2.5vw,1.8rem);color:#fff;border-bottom:2px solid oklch(1 0 0 / .4);padding-bottom:.3rem;transition:border-color .2s}
+.cta-email:hover{color:#fff;border-color:#fff}
+.cta-info{margin-top:clamp(2rem,3vw,3rem);font-size:.85rem;color:oklch(1 0 0 / .6);display:flex;flex-wrap:wrap;gap:1rem 3rem;justify-content:center}
+
+/* footer */
+.site-footer{padding:2.5rem clamp(1.5rem,5vw,3rem);border-top:1px solid var(--border);font-size:.8rem;color:var(--ink-faint);display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;max-width:1280px;margin-inline:auto}
+.site-footer a{color:var(--ink-faint);font-size:.8rem}
+.site-footer a:hover{color:var(--ink)}
+
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:2px}
+
+@media(prefers-contrast:high){
+:root{--ink:oklch(0 0 0);--ink-dim:oklch(0 0 0 / .85);--ink-faint:oklch(0 0 0 / .6);--border:oklch(0 0 0 / .25);--accent:oklch(0.45 0.22 40)}
+}
+
+@media(prefers-reduced-motion:no-preference){
+.hero h1{animation:rise .8s cubic-bezier(.16,1,.3,1) both}
+.hero-tag{animation:rise .8s cubic-bezier(.16,1,.3,1) .1s both}
+.about-big-num{animation:rise .7s cubic-bezier(.16,1,.3,1) .15s both}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+}
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">跳过导航</a>
+
+<header class="site-nav">
+<a href="/" class="nav-brand" aria-label="端孚科技 首页">端孚科技</a>
+<nav aria-label="主导航">
+<button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="菜单">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+</button>
+<ul id="nav-menu" class="nav-links">
+<li><a href="#about">关于</a></li>
+<li><a href="#services">服务</a></li>
+<li><a href="#quality">质量</a></li>
+<li><a href="#cta" class="nav-cta">联系我们</a></li>
+</ul>
+</nav>
+</header>
+
+<main id="main">
+
+<!-- hero -->
+<section class="hero">
+<div class="wrap">
+<h1>以高质量数据服务<br><em>助推AI更好发展</em></h1>
+<p class="hero-tag">河南端孚科技有限公司，专注为人工智能企业与研发机构提供数据标注、数据采集与内容审核服务。100%自建团队，业务不转包。</p>
+<div class="hero-stat-row">
+<div><div class="hero-stat-num">100%</div><div class="hero-stat-label">自建全职团队</div></div>
+<div><div class="hero-stat-num">99%+</div><div class="hero-stat-label">数据标注准确率</div></div>
+<div><div class="hero-stat-num">4层</div><div class="hero-stat-label">质检体系保障</div></div>
+</div>
+</div>
+</section>
+
+<!-- about -->
+<section id="about">
+<div class="wrap">
+<div class="about-grid">
+<div>
+<div class="about-big-num" aria-hidden="true">100<sup>%</sup></div>
+<div class="about-big-label">自建全职团队，业务不转包</div>
+</div>
+<div>
+<ul class="about-text-list">
+<li>
+<h3>关于端孚科技</h3>
+<p>河南端孚科技有限公司是一家专注于人工智能数据服务的技术型企业，致力于为AI产业链上下游企业提供高质量、高精度的数据标注、数据采集及内容审核服务。公司总部位于河南，坚持100%自建团队的业务模式，拥有专业的数据处理人员和审核团队，从源头把控数据质量。</p>
+</li>
+<li>
+<h3>双轮驱动</h3>
+<p>以"管理"和"技术"双轮驱动，为每一位客户提供稳定、可靠的数据解决方案。与依赖外包模式的服务商不同，端孚科技通过自主团队管理与多层质检体系，确保数据标注的一致性与准确率，真正替客户解决数据难题，成人达己。</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+
+<!-- image -->
+<div class="img-strip" aria-hidden="true">
+<img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=2000&q=80" alt="" loading="lazy">
+</div>
+
+<!-- services -->
+<section id="services">
+<div class="wrap">
+<div class="services-intro">
+<h2>数据服务能力</h2>
+<p>覆盖AI数据需求全链路，一套团队、一个标准，全程不转手。</p>
+</div>
+<div class="services-grid">
+<div class="service-card">
+<div class="num">01</div>
+<h3>数据标注</h3>
+<p>为机器学习模型提供高质量结构化训练数据，覆盖图像、语音、文本、3D点云等多种数据类型。图像分类与检测框标注、语义分割、关键点标注；语音ASR转写、说话人分离、情感标注；文本NER命名实体识别、情感分类、关系抽取；3D点云标注支持自动驾驶场景与激光雷达数据。</p>
+</div>
+<div class="service-card">
+<div class="num">02</div>
+<h3>数据采集</h3>
+<p>根据客户AI模型需求，按场景定制化采集真实有效的训练数据。图片采集覆盖特定场景与物体拍摄；视频采集支持指定场景动作与行为录制；语音采集涵盖多语种、多方言、多场景录音；文本采集面向特定领域语料收集。从源头控制数据质量，标注与采集一体化交付。</p>
+</div>
+<div class="service-card">
+<div class="num">03</div>
+<h3>内容审核</h3>
+<p>基于人工审核团队，对平台内容进行合规性筛查与风险识别。图文审核覆盖违禁内容识别与敏感信息过滤；视频审核支持帧级审核与违规片段标记；直播审核提供实时监控与快速响应。支持按客户需求定制审核标准与规则。</p>
+</div>
+<div class="service-card">
+<div class="num">04</div>
+<h3>医学影像标注</h3>
+<p>专业医学影像数据标注服务，辅助AI医疗影像模型的训练与开发。CT与MRI影像病灶标注与分割、X光片异常区域标记、病理切片细胞级标注，配备具备医学背景的专业标注人员，确保医学数据的标注精度与临床可用性。</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- quality -->
+<section id="quality">
+<div class="wrap">
+<div class="quality-header">
+<h2>四层质检体系</h2>
+</div>
+<div class="quality-grid">
+<div class="quality-step">
+<div class="step-num" aria-hidden="true">01</div>
+<h3>自检</h3>
+<p>标注人员完成标注后对自身作业进行首次复核，第一时间修正明显偏差。</p>
+</div>
+<div class="quality-step">
+<div class="step-num" aria-hidden="true">02</div>
+<h3>互检</h3>
+<p>独立质检专员对标注结果进行交叉审核，按标准抽检比例逐条校验。</p>
+</div>
+<div class="quality-step">
+<div class="step-num" aria-hidden="true">03</div>
+<h3>抽检</h3>
+<p>项目经理按比例抽样检查，从全局视角把控整体质量，识别系统性偏差。</p>
+</div>
+<div class="quality-step">
+<div class="step-num" aria-hidden="true">04</div>
+<h3>验收</h3>
+<p>交付成果由客户最终确认，反馈意见纳入优化闭环，持续改进标注规范与作业流程。</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- metrics -->
+<section class="metrics-wrap">
+<div class="wrap">
+<div class="metrics-grid">
+<div>
+<div class="metrics-big">99<sup>%+</sup></div>
+<div class="metrics-label">数据标注准确率</div>
+</div>
+<div class="metrics-subs">
+<div class="metric-item">
+<div class="val">ISO</div>
+<div class="lbl">9001质量管理体系认证</div>
+</div>
+<div class="metric-item">
+<div class="val">3<span style="font-size:.5em;font-weight:600">大</span></div>
+<div class="lbl">核心业务板块</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- cta -->
+<section class="cta" id="cta">
+<div class="wrap">
+<h2>需要可靠的训练数据？</h2>
+<p>欢迎AI企业及研发机构联系咨询数据服务合作，我们将在收到需求后尽快与您沟通。</p>
+<span class="cta-email">1246435@154.com</span>
+<div class="cta-info">
+<span>河南省郑州市金水区</span>
+<span>河南省许昌市八一路88号许昌学院创新创业楼</span>
+</div>
+</div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+<p>&copy; 2023–2026 河南端孚科技有限公司</p>
+<div style="display:flex;gap:1.5rem">
+<a href="https://beian.miit.gov.cn/">豫ICP备2024049522号-1</a>
+</div>
+</footer>
+
+<script>
+(function(){
+var t=document.querySelector(".nav-toggle");
+var m=document.getElementById("nav-menu");
+if(!t||!m)return;
+t.addEventListener("click",function(){
+var o=m.classList.toggle("open");
+t.setAttribute("aria-expanded",o);
+});
+m.querySelectorAll("a").forEach(function(a){
+a.addEventListener("click",function(){m.classList.remove("open");t.setAttribute("aria-expanded","false");});
+});
+document.addEventListener("click",function(e){if(!t.contains(e.target)&&!m.contains(e.target)){m.classList.remove("open");t.setAttribute("aria-expanded","false");}});
+})();
+</script>
+</body>
+</html>

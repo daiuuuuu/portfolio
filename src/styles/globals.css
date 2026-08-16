@@ -1,0 +1,445 @@
+@import url('https://fonts.googleapis.com/css2?family=Geologica:wght@400;600;700;800;900&family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap');
+@import "tailwindcss";
+
+/*
+ * ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ * DESIGN SYSTEM — Radical Helvetica-Modernism + SYNTAX_OS Dark
+ * Swiss International Grid · Constructivist Logic · 1980s Digital
+ * ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ */
+
+@theme {
+  /* ── Colors: Light Surface System ─────────────────────────── */
+  --color-surface:                  #fcf9f8;
+  --color-surface-container:        #f0eded;
+  --color-surface-container-low:    #f6f3f2;
+  --color-surface-container-high:   #eae7e7;
+  --color-surface-container-highest:#e5e2e1;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-dim:              #dcd9d9;
+  --color-surface-bright:           #fcf9f8;
+  --color-surface-variant:          #e5e2e1;
+  --color-background:               #fcf9f8;
+
+  /* ── Colors: On-Surface ────────────────────────────────────── */
+  --color-on-surface:               #1c1b1b;
+  --color-on-surface-variant:       #44474a;
+  --color-on-background:            #1c1b1b;
+
+  /* ── Colors: Primary (neutral gray) ───────────────────────── */
+  --color-primary:                  #5d5e60;
+  --color-primary-container:        #f5f5f7;
+  --color-primary-fixed:            #e2e2e4;
+  --color-primary-fixed-dim:        #c6c6c8;
+  --color-on-primary:               #ffffff;
+  --color-on-primary-container:     #6e7072;
+  --color-on-primary-fixed:         #1a1c1d;
+  --color-on-primary-fixed-variant: #454749;
+  --color-inverse-primary:          #c6c6c8;
+
+  /* ── Colors: Secondary (violet — the only signal color) ────── */
+  --color-secondary:                #2E1065;
+  --color-secondary-container:      #e3dbfe;
+  --color-secondary-fixed:          #e6deff;
+  --color-secondary-fixed-dim:      #c9c2e4;
+  --color-on-secondary:             #ffffff;
+  --color-on-secondary-container:   #645f7c;
+  --color-on-secondary-fixed:       #1c1831;
+  --color-on-secondary-fixed-variant: #48435f;
+
+  /* ── Colors: Tertiary (warm neutral) ───────────────────────── */
+  --color-tertiary:                 #5f5e5e;
+  --color-tertiary-container:       #f8f5f4;
+  --color-tertiary-fixed:           #e4e2e1;
+  --color-tertiary-fixed-dim:       #c8c6c6;
+  --color-on-tertiary:              #ffffff;
+  --color-on-tertiary-container:    #717070;
+  --color-on-tertiary-fixed:        #1b1c1c;
+  --color-on-tertiary-fixed-variant:#474747;
+
+  /* ── Colors: Error ─────────────────────────────────────────── */
+  --color-error:                    #ba1a1a;
+  --color-error-container:          #ffdad6;
+  --color-on-error:                 #ffffff;
+  --color-on-error-container:       #93000a;
+
+  /* ── Colors: Outline & Inverse ─────────────────────────────── */
+  --color-outline:                  #75777a;
+  --color-outline-variant:          #c5c7c9;
+  --color-inverse-surface:          #313030;
+  --color-inverse-on-surface:       #f3f0ef;
+  --color-surface-tint:             #5d5e60;
+
+  /* ── Colors: Brand Accent (violet signal) ──────────────────── */
+  --color-brand-accent:             #2E1065;
+
+  /* ── Colors: SYNTAX_OS Dark Terminal ───────────────────────── */
+  --color-dark-surface:             #111318;
+  --color-dark-surface-container:   #1e2024;
+  --color-dark-surface-container-high: #282a2e;
+  --color-dark-on-surface:          #e2e2e8;
+  --color-dark-on-surface-variant:  #cac4d1;
+  --color-dark-primary:             #cbbeff;
+  --color-dark-outline-variant:     #48454f;
+
+  /* ── Border Radius — all 0px, Swiss design (no rounding) ───── */
+  --radius:     0px;
+  --radius-sm:  0px;
+  --radius-md:  0px;
+  --radius-lg:  0px;
+  --radius-xl:  0px;
+  --radius-2xl: 0px;
+  --radius-full: 9999px;
+
+  /* ── Spacing tokens ─────────────────────────────────────────── */
+  --spacing-stack-lg:     8rem;
+  --spacing-stack-md:     4rem;
+  --spacing-margin-outer: 1rem;
+  --spacing-gutter:       1.5rem;
+  --spacing-unit-base:    4px;
+
+  /* ── Font families — exact names copied from component library ─ */
+  /* Inter for Latin; explicit Chinese stack ensures consistent rendering
+     across Windows (微软雅黑) / macOS (苹方) / Linux (Noto Sans SC fallback).
+     No CJK web font loaded — system-native performance, identity-preserving.
+     Mono tokens (--font-mono / --font-mono-technical) are the exception:
+     they must be JetBrains Mono (the mono-technical identifier font), NOT Inter. */
+  --font-sans:  Inter, 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', system-ui, sans-serif;
+  --font-mono:  'JetBrains Mono', 'Courier New', monospace;
+  --font-display-hero: Inter, 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', system-ui, sans-serif;
+  --font-headline-lg: Inter, 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', system-ui, sans-serif;
+  --font-headline-lg-mobile: Inter, 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', system-ui, sans-serif;
+  --font-body-md: Inter, 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', system-ui, sans-serif;
+  --font-label-micro: Inter, 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', system-ui, sans-serif;
+  --font-mono-technical: 'JetBrains Mono', 'Courier New', monospace;
+}
+
+/* ── Base layer ─────────────────────────────────────────────────── */
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    /* Smooth wheel scrolling is handled by smoothWheel (per-frame instant
+       scrollTo). CSS scroll-behavior:smooth is intentionally NOT set here — it
+       makes EXTERNAL scrollTo calls (nav anchors, etc.) animate smoothly and
+       conflict with smoothWheel's instant per-frame scrollTo, leaving the page
+       stranded mid-way. Anchor targets still work (instant jump). */
+    /* Hide scrollbar — Swiss minimalism: no ornamental UI chrome */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  html::-webkit-scrollbar { display: none; }
+
+  body {
+    font-family: Inter, system-ui, sans-serif;
+    background-color: #fcf9f8;
+    color: #1c1b1b;
+    overflow-x: hidden;
+    cursor: crosshair;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  a, button, [role="button"], [class*="cursor-pointer"] {
+    /* Clickable elements get a hollow square cursor (line weight ~ the
+       crosshair). White halo keeps it visible on both light and dark grounds.
+       !important so it also wins over Tailwind's cursor-pointer and any
+       cursor-crosshair utility on interactive elements. */
+    cursor:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Crect x='6' y='6' width='12' height='12' fill='none' stroke='%23fff' stroke-width='3'/%3E%3Crect x='7' y='7' width='10' height='10' fill='none' stroke='%23000' stroke-width='2'/%3E%3C/svg%3E")
+        12 12,
+      crosshair !important;
+  }
+
+  /* Scanlines belong to glyphs only. Keep the old class name as an alias so every existing heading is corrected globally. */
+  .heading-scanlines {
+    color: transparent;
+    background-image:
+      linear-gradient(#1c1b1b, #1c1b1b),
+      repeating-linear-gradient(
+        to bottom,
+        rgba(28, 27, 27, 0.9) 0px,
+        rgba(28, 27, 27, 0.9) 2px,
+        rgba(28, 27, 27, 0.38) 2px,
+        rgba(28, 27, 27, 0.38) 4px
+      );
+    background-blend-mode: multiply;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+/* ── Typography scale ───────────────────────────────────────────── */
+/*
+ * Tailwind v4 CSS @theme doesn't support complex font-size objects
+ * (size + line-height + letter-spacing + font-weight in one token).
+ * These are defined as utility classes via @layer utilities so they
+ * work exactly like built-in Tailwind text-* classes.
+ */
+@layer utilities {
+  /* 120px · Swiss display title · extreme scale contrast */
+  .text-display-hero {
+    font-size: 120px;
+    line-height: 100px;
+    letter-spacing: -0.06em;
+    font-weight: 900;
+  }
+
+  /* 64px · Section headline */
+  .text-headline-lg {
+    font-size: 64px;
+    line-height: 60px;
+    letter-spacing: -0.02em;
+    font-weight: 600;
+  }
+
+  /* 40px · Mobile / sub-section headline */
+  .text-headline-lg-mobile {
+    font-size: 40px;
+    line-height: 44px;
+    letter-spacing: -0.02em;
+    font-weight: 600;
+  }
+
+  /* 14px · Body copy */
+  .text-body-md {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0em;
+    font-weight: 400;
+  }
+
+  /* 10px · Label / tag — always UPPERCASE */
+  .text-label-micro {
+    font-size: 10px;
+    line-height: 12px;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+  }
+
+  /* 12px · Mono system metadata */
+  .text-mono-technical {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: -0.01em;
+    font-weight: 400;
+  }
+
+  /* Swiss 12-column grid helper */
+  .grid-12 {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.5rem;
+  }
+
+  /* Edge-breaking text overflow */
+  .text-edge-break {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+  }
+
+  /* Cursor crosshair — system/terminal aesthetic */
+  .cursor-crosshair {
+    cursor: crosshair;
+  }
+
+  .project-index-title {
+    font-size: clamp(48px, 5.8vw, 92px);
+    line-height: 0.92;
+    letter-spacing: -0.04em;
+    font-weight: 900;
+    margin-bottom: 1rem;
+    text-wrap: balance;
+    overflow-wrap: anywhere;
+  }
+
+  .project-index-title-zh {
+    font-size: clamp(24px, 2.4vw, 40px);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-wrap: balance;
+  }
+
+  /* Text-only scanlines: the stripe texture is clipped to glyphs, not the background box. */
+  .text-scanlines {
+    color: transparent;
+    background-image:
+      linear-gradient(#1c1b1b, #1c1b1b),
+      repeating-linear-gradient(
+        to bottom,
+        rgba(28, 27, 27, 0.88) 0px,
+        rgba(28, 27, 27, 0.88) 2px,
+        rgba(28, 27, 27, 0.34) 2px,
+        rgba(28, 27, 27, 0.34) 4px
+      );
+    background-blend-mode: multiply;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .text-scanlines:hover {
+    background-image:
+      linear-gradient(#2E1065, #2E1065),
+      repeating-linear-gradient(
+        to bottom,
+        rgba(46, 16, 101, 0.9) 0px,
+        rgba(46, 16, 101, 0.9) 2px,
+        rgba(46, 16, 101, 0.36) 2px,
+        rgba(46, 16, 101, 0.36) 4px
+      );
+  }
+
+  /*
+   * Hover-only scanlines: resting state keeps the plain token color,
+   * hover swaps to the violet scanline signal — the ONLY spec-sanctioned
+   * way to turn text purple. Use .scanlines-hover on the element itself,
+   * or .group-scanlines-hover inside a .group container.
+   */
+  .scanlines-hover:hover,
+  .group:hover .group-scanlines-hover {
+    color: transparent;
+    background-image:
+      linear-gradient(#2E1065, #2E1065),
+      repeating-linear-gradient(
+        to bottom,
+        rgba(46, 16, 101, 0.9) 0px,
+        rgba(46, 16, 101, 0.9) 2px,
+        rgba(46, 16, 101, 0.36) 2px,
+        rgba(46, 16, 101, 0.36) 4px
+      );
+    background-blend-mode: multiply;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* ASCII divider line */
+  .ascii-divider::before {
+    content: "[ + ]────────────────────────────────────────────────────────────────────────────────";
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    opacity: 0.25;
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
+  }
+}
+
+/* ── Letterpress texture filter for hero titles ─────────── */
+@layer utilities {
+  .text-letterpress {
+    text-shadow:
+      2px 0 0 rgba(0,0,0,0.12),
+      -1.5px 0 0 rgba(0,0,0,0.08);
+    filter: url('#letterpress-rough');
+  }
+  .text-letterpress-sm {
+    text-shadow:
+      0.8px 0 0 rgba(0,0,0,0.08),
+      -0.6px 0 0 rgba(0,0,0,0.05);
+    filter: url('#letterpress-sm');
+  }
+}
+
+/* ── Reduced motion: instant, static fallback for every transition ── */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+@layer utilities {
+  .scrollbar-hide {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* ── Hero ticker hover interaction ──
+     Only the band under the cursor brightens (0.75 → 1); others stay as-is. */
+  .ticker-band {
+    opacity: 0.75;
+    transition: opacity 0.3s ease;
+  }
+  .ticker-band:hover {
+    opacity: 1;
+  }
+}
+
+/* ── Auto-drift: pure CSS animation — native pause/resume, no snap ──
+   Placed OUTSIDE @layer: @keyframes registered at top level are guaranteed
+   to be applied regardless of cascade-layer handling. The drift wrapper is as
+   wide as the double-span track, so -50% == halfWidth and the loop is seamless. */
+.marquee-drift {
+  animation: marquee-drift-left 600s linear infinite;
+  will-change: transform;
+}
+/* Leftward drift — the seamless loop (0 and -50% look identical on the double-span track). */
+@keyframes marquee-drift-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+/* Rightward drift — same seamless loop, opposite direction. */
+@keyframes marquee-drift-right {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+.ticker-band:hover .marquee-drift {
+  animation-play-state: paused;
+}
+
+/* When the CustomCursor is active it hides the native cursor everywhere (its
+   crosshair↔square morph replaces it). Unlayered so it beats the base-layer
+   a/button square-cursor fallback. */
+body.cursor-custom,
+body.cursor-custom * {
+  cursor: none !important;
+}
+
+
+/* Curtain transition sheet — faint CRT scanlines over the brand purple, echoing
+   the site's terminal/scanline identity. Very low opacity so the sheet stays a
+   calm color block, not a pattern. */
+.curtain-texture {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.04) 0px,
+    rgba(255, 255, 255, 0.04) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+}
+
+/* Hide the curtain overlay whenever no transition is running — a fixed
+   full-screen layer sitting above the nav can interfere with compositing
+   (e.g. the nav's 1px bottom border, or its background rendering as
+   transparent) even while transparent. `display: none` fully removes it from
+   the compositor tree. Only visible during `curtain-active`. */
+body:not(.curtain-active) [data-curtain-overlay] {
+  display: none;
+}
+
+/* Project pages: the nav must always be solid surface + outline border. The
+   home hero-reveal animates the nav's colors on the home page (and may leave an
+   inline transparent state after a SPA route change in some browsers), so the
+   class uses !important to beat any inline style. */
+.nav-project-solid {
+  background-color: var(--color-surface) !important;
+  border-bottom-color: var(--color-outline) !important;
+}

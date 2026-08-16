@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="河南端孚科技有限公司 — 人工智能数据服务商，数据标注、数据采集、内容审核、医学影像标注。100%自建团队，业务不转包。">
+<title>端孚科技 — AI数据服务商</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%231a1a1a'/%3E%3Cpolygon points='16,5 26,16 16,27 6,16' fill='none' stroke='%23789db8' stroke-width='2.5'/%3E%3Ccircle cx='16' cy='16' r='4' fill='%235c7d99'/%3E%3C/svg%3E">
+<!-- Google Fonts 在大陆不可用，改用系统字体。若需 Noto Serif SC，可自行托管或使用国内 CDN -->
+<!-- <link rel="preconnect" href="https://fonts.googleapis.com"> -->
+<!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
+<!-- <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&display=swap" rel="stylesheet"> -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4/fonts/remixicon.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  /* 降级颜色（浏览器不支持 oklch 时使用） */
+  --bg:#1a1a1a;
+  --bg-deep:#0d0d0d;
+  --surface:#2a2a2a;
+  --surface-raised:#383838;
+  --ink:#f0f0f0;
+  --ink-dim:rgba(240,240,240,.72);
+  --ink-faint:rgba(240,240,240,.55);
+  --accent:#5c8db0;
+  --accent-glow:rgba(92,141,176,.12);
+  --accent-light:#7ba5c2;
+  --border:rgba(240,240,240,.1);
+  --border-strong:rgba(240,240,240,.16);
+  --g-hero:radial-gradient(ellipse 80% 60% at 30% 20%,rgba(92,141,176,.12),transparent 60%),radial-gradient(ellipse 50% 40% at 75% 65%,rgba(92,141,176,.06),transparent 55%);
+  --font-sans:"PingFang SC","Microsoft YaHei",-apple-system,BlinkMacSystemFont,sans-serif;
+  --radius-sm:6px;
+  --radius:10px;
+  --radius-lg:16px;
+}
+/* 支持 oklch 的浏览器使用更精准的颜色 */
+@supports(color:oklch(0 0 0)){
+  :root{
+    --bg:oklch(0.15 0 0);
+    --bg-deep:oklch(0.11 0 0);
+    --surface:oklch(0.24 0 0);
+    --surface-raised:oklch(0.30 0 0);
+    --ink:oklch(0.93 0 0);
+    --ink-dim:oklch(0.93 0 0 / .72);
+    --ink-faint:oklch(0.93 0 0 / .55);
+    --accent:oklch(0.55 0.08 255);
+    --accent-glow:oklch(0.55 0.08 255 / .12);
+    --accent-light:oklch(0.65 0.06 250);
+    --border:oklch(0.93 0 0 / .1);
+    --border-strong:oklch(0.93 0 0 / .16);
+    --g-hero:radial-gradient(ellipse 80% 60% at 30% 20%,oklch(0.55 0.08 255 / .12),transparent 60%),radial-gradient(ellipse 50% 40% at 75% 65%,oklch(0.55 0.08 255 / .06),transparent 55%);
+  }
+}
+
+html{scroll-behavior:smooth;font-size:clamp(16px,1.4vw,18px);background:var(--bg);color:var(--ink)}
+body{font-family:var(--font-sans);line-height:1.6;-webkit-font-smoothing:antialiased;background:var(--bg)}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+.skip-link{position:absolute;top:-100%;left:2rem;z-index:100;padding:.5rem 1.25rem;background:var(--accent);color:#fff;font-weight:700;font-size:.85rem;border-radius:0 0 var(--radius-sm) var(--radius-sm)}
+.skip-link:focus{top:0}
+
+h1,h2,h3{font-family:var(--font-sans);font-weight:800;text-wrap:balance;letter-spacing:-0.02em}
+h1{font-size:clamp(2.8rem,7vw,5.5rem);line-height:1.02}
+h1 mark{background:none;color:var(--accent)}
+h2{font-size:clamp(2rem,4.5vw,3.5rem);line-height:1.05}
+h3{font-size:clamp(1.2rem,2vw,1.6rem);line-height:1.15}
+p{text-wrap:pretty;color:var(--ink-dim);line-height:1.7}
+a{color:var(--ink);text-decoration:none;transition:color .2s}
+a:hover{color:var(--accent)}
+::selection{background:var(--accent);color:#fff}
+
+.container{max-width:1200px;margin-inline:auto;padding-inline:clamp(1.5rem,5vw,3rem)}
+
+section{padding-block:clamp(4rem,9vw,7rem)}
+
+/* nav */
+.nav{display:flex;align-items:center;justify-content:space-between;padding:1rem clamp(1.5rem,5vw,3rem);position:sticky;top:0;z-index:50;background:rgba(10,10,10,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+@supports(color:oklch(0 0 0)){.nav{background:oklch(0.09 0 0 / .95)}}
+.nav-brand{font-size:1.1rem;font-weight:800;letter-spacing:.03em;color:var(--ink)}
+.nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
+.nav-links a{color:var(--ink-dim);font-size:.82rem;font-weight:600;letter-spacing:.04em}
+.nav-links a:hover{color:var(--accent)}
+.nav-cta{padding:.45rem 1.1rem;background:var(--accent);color:#fff!important;font-size:.78rem;font-weight:700;border-radius:var(--radius-sm);transition:opacity .2s}
+.nav-cta:hover{opacity:.85;color:#fff!important}
+.nav-toggle{display:none;background:none;border:none;color:var(--ink);cursor:pointer}
+@media(max-width:767px){
+.nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--surface);flex-direction:column;padding:1.5rem;gap:1rem;border-bottom:1px solid var(--border)}
+.nav-links.open{display:flex}
+.nav-toggle{display:block}
+}
+
+/* hero */
+.hero{min-height:90vh;display:flex;align-items:center;position:relative;overflow:hidden;background:url(https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=2000&q=70) center/cover no-repeat}
+.hero::before{content:"";position:absolute;inset:0;z-index:0;background:linear-gradient(to bottom,rgba(0,0,0,.55) 0%,rgba(0,0,0,.25) 60%,var(--bg) 100%)}
+.hero::after{content:"";position:absolute;inset:0;z-index:0;background:var(--g-hero)}
+.hero .container{position:relative;z-index:1}
+.hero h1{max-width:14em;margin-bottom:1.5rem}
+.hero h1 mark{background:none;color:var(--accent)}
+.hero-tag{font-size:clamp(1rem,1.3vw,1.15rem);color:var(--ink-dim);max-width:42ch;line-height:1.7;margin-bottom:clamp(2.5rem,5vw,4rem)}
+.hero-stats{display:flex;gap:clamp(2rem,4vw,4rem)}
+.hero-stat{position:relative;padding-left:1rem}
+.hero-stat::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--accent);border-radius:1px}
+.hero-stat .n{font-size:clamp(2rem,4vw,3rem);font-weight:800;line-height:1;color:var(--ink);letter-spacing:-0.02em}
+.hero-stat .l{font-size:.8rem;color:var(--ink-faint);margin-top:.35rem;letter-spacing:.04em}
+@media(max-width:767px){
+.hero{min-height:70vh}
+.hero-stats{flex-wrap:wrap;gap:1.5rem}
+}
+
+/* image banner */
+.banner{position:relative;height:clamp(260px,40vh,480px);overflow:hidden}
+.banner img{width:100%;height:100%;object-fit:cover}
+.banner-overlay{position:absolute;inset:0;background:linear-gradient(to top,var(--bg-deep) 0%,transparent 25%,transparent 75%,var(--bg-deep) 100%)}
+
+/* about */
+.about-grid{display:flex;flex-direction:column;gap:clamp(2rem,4vw,3rem)}
+.about-stat-block{text-align:left}
+.about-big{font-size:clamp(8rem,18vw,20rem);font-weight:900;line-height:.75;letter-spacing:-0.05em;color:var(--accent);opacity:.25}
+.about-note{font-size:.9rem;color:var(--ink-faint);margin-top:.5rem}
+.about-text{max-width:56ch}
+.about-text h3{margin-bottom:.5rem}
+.about-text p{font-size:.92rem}
+@media(max-width:767px){
+.about-grid{gap:2rem}
+.about-big{font-size:clamp(5rem,24vw,9rem)}
+.about-text{max-width:none}
+}
+
+/* services */
+.svc-header{max-width:44ch;margin-bottom:clamp(2.5rem,5vw,4.5rem)}
+.svc-header .kicker{font-size:.75rem;font-weight:700;letter-spacing:.1em;color:var(--accent);text-transform:uppercase;margin-bottom:.75rem}
+.svc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(1rem,2vw,1.5rem)}
+.svc-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:clamp(1.5rem,2.5vw,2.5rem);transition:border-color .25s,background .25s}
+.svc-card:hover{border-color:var(--accent);background:var(--surface-raised)}
+.svc-card .tag{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:.1em;color:var(--accent);margin-bottom:1rem;text-transform:uppercase}
+.svc-card h3{font-size:clamp(1.2rem,2vw,1.5rem);margin-bottom:.5rem}
+.svc-card p{font-size:.85rem;line-height:1.65}
+@media(max-width:767px){
+.svc-grid{grid-template-columns:1fr}
+}
+
+/* quality */
+.qual-header{max-width:40ch;margin-bottom:clamp(2.5rem,5vw,4rem)}
+.qual-header .kicker{font-size:.75rem;font-weight:700;letter-spacing:.1em;color:var(--accent);text-transform:uppercase;margin-bottom:.75rem}
+.qual-track{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(.75rem,1.5vw,1.25rem)}
+.qual-step{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:clamp(1.5rem,2vw,2rem)}
+.qual-step .idx{font-size:3.5rem;font-weight:900;line-height:1;color:var(--accent);opacity:.25;margin-bottom:.5rem;letter-spacing:-0.03em}
+.qual-step h3{font-size:1.05rem;margin-bottom:.35rem}
+.qual-step p{font-size:.8rem;line-height:1.6}
+@media(max-width:767px){
+.qual-track{grid-template-columns:repeat(2,1fr)}
+}
+
+/* stats bar */
+.bar{background:var(--surface-raised);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.bar .container{display:flex;gap:clamp(2rem,4vw,5rem);padding-block:clamp(2rem,4vw,3.5rem)}
+.bar-item{flex:1}
+.bar-item .v{font-size:clamp(2.2rem,4vw,3.5rem);font-weight:900;line-height:1;color:var(--ink);letter-spacing:-0.02em}
+.bar-item .d{font-size:.8rem;color:var(--ink-faint);margin-top:.3rem;letter-spacing:.03em}
+@media(max-width:767px){
+.bar .container{flex-wrap:wrap;gap:1.5rem}
+.bar-item{flex:0 0 calc(50% - .75rem)}
+}
+
+/* cta */
+.cta{text-align:center;position:relative;overflow:hidden}
+.cta::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 50% 50% at 50% 50%,rgba(92,141,176,.07),transparent 60%)}
+@supports(color:oklch(0 0 0)){.cta::before{background:radial-gradient(ellipse 50% 50% at 50% 50%,oklch(0.55 0.08 255 / .07),transparent 60%)}}
+.cta .container{position:relative;z-index:1}
+.cta h2{margin-bottom:1rem}
+.cta p{max-width:36ch;margin-inline:auto;margin-bottom:2rem;font-size:1rem}
+.cta-box{display:inline-block;background:var(--surface);border:1px solid var(--border-strong);border-radius:var(--radius-lg);padding:1rem 2.5rem}
+.cta-box .addr{font-size:1.3rem;font-weight:700;color:var(--accent);letter-spacing:.02em}
+.cta-box .meta{font-size:.8rem;color:var(--ink-faint);margin-top:.5rem;display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap}
+
+/* trust badges */
+.trust-strip{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding-block:clamp(1.5rem,3vw,2.5rem)}
+.trust-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:clamp(1rem,2.5vw,2rem)}
+.trust-badge{display:inline-flex;align-items:center;gap:.5rem;padding:.55rem 1.25rem;background:var(--surface-raised);border:1px solid var(--border);color:var(--ink);font-size:.8rem;font-weight:600;letter-spacing:.03em}
+.trust-badge i{color:var(--accent);font-size:.9rem}
+.trust-note{text-align:center;margin-top:1rem;font-size:.78rem;color:var(--ink-faint)}
+
+/* solutions */
+.sol-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(.75rem,1.5vw,1.25rem)}
+.sol-card{background:var(--surface);border:1px solid var(--border);padding:clamp(1.25rem,2vw,1.75rem);transition:border-color .25s,background .25s}
+.sol-card:hover{border-color:var(--accent);background:var(--surface-raised)}
+.sol-card .sol-head{display:flex;align-items:center;gap:.75rem;margin-bottom:.75rem}
+.sol-card .sol-icon{width:40px;height:40px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:1.15rem;color:#fff;flex-shrink:0}
+.sol-card h3{font-size:1rem;margin-bottom:0}
+.sol-flow{display:flex;flex-direction:column;gap:.4rem}
+.sol-step{font-size:.78rem;color:var(--ink-dim);padding:.45rem .7rem;background:var(--bg);line-height:1.55}
+.sol-step span{color:var(--accent);font-weight:700}
+
+/* news */
+.news-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(.75rem,1.5vw,1.25rem)}
+.news-card{background:var(--surface);border:1px solid var(--border);padding:clamp(1.25rem,2vw,1.75rem);cursor:pointer;transition:border-color .25s,background .25s}
+.news-card:hover{border-color:var(--accent);background:var(--surface-raised)}
+.news-card .dt{font-size:.72rem;color:var(--ink-faint);margin-bottom:.6rem;letter-spacing:.06em}
+.news-card h3{font-size:1rem;margin-bottom:.4rem;transition:color .2s}
+.news-card:hover h3{color:var(--accent)}
+.news-card p{font-size:.82rem;line-height:1.6}
+
+/* contact */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,4vw,4rem)}
+.form-group{display:flex;flex-direction:column;gap:.35rem;margin-bottom:1rem}
+.form-group label{font-size:.82rem;font-weight:600;color:var(--ink-dim);letter-spacing:.02em}
+.form-group input,.form-group textarea,.form-group select{width:100%;padding:.65rem .9rem;background:var(--bg);border:1px solid var(--border);color:var(--ink);font-size:.88rem;font-family:inherit;transition:border-color .2s;resize:vertical}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{outline:none;border-color:var(--accent)}
+.form-group textarea{min-height:110px}
+.contact-info{display:flex;flex-direction:column;gap:1.25rem}
+.ci-item{display:flex;align-items:flex-start;gap:.75rem}
+.ci-item i{color:var(--accent);font-size:1.15rem;margin-top:2px;flex-shrink:0}
+.ci-item h4{font-size:.85rem;font-weight:700;margin-bottom:.15rem}
+.ci-item p{font-size:.82rem;color:var(--ink-faint);line-height:1.5}
+@media(max-width:767px){
+.contact-grid{grid-template-columns:1fr}
+}
+
+/* faq */
+.faq-list{display:flex;flex-direction:column;gap:1px;max-width:760px;margin:clamp(3rem,6vh,4.5rem) auto 0}
+.faq-item{border-bottom:1px solid var(--border)}
+.faq-q{width:100%;display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem;background:var(--surface);text-align:left;font-weight:600;font-size:.9rem;color:var(--ink);cursor:pointer;border:none;font-family:inherit;transition:background .2s}
+.faq-q:hover{background:var(--surface-raised)}
+.faq-q i{color:var(--ink-faint);font-size:1.1rem;transition:transform .3s}
+.faq-q[aria-expanded="true"] i{transform:rotate(180deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s,padding .35s}
+.faq-a.open{max-height:300px;padding:0 1.25rem 1rem}
+.faq-a p{font-size:.82rem;color:var(--ink-dim);line-height:1.7}
+
+/* footer enhanced */
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:clamp(1.5rem,3vw,2.5rem);margin-bottom:clamp(1.5rem,3vw,2.5rem)}
+.footer-col h4{font-size:.8rem;font-weight:700;margin-bottom:.75rem;color:var(--ink-dim);letter-spacing:.04em}
+.footer-col a{display:block;font-size:.78rem;color:var(--ink-faint);padding:3px 0;transition:color .2s}
+.footer-col a:hover{color:var(--accent)}
+.footer-bot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.75rem;padding-top:1.25rem;border-top:1px solid var(--border);font-size:.75rem;color:var(--ink-faint)}
+@media(max-width:767px){
+.footer-grid{grid-template-columns:1fr 1fr}
+}
+
+
+/* footer */
+.footer{padding:2rem clamp(1.5rem,5vw,3rem);border-top:1px solid var(--border);font-size:.78rem;color:var(--ink-faint);display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;max-width:1200px;margin-inline:auto}
+.footer a{color:var(--ink-faint);font-size:.78rem}
+.footer a:hover{color:var(--accent)}
+
+:focus-visible{outline:2px solid var(--accent-light);outline-offset:2px;border-radius:2px}
+
+@media(prefers-contrast:high){
+:root{--bg:#050505;--bg-deep:#000;--surface:#1a1a1a;--surface-raised:#2a2a2a;--ink:#fff;--ink-dim:rgba(255,255,255,.9);--ink-faint:rgba(255,255,255,.7);--border:rgba(255,255,255,.3);--border-strong:rgba(255,255,255,.45);--accent:#4d96c0;--accent-light:#6db5d8}
+@supports(color:oklch(0 0 0)){:root{--bg:oklch(0.08 0 0);--bg-deep:oklch(0.04 0 0);--surface:oklch(0.16 0 0);--surface-raised:oklch(0.22 0 0);--ink:oklch(1 0 0);--ink-dim:oklch(1 0 0 / .9);--ink-faint:oklch(1 0 0 / .7);--border:oklch(1 0 0 / .3);--border-strong:oklch(1 0 0 / .45);--accent:oklch(0.62 0.1 250);--accent-light:oklch(0.7 0.08 245)}}
+}
+
+@media(prefers-reduced-motion:no-preference){
+.hero h1{animation:in .7s cubic-bezier(.16,1,.3,1) both}
+.hero-tag{animation:in .7s cubic-bezier(.16,1,.3,1) .08s both}
+@keyframes in{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+}
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">跳过导航</a>
+
+<header class="nav">
+<a href="/" class="nav-brand" aria-label="端孚科技">端孚科技</a>
+<nav aria-label="主导航">
+<button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="菜单">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+</button>
+<ul id="nav-menu" class="nav-links">
+<li><a href="#about">关于</a></li>
+<li><a href="#services">服务</a></li>
+<li><a href="#solutions">方案</a></li>
+<li><a href="#quality">质量</a></li>
+<li><a href="#news">新闻</a></li>
+<li><a href="#contact" class="nav-cta">联系</a></li>
+</ul>
+</nav>
+</header>
+
+<main id="main">
+
+<!-- hero -->
+<section class="hero">
+<div class="container">
+<h1>以高质量数据服务<br><mark>助推AI更好发展</mark></h1>
+<p class="hero-tag">河南端孚科技有限公司，专注为人工智能企业与研发机构提供数据标注、数据采集与内容审核服务。100%自建团队，业务不转包。</p>
+<div class="hero-stats">
+<div class="hero-stat"><div class="n">100%</div><div class="l">自建全职团队</div></div>
+<div class="hero-stat"><div class="n">99%+</div><div class="l">数据标注准确率</div></div>
+<div class="hero-stat"><div class="n">4 层</div><div class="l">质检体系保障</div></div>
+</div>
+</div>
+</section>
+
+<!-- trust badges -->
+<div class="trust-strip">
+<div class="container">
+<div class="trust-row">
+<div class="trust-badge"><i class="ri-team-fill"></i> 100%自建团队</div>
+<div class="trust-badge"><i class="ri-shield-check-fill"></i> 业务不转包</div>
+<div class="trust-badge"><i class="ri-stack-fill"></i> 多层质检体系</div>
+<div class="trust-badge"><i class="ri-timer-fill"></i> 稳定准时交付</div>
+</div>
+<p class="trust-note">管理 + 技术双轮驱动，以质量和效率为核心竞争力</p>
+</div>
+</div>
+
+<!-- banner -->
+<div class="banner" aria-hidden="true">
+<img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=2000&q=80" alt="" loading="lazy">
+<div class="banner-overlay"></div>
+</div>
+
+<!-- about -->
+<section id="about">
+<div class="container">
+<div class="about-grid">
+<div class="about-text">
+<h3>关于端孚科技</h3>
+<p>河南端孚科技有限公司是一家专注于人工智能数据服务的技术型企业，致力于为AI产业链上下游企业提供高质量、高精度的数据标注、数据采集及内容审核服务。公司总部位于河南，坚持100%自建团队的业务模式，拥有专业的数据处理人员和审核团队。</p>
+</div>
+<div class="about-stat-block">
+<div class="about-big" aria-hidden="true">100%</div>
+<div class="about-note">自建全职团队，业务不转包</div>
+</div>
+<div class="about-text">
+<h3>双轮驱动</h3>
+<p>以"管理"和"技术"双轮驱动，为每一位客户提供稳定、可靠的数据解决方案。与依赖外包模式的服务商不同，端孚科技通过自主团队管理与多层质检体系，确保数据标注的一致性与准确率。</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- services -->
+<section id="services">
+<div class="container">
+<div class="svc-header">
+<div class="kicker">服务能力</div>
+<h2>覆盖AI数据需求全链路</h2>
+<p>一套团队，一个标准，全程不转手。</p>
+</div>
+<div class="svc-grid">
+<div class="svc-card">
+<div class="tag">数据标注</div>
+<h3>多类型训练数据标注</h3>
+<p>覆盖图像分类与检测框、语义分割、关键点标注、语音ASR转写、说话人分离、文本NER命名实体识别、情感分类、关系抽取，以及3D点云标注支持自动驾驶场景。</p>
+</div>
+<div class="svc-card">
+<div class="tag">数据采集</div>
+<h3>场景化定制化采集</h3>
+<p>按客户AI模型需求定制采集方案，覆盖图片、视频、语音、文本四大模态。多语种多方言多场景录音，特定领域语料收集，标注与采集一体化交付。</p>
+</div>
+<div class="svc-card">
+<div class="tag">内容审核</div>
+<h3>人工合规筛查</h3>
+<p>基于专业人工审核团队，对平台内容进行合规筛查与风险识别。图文违禁识别与敏感过滤，视频帧级审核与违规标记，直播实时监控与快速响应。</p>
+</div>
+<div class="svc-card">
+<div class="tag">医学影像</div>
+<h3>专业医学数据标注</h3>
+<p>CT与MRI病灶标注分割、X光片异常区域标记、病理切片细胞级标注。配备具备医学背景的专业标注人员，确保医学数据的标注精度与临床可用性。</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- stats bar -->
+<div class="bar">
+<div class="container">
+<div class="bar-item"><div class="v">ISO</div><div class="d">9001质量管理体系认证</div></div>
+<div class="bar-item"><div class="v">3 大</div><div class="d">核心业务板块</div></div>
+<div class="bar-item"><div class="v">99%+</div><div class="d">数据标注准确率</div></div>
+<div class="bar-item"><div class="v">4 层</div><div class="d">质检体系全程保障</div></div>
+</div>
+</div>
+
+<!-- quality -->
+<section id="quality">
+<div class="container">
+<div class="qual-header">
+<div class="kicker">品质保障</div>
+<h2>四层质检体系</h2>
+</div>
+<div class="qual-track">
+<div class="qual-step">
+<div class="idx">01</div>
+<h3>自检</h3>
+<p>标注人员完成标注后对自身作业进行首次复核，第一时间修正明显偏差。</p>
+</div>
+<div class="qual-step">
+<div class="idx">02</div>
+<h3>互检</h3>
+<p>独立质检专员对标注结果进行交叉审核，按标准抽检比例逐条校验。</p>
+</div>
+<div class="qual-step">
+<div class="idx">03</div>
+<h3>抽检</h3>
+<p>项目经理按比例抽样检查，从全局视角把控整体质量，识别系统性偏差。</p>
+</div>
+<div class="qual-step">
+<div class="idx">04</div>
+<h3>验收</h3>
+<p>交付成果由客户最终确认，反馈意见纳入优化闭环，持续改进标注规范与作业流程。</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- solutions -->
+<section id="solutions">
+<div class="container">
+<div class="svc-header">
+<div class="kicker">解决方案</div>
+<h2>行业解决方案</h2>
+<p>针对不同AI应用场景，提供定制化的数据服务方案</p>
+</div>
+<div class="sol-grid">
+<div class="sol-card">
+<div class="sol-head"><div class="sol-icon"><i class="ri-car-fill"></i></div><h3>自动驾驶</h3></div>
+<div class="sol-flow">
+<div class="sol-step"><span>数据采集：</span>多场景道路图像与激光雷达点云采集</div>
+<div class="sol-step"><span>数据标注：</span>2D/3D目标检测、车道线标注、可行驶区域分割</div>
+<div class="sol-step"><span>质量保障：</span>逐帧审核、场景一致性校验、多轮交叉验证</div>
+</div>
+</div>
+<div class="sol-card">
+<div class="sol-head"><div class="sol-icon"><i class="ri-message-3-fill"></i></div><h3>智能语音</h3></div>
+<div class="sol-flow">
+<div class="sol-step"><span>数据采集：</span>多语种、多场景语音样本采集</div>
+<div class="sol-step"><span>数据标注：</span>语音转写、说话人标注、情感与意图标注</div>
+<div class="sol-step"><span>质量保障：</span>多人交叉校对、发音准确度验证</div>
+</div>
+</div>
+<div class="sol-card">
+<div class="sol-head"><div class="sol-icon"><i class="ri-eye-2-fill"></i></div><h3>计算机视觉</h3></div>
+<div class="sol-flow">
+<div class="sol-step"><span>数据标注：</span>图像分类、目标检测、语义/实例分割</div>
+<div class="sol-step"><span>数据采集：</span>多角度、多光照条件真实场景采集</div>
+<div class="sol-step"><span>质量保障：</span>像素级精度校验、标注一致性审核</div>
+</div>
+</div>
+<div class="sol-card">
+<div class="sol-head"><div class="sol-icon"><i class="ri-brain-fill"></i></div><h3>自然语言处理</h3></div>
+<div class="sol-flow">
+<div class="sol-step"><span>数据标注：</span>命名实体识别、关系抽取、文本分类</div>
+<div class="sol-step"><span>数据采集：</span>特定领域语料、多语种平行语料</div>
+<div class="sol-step"><span>质量保障：</span>语言专家审核、上下文一致性检验</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- news -->
+<section id="news">
+<div class="container">
+<div class="svc-header">
+<div class="kicker">新闻中心</div>
+<h2>最新动态</h2>
+</div>
+<div class="news-grid">
+<div class="news-card"><div class="dt">2025-03-15</div><h3>端孚科技乔迁新址，团队规模与产能同步升级</h3><p>为满足日益增长的AI数据服务需求，端孚科技正式迁入新办公场地，进一步扩充标注与审核团队规模。</p></div>
+<div class="news-card"><div class="dt">2025-01-08</div><h3>端孚科技通过ISO 9001质量管理体系认证</h3><p>公司正式通过ISO 9001质量管理体系认证，质量管理能力获得国际标准化组织认可。</p></div>
+<div class="news-card"><div class="dt">2024-10-20</div><h3>端孚科技完成新一轮数据标注员技能培训考核</h3><p>公司举办全员标注技能培训与考核，进一步提升团队专业素质与标注准确率。</p></div>
+</div>
+</div>
+</section>
+
+<!-- banner 2 -->
+<div class="banner" aria-hidden="true" style="height:clamp(200px,30vh,360px)">
+<img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=2000&q=80" alt="" loading="lazy">
+<div class="banner-overlay"></div>
+</div>
+
+<!-- contact -->
+<section id="contact">
+<div class="container">
+<div class="svc-header">
+<div class="kicker">联系我们</div>
+<h2>需要可靠的训练数据？</h2>
+<p>欢迎AI企业及研发机构联系咨询数据服务合作</p>
+</div>
+<div class="contact-grid">
+<form class="contact-form" id="contact-form" novalidate>
+<div class="form-group">
+<label for="contact-name">姓名</label>
+<input type="text" id="contact-name" name="name" placeholder="请输入姓名" required autocomplete="name">
+</div>
+<div class="form-group">
+<label for="contact-email">邮箱</label>
+<input type="email" id="contact-email" name="email" placeholder="请输入邮箱地址" required autocomplete="email">
+</div>
+<div class="form-group">
+<label for="contact-company">公司名称</label>
+<input type="text" id="contact-company" name="company" placeholder="请输入公司名称" required autocomplete="organization">
+</div>
+<div class="form-group">
+<label for="contact-service">需求类型</label>
+<select id="contact-service" name="service">
+<option value="">请选择需求类型</option>
+<option value="annotation">数据标注</option>
+<option value="collection">数据采集</option>
+<option value="audit">内容审核</option>
+<option value="medical">医学影像标注</option>
+<option value="other">其他合作咨询</option>
+</select>
+</div>
+<div class="form-group">
+<label for="contact-message">需求描述</label>
+<textarea id="contact-message" name="message" placeholder="请简要描述您的数据需求（数据类型、数量、标注要求等）" required></textarea>
+</div>
+<button type="submit" class="nav-cta" style="padding:.7rem 2rem;font-size:.88rem">提交咨询</button>
+</form>
+<div class="contact-info">
+<div class="ci-item"><i class="ri-building-2-fill"></i><div><h4>公司名称</h4><p>河南端孚科技有限公司</p></div></div>
+<div class="ci-item"><i class="ri-map-pin-2-fill"></i><div><h4>公司地址</h4><p>河南省郑州市金水区<br>河南省许昌市八一路88号许昌学院创新创业楼</p></div></div>
+<div class="ci-item"><i class="ri-mail-fill"></i><div><h4>电子邮箱</h4><p>1246435@154.com</p></div></div>
+<div class="ci-item"><i class="ri-phone-fill"></i><div><h4>联系电话</h4><p>0371-XXXXXXXX</p></div></div>
+</div>
+</div>
+
+<!-- FAQ -->
+<div class="faq-list" aria-label="常见问题">
+<div class="faq-item">
+<button class="faq-q" aria-expanded="false">数据标注的准确率如何保障？<i class="ri-arrow-down-s-line"></i></button>
+<div class="faq-a"><p>通过四层质检体系保障：标注人员自检 + 质检专员交叉审核 + 项目经理抽检 + 客户验收反馈。每一层都有明确的质量标准和校验流程，确保标注结果的一致性和准确性。</p></div>
+</div>
+<div class="faq-item">
+<button class="faq-q" aria-expanded="false">数据安全如何保障？<i class="ri-arrow-down-s-line"></i></button>
+<div class="faq-a"><p>我们与每位客户签署保密协议，建立数据隔离机制，采用严格的权限管理和访问控制。100%自建团队模式也避免了外包转包带来的数据泄露风险。</p></div>
+</div>
+<div class="faq-item">
+<button class="faq-q" aria-expanded="false">是否支持定制化标注需求？<i class="ri-arrow-down-s-line"></i></button>
+<div class="faq-a"><p>支持。我们会根据客户的AI模型和应用场景，定制标注规范、质检标准及交付格式。无论是特殊的数据类型还是复杂的标注要求，均可按需定制方案。</p></div>
+</div>
+</div>
+</div>
+</section>
+
+</main>
+
+<footer class="footer">
+<div class="container">
+<div class="footer-grid">
+<div class="footer-brand">
+<div style="font-size:1.1rem;font-weight:800;letter-spacing:.03em;margin-bottom:.5rem">端孚科技</div>
+<p style="font-size:.78rem;color:var(--ink-faint);line-height:1.7">河南端孚科技有限公司 · AI数据服务商<br>以高质量数据服务助推AI更好发展<br>100%自建团队 · 业务不转包</p>
+</div>
+<div class="footer-col">
+<h4>数据服务</h4>
+<a href="#services">数据标注</a>
+<a href="#services">数据采集</a>
+<a href="#services">内容审核</a>
+<a href="#services">医学影像标注</a>
+</div>
+<div class="footer-col">
+<h4>解决方案</h4>
+<a href="#solutions">自动驾驶</a>
+<a href="#solutions">智能语音</a>
+<a href="#solutions">计算机视觉</a>
+<a href="#solutions">自然语言处理</a>
+</div>
+<div class="footer-col">
+<h4>关于我们</h4>
+<a href="#about">公司介绍</a>
+<a href="#quality">质量保障</a>
+<a href="#news">新闻中心</a>
+<a href="#contact">联系我们</a>
+</div>
+</div>
+<div class="footer-bot">
+<span>&copy; 2023–2026 河南端孚科技有限公司</span>
+<div style="display:flex;gap:1rem">
+<a href="https://beian.miit.gov.cn/">豫ICP备2024049522号-1</a>
+</div>
+</div>
+</div>
+</footer>
+
+<script>
+(function(){
+var t=document.querySelector(".nav-toggle");
+var m=document.getElementById("nav-menu");
+if(!t||!m)return;
+t.addEventListener("click",function(){
+var o=m.classList.toggle("open");
+t.setAttribute("aria-expanded",o);
+});
+m.querySelectorAll("a").forEach(function(a){
+a.addEventListener("click",function(){m.classList.remove("open");t.setAttribute("aria-expanded","false");});
+});
+document.addEventListener("click",function(e){if(!t.contains(e.target)&&!m.contains(e.target)){m.classList.remove("open");t.setAttribute("aria-expanded","false");}});
+})();
+
+// FAQ
+document.querySelectorAll('.faq-q').forEach(function(b){
+b.addEventListener('click',function(){
+var x=b.getAttribute('aria-expanded')==='true';
+b.setAttribute('aria-expanded',String(!x));
+var p=b.nextElementSibling;
+if(p)p.classList.toggle('open',!x);
+});
+});
+
+// News cards
+document.querySelectorAll('.news-card').forEach(function(c){
+c.addEventListener('click',function(){
+var h=c.querySelector('h3');
+var d=c.querySelector('p');
+var dt=c.querySelector('.dt');
+if(h&&d)alert((dt?dt.textContent+'\\n\\n':'')+h.textContent+'\\n\\n'+d.textContent);
+});
+c.setAttribute('tabindex','0');
+c.setAttribute('role','button');
+c.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();c.click();}});
+});
+
+// Contact form
+var form=document.getElementById('contact-form');
+if(form){
+form.addEventListener('submit',function(e){
+e.preventDefault();
+var ok=true;
+form.querySelectorAll('input[required], textarea[required]').forEach(function(f){
+if(!f.value.trim()){ok=false;f.style.borderColor='#f87171'}else{f.style.borderColor=''}
+});
+if(ok){alert('咨询已提交，我们将尽快与您联系！');form.reset();}
+});
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1315 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>端孚科技 — AI数据服务商 · 数据标注 · 数据采集 · 内容审核</title>
+<meta name="description" content="河南端孚科技有限公司，定位于人工智能数据服务商，提供数据标注、数据采集、人工内容审核和医学影像标注服务，100%自建团队，业务不转包。">
+<meta property="og:title" content="端孚科技 — AI数据服务商">
+<meta property="og:description" content="企业AI腾飞的助推器，以高质量数据服务助推AI更好发展">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230D0D0D'/%3E%3Cpolygon points='16,4 28,11 28,21 16,28 4,21 4,11' fill='none' stroke='white' stroke-width='2'/%3E%3Cpolygon points='16,9 23,16 16,23 9,16' fill='none' stroke='white' stroke-width='1.5'/%3E%3Ccircle cx='16' cy='16' r='3' fill='white'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geologica:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4/fonts/remixicon.css">
+<style>
+
+
+/* ===========================================
+   1. DESIGN TOKENS
+   =========================================== */
+:root{
+--bg-deep:#FFFFFF;--bg-surface:#F5F5F5;--bg-elevated:#EBEBEB;
+--text-primary:#0D0D0D;--text-secondary:#555555;--text-muted:#777777;
+--accent:#0D0D0D;--accent-mid:#555555;--accent-light:#D5D5D5;
+--border-subtle:rgba(0,0,0,0.1);--border-active:rgba(0,0,0,0.25);
+--shadow-sm:none;--shadow-md:none;--shadow-lg:none;
+--font-display:'Geologica','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif;
+--font-body:system-ui,-apple-system,'Segoe UI','PingFang SC','Microsoft YaHei','Hiragino Sans GB','Noto Sans SC',sans-serif;
+--font-mono:'JetBrains Mono','Cascadia Code','Fira Code','Consolas',monospace;
+--radius-sm:0;--radius-md:0;--radius-lg:0;--radius-xl:0;
+--header-h:64px;--ease-out-quint:cubic-bezier(0.22,1,0.36,1);--max-width:1200px;
+}
+
+/* 2. RESET */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:var(--header-h)}
+body{font-family:var(--font-body);background:var(--bg-deep);color:var(--text-primary);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,svg{display:block;max-width:100%}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+ul,ol{list-style:none}
+input,textarea,select{font-family:inherit;font-size:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
+::selection{background:rgba(0,0,0,0.85);color:#fff}
+.skip-link{position:absolute;top:-100px;left:16px;z-index:600;padding:8px 16px;background:var(--accent);color:#fff;border-radius:0;font-weight:600;transition:top 0.2s}
+.skip-link:focus{top:8px}
+
+/* 2a. BACKGROUND TEXTURE — fixed dot grid, immune to content float */
+.bg-texture{position:fixed;inset:0;z-index:9990;pointer-events:none;background-image:radial-gradient(circle,var(--text-primary) 0.7px,transparent 0.7px);background-size:18px 18px;opacity:0.045}
+@media(min-resolution:2dppx){.bg-texture{background-size:20px 20px;opacity:0.035}}
+
+/* 3. TYPOGRAPHY */
+h1,h2,h3,h4{font-family:var(--font-display);text-wrap:balance;font-weight:600;line-height:1.15;letter-spacing:-0.03em}
+h1{font-size:clamp(2.5rem,6vw,5rem);font-weight:700}
+h2{font-size:clamp(1.5rem,3vw,2.5rem);font-weight:600;letter-spacing:-0.02em}
+h3{font-size:clamp(1.1rem,2vw,1.5rem);font-weight:600;letter-spacing:-0.01em}
+h4{font-size:clamp(0.95rem,1.5vw,1.1rem);font-weight:600}
+p{max-width:60ch;line-height:1.6}
+.text-secondary{color:var(--text-secondary)}.text-muted{color:var(--text-muted)}
+.text-accent{color:var(--accent)}.text-mono{font-family:var(--font-mono);font-size:0.875em}
+
+/* 4. LAYOUT */
+.container{width:100%;max-width:var(--max-width);margin:0 auto;padding:0 clamp(16px,4vw,40px)}
+.section{padding:clamp(60px,10vh,120px) 0;position:relative}
+.section-alt{background:var(--bg-surface)}
+.section-header{margin-bottom:clamp(40px,6vh,64px)}
+.section-header h2{margin-bottom:16px}
+.section-header p{color:var(--text-secondary);max-width:50ch}
+.section-rule{width:40px;height:2px;background:var(--text-primary);margin-bottom:clamp(24px,4vh,40px)}
+
+/* 4a. METRICS */
+.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,3vw,32px)}
+.metric-card{text-align:left;padding:clamp(20px,3vw,32px);background:var(--bg-deep);border:1px solid var(--text-primary);border-radius:0}
+.metric-value{font-family:var(--font-display);font-size:clamp(2rem,4vw,3rem);font-weight:900;color:var(--accent);line-height:1.1;margin-bottom:8px}
+.metric-label{font-size:0.875rem;color:var(--text-secondary);line-height:1.5}
+@media(max-width:860px){.metrics-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.metrics-grid{grid-template-columns:1fr}}
+
+/* 5. BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:0;font-weight:600;font-size:0.875rem;letter-spacing:0.02em;transition:all 0.15s;white-space:nowrap;text-decoration:none;text-transform:uppercase}
+.btn:hover{text-decoration:none}
+.btn-primary{background:var(--text-primary);color:#fff;border:2px solid var(--text-primary)}
+.btn-primary:hover{background:transparent;color:var(--text-primary)}
+.btn-outline{background:transparent;color:var(--text-primary);border:2px solid var(--text-primary)}
+.btn-outline:hover{background:var(--text-primary);color:#fff}
+.btn-ghost{color:var(--text-secondary)}
+.btn-ghost:hover{color:var(--text-primary)}
+.btn-sm{padding:8px 18px;font-size:0.75rem}
+.btn-lg{padding:16px 36px;font-size:0.9375rem}
+/* 6. HEADER */
+.site-header{position:sticky;top:0;z-index:200;background:var(--bg-deep);border-bottom:1px solid var(--text-primary)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;height:var(--header-h);max-width:var(--max-width);margin:0 auto;padding:0 clamp(16px,4vw,40px)}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
+.logo:hover{text-decoration:none}
+.logo-mark{width:34px;height:34px;flex-shrink:0;color:var(--accent)}
+.logo-mark svg{width:100%;height:100%;display:block}
+.logo-text{display:flex;flex-direction:column}
+.logo-cn{font-family:var(--font-display);font-size:1.25rem;font-weight:700;color:var(--text-primary);letter-spacing:0.02em;line-height:1.1}
+.logo-en{font-size:0.625rem;font-weight:500;color:var(--text-muted);letter-spacing:0.12em;line-height:1}
+.nav-links{display:flex;align-items:center;gap:clamp(12px,2.5vw,28px)}
+.nav-links a{color:var(--text-secondary);font-size:0.875rem;font-weight:500;padding:6px 0;position:relative;transition:color 0.2s}
+.nav-links a::after{content:"";position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--accent);border-radius:2px;transition:width 0.25s var(--ease-out-quint)}
+.nav-links a:hover,.nav-links a.active{color:var(--text-primary)}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.nav-actions{display:flex;align-items:center;gap:8px}
+.theme-toggle{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:var(--text-secondary);transition:all 0.2s}
+.theme-toggle:hover{color:var(--text-primary);background:rgba(0,0,0,0.05)}
+.hamburger{display:none;width:36px;height:36px;flex-direction:column;justify-content:center;gap:5px;padding:8px;border-radius:2px;z-index:210}
+.hamburger span{display:block;width:100%;height:2px;background:var(--text-primary);border-radius:2px;transition:all 0.3s var(--ease-out-quint);transform-origin:center}
+.hamburger.active span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:198;backdrop-filter:blur(2px)}
+.mobile-overlay.show{display:block}
+/* 7. HERO */
+.hero{min-height:calc(100vh - var(--header-h));display:flex;align-items:center;position:relative;overflow:hidden;padding:clamp(40px,8vh,100px) 0}
+.hero::before{content:"";position:absolute;inset:0;z-index:0;background:linear-gradient(to right,var(--bg-deep) 0%,var(--bg-deep) 30%,transparent 70%);pointer-events:none}
+.hero::after{content:"";position:absolute;inset:0;background:url(https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=2400&q=85) center/cover;filter:grayscale(100%) contrast(1.15);opacity:0.15;pointer-events:none}
+.hero-content{position:relative;z-index:1;max-width:780px}
+.hero-content h1{margin-bottom:clamp(16px,3vh,24px)}
+.hero-content .hero-subtitle{font-size:clamp(1rem,2vw,1.2rem);color:var(--text-secondary);line-height:1.8;margin-bottom:clamp(28px,5vh,40px);max-width:620px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:clamp(32px,6vh,48px)}
+.hero-capabilities{display:flex;gap:clamp(12px,3vw,32px);flex-wrap:wrap}
+.hero-cap-item{display:flex;align-items:center;gap:8px;color:var(--text-secondary);font-size:0.875rem}
+.hero-cap-item i{color:var(--accent);font-size:1.1rem}
+.hero-cap-item strong{color:var(--text-primary);font-weight:600}
+
+/* 8. TRUST BADGES */
+.trust-section{background:var(--bg-surface);padding:clamp(28px,5vh,48px) 0;border-top:1px solid var(--text-primary);border-bottom:1px solid var(--text-primary)}
+.trust-grid{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:clamp(16px,3vw,36px)}
+.trust-badge{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:0;background:var(--bg-deep);border:1px solid var(--text-primary);color:var(--text-primary);font-size:0.8125rem;font-weight:600;white-space:nowrap;letter-spacing:0.02em}
+.trust-badge i{color:var(--accent);font-size:0.95rem}
+.trust-badge.highlight{border-color:var(--border-active);color:var(--text-primary)}
+.trust-note{text-align:center;margin-top:16px;color:var(--text-muted);font-size:0.8125rem}
+
+/* 9. PRODUCTS */
+.products-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(16px,3vw,28px)}
+.product-card{background:var(--bg-elevated);border:1px solid var(--text-primary);border-radius:0;padding:clamp(24px,4vw,36px);transition:background 0.15s}
+.product-card:hover{background:var(--bg-deep)}
+.product-card.featured{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,48px);align-items:center}
+.product-card.featured .product-visual{aspect-ratio:16/10;background:var(--bg-surface);border-radius:0;overflow:hidden;border:1px solid var(--text-primary)}
+.product-card.featured .product-visual img{width:100%;height:100%;object-fit:cover;display:block}
+.product-card.featured .product-visual .product-visual-fallback{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:clamp(2rem,4vw,3.5rem);color:var(--accent);background:linear-gradient(135deg,var(--bg-surface) 0%,var(--bg-elevated) 100%)}
+.product-icon{font-size:clamp(1.5rem,2.5vw,2rem);color:var(--accent);margin-bottom:12px}
+.product-card h3{margin-bottom:8px}
+.product-card .product-desc{color:var(--text-secondary);font-size:0.9375rem;margin-bottom:20px;line-height:1.6}
+.product-points{display:flex;flex-direction:column;gap:10px}
+.product-points li{display:flex;align-items:flex-start;gap:10px;font-size:0.9375rem;color:var(--text-secondary);line-height:1.5}
+.product-points li i{color:var(--accent);margin-top:2px;flex-shrink:0}
+/* 10. SOLUTIONS */
+.solutions-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:clamp(16px,2.5vw,24px)}
+.solution-card{background:var(--bg-surface);border:1px solid var(--text-primary);border-radius:0;padding:clamp(20px,3vw,30px);transition:background 0.15s}
+.solution-card:hover{background:var(--bg-elevated)}
+.solution-card .sol-header{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.solution-card .sol-icon{width:44px;height:44px;border-radius:0;background:var(--bg-elevated);border:1px solid var(--border-subtle);display:flex;align-items:center;justify-content:center;font-size:1.25rem;color:var(--accent);flex-shrink:0}
+.solution-card h3{font-size:1.1rem;margin-bottom:0}
+.solution-card .sol-flow{display:flex;flex-direction:column;gap:8px}
+.sol-step{font-size:0.875rem;color:var(--text-secondary);padding:8px 12px;background:var(--bg-elevated);border-radius:0;line-height:1.5}
+.sol-step span{color:var(--accent);font-weight:600}
+
+/* 11. CASE STUDIES */
+.cases-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(20px,3vw,32px)}
+.case-card{background:var(--bg-elevated);border:1px solid var(--text-primary);border-radius:0;overflow:hidden;transition:background 0.15s}
+.case-card:hover{background:var(--bg-deep)}
+.case-card-image{aspect-ratio:16/9;background:var(--bg-surface);overflow:hidden}
+.case-card-image img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s var(--ease-out-quint)}
+.case-card:hover .case-card-image img{transform:scale(1.04)}
+.case-card-body{padding:clamp(20px,3vw,30px)}
+.case-card .case-industry{display:inline-block;padding:3px 12px;border-radius:0;background:rgba(0,0,0,0.1);color:var(--accent);font-size:0.75rem;font-weight:600;margin-bottom:14px}
+.case-card h3{margin-bottom:8px;font-size:1.2rem}
+.case-card .case-summary{color:var(--text-secondary);font-size:0.9375rem;line-height:1.6;margin-bottom:16px}
+.case-results{display:flex;gap:clamp(12px,2vw,24px);flex-wrap:wrap;margin-bottom:16px}
+.case-result-item{display:flex;flex-direction:column;gap:2px}
+.case-result-item .cr-value{font-size:1.25rem;font-weight:700;color:var(--text-primary)}
+.case-result-item .cr-label{font-size:0.8125rem;color:var(--text-muted)}
+
+/* 12. TECH & SECURITY */
+.tech-arch{position:relative;margin-bottom:clamp(40px,8vh,60px)}
+.arch-diagram{display:flex;flex-direction:column;gap:clamp(12px,2vh,20px);align-items:center}
+.arch-tier{display:flex;align-items:center;justify-content:center;gap:clamp(8px,2vw,16px);width:100%;max-width:700px}
+.arch-tier-label{font-family:var(--font-mono);font-size:0.8125rem;color:var(--accent);min-width:70px;text-align:right}
+.arch-tier-content{flex:1;padding:12px 20px;background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:0;color:var(--text-secondary);font-size:0.875rem;text-align:center}
+.arch-arrow{color:var(--text-muted);font-size:1.5rem;text-align:center}
+.security-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:clamp(12px,2vw,20px);margin-top:clamp(24px,5vh,40px)}
+.sec-item{display:flex;align-items:flex-start;gap:12px;padding:16px;background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:0}
+.sec-item i{color:var(--accent);font-size:1.1rem;margin-top:2px;flex-shrink:0}
+.sec-item div h4{font-size:0.9375rem;margin-bottom:4px}
+.sec-item div p{font-size:0.8125rem;color:var(--text-muted);line-height:1.5}
+
+/* 13. NEWS */
+.news-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(16px,2.5vw,24px)}
+.news-card{background:var(--bg-elevated);border:1px solid var(--text-primary);border-radius:0;padding:clamp(20px,3vw,30px);transition:background 0.15s;cursor:pointer}
+.news-card:hover{background:var(--bg-deep)}
+.news-date{font-family:var(--font-mono);font-size:0.8125rem;color:var(--text-muted);margin-bottom:10px}
+.news-card h3{font-size:1.05rem;margin-bottom:8px;transition:color 0.2s}
+.news-card:hover h3{color:var(--accent)}
+.news-card p{font-size:0.875rem;color:var(--text-secondary);line-height:1.6}
+
+/* 14. ABOUT */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,60px);align-items:start}
+.about-image{aspect-ratio:4/3;background:var(--bg-surface);border-radius:0;overflow:hidden;border:1px solid var(--border-subtle);position:relative}
+.about-image img{width:100%;height:100%;object-fit:cover;display:block}
+.about-visual{width:100%;height:100%;background:var(--bg-elevated);display:flex;align-items:center;justify-content:center;font-size:clamp(3rem,6vw,5rem);color:var(--text-primary);font-weight:700}
+.about-text p{color:var(--text-secondary);line-height:1.8;margin-bottom:20px;font-size:0.9375rem}
+.timeline{position:relative;padding-left:28px}
+.timeline::before{content:"";position:absolute;left:0;top:4px;bottom:4px;width:1px;background:var(--border-active)}
+.timeline-item{position:relative;margin-bottom:clamp(16px,3vh,28px)}
+.timeline-item::before{content:"";position:absolute;left:-32px;top:6px;width:9px;height:9px;border-radius:50%;background:var(--accent);border:2px solid var(--bg-deep)}
+.timeline-date{font-family:var(--font-mono);font-size:0.8rem;color:var(--accent);margin-bottom:4px}
+.timeline-title{font-weight:600;margin-bottom:4px;font-size:0.9375rem}
+.timeline-desc{font-size:0.8125rem;color:var(--text-muted)}
+/* 15. CONTACT */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,60px)}
+.contact-form{display:flex;flex-direction:column;gap:18px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group label{font-size:0.875rem;font-weight:600;color:var(--text-secondary)}
+.form-group input,.form-group textarea{width:100%;padding:12px 0;background:transparent;border:none;border-bottom:1px solid var(--text-primary);border-radius:0;color:var(--text-primary);font-size:0.9375rem;transition:border-color 0.15s;resize:vertical}
+.form-group input::placeholder,.form-group textarea::placeholder{color:var(--text-muted);opacity:0.7}
+.form-group input:focus,.form-group textarea:focus{outline:none;border-bottom-width:2px}
+.form-group textarea{min-height:120px}
+.form-group .error-msg{font-size:0.8125rem;color:#F87171;display:none}
+.form-group.error input,.form-group.error textarea{border-color:#F87171}
+.form-group.error .error-msg{display:block}
+.contact-info{display:flex;flex-direction:column;gap:24px}
+.contact-info-item{display:flex;align-items:flex-start;gap:14px}
+.contact-info-item i{color:var(--accent);font-size:1.25rem;margin-top:2px;flex-shrink:0}
+.contact-info-item h4{font-size:0.9375rem;margin-bottom:4px}
+.contact-info-item p{font-size:0.875rem;color:var(--text-muted);line-height:1.6}
+.copy-btn{margin-left:8px;font-size:0.8125rem;color:var(--text-muted);cursor:pointer;transition:color 0.2s;padding:2px 6px}
+.copy-btn:hover{color:var(--accent)}
+
+/* 16. FAQ */
+.faq-list{display:flex;flex-direction:column;gap:8px;margin-top:32px}
+.faq-item{border-bottom:1px solid var(--text-primary);overflow:hidden}
+.faq-q{width:100%;display:flex;align-items:center;justify-content:space-between;padding:16px 20px;background:var(--bg-elevated);text-align:left;font-weight:600;font-size:0.9375rem;color:var(--text-primary);transition:background 0.2s}
+.faq-q:hover{background:var(--bg-surface)}
+.faq-q i{transition:transform 0.3s var(--ease-out-quint);color:var(--text-muted);font-size:1.1rem}
+.faq-q[aria-expanded="true"] i{transform:rotate(180deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height 0.35s var(--ease-out-quint),padding 0.35s var(--ease-out-quint)}
+.faq-a.open{max-height:300px;padding:0 20px 16px}
+.faq-a p{font-size:0.875rem;color:var(--text-secondary);line-height:1.7}
+
+/* 17. FOOTER */
+.site-footer{background:var(--bg-deep);border-top:1px solid var(--text-primary);padding:clamp(40px,6vh,60px) 0 clamp(24px,3vh,36px);margin-top:0}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:clamp(24px,4vw,48px);margin-bottom:clamp(28px,4vh,40px)}
+.footer-brand .logo-cn{font-size:1.2rem;margin-bottom:8px;display:block}
+.footer-brand p{font-size:0.8125rem;color:var(--text-muted);line-height:1.7}
+.footer-col h4{font-size:0.875rem;font-weight:600;margin-bottom:14px;color:var(--text-secondary)}
+.footer-col a{display:block;font-size:0.8125rem;color:var(--text-muted);padding:4px 0;transition:color 0.2s}
+.footer-col a:hover{color:var(--text-primary);text-decoration:none}
+.footer-bottom{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding-top:20px;border-top:1px solid var(--border-subtle);font-size:0.8125rem;color:var(--text-muted)}
+.footer-social{display:flex;gap:8px}
+.footer-social a{width:32px;height:32px;border-radius:50%;background:var(--bg-elevated);display:flex;align-items:center;justify-content:center;color:var(--text-muted);transition:all 0.2s;text-decoration:none}
+.footer-social a:hover{color:var(--accent);background:rgba(0,0,0,0.08)}
+/* 18. MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:300;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity 0.3s var(--ease-out-quint)}
+.modal-overlay.active{opacity:1;pointer-events:auto}
+.modal{background:var(--bg-deep);border:1px solid var(--text-primary);border-radius:0;max-width:620px;width:100%;max-height:80vh;overflow-y:auto;padding:clamp(24px,4vw,36px);position:relative;z-index:400;transform:translateY(0)}
+.modal-overlay.active .modal{transform:translateY(0)}
+.modal-close{position:absolute;top:12px;right:12px;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.25rem;color:var(--text-muted);transition:all 0.2s}
+.modal-close:hover{color:var(--text-primary);background:rgba(0,0,0,0.05)}
+.modal h2{font-size:1.35rem;margin-bottom:16px}
+.modal .modal-body{color:var(--text-secondary);line-height:1.8;font-size:0.9375rem}
+.modal .modal-body h3{font-size:1.05rem;margin:20px 0 8px;color:var(--text-primary)}
+.modal .modal-body p{margin-bottom:12px}
+
+/* 19. TOAST */
+#toast-container{position:fixed;bottom:24px;right:24px;z-index:500;display:flex;flex-direction:column-reverse;gap:8px;pointer-events:none}
+.toast{background:var(--bg-elevated);border:1px solid var(--border-active);border-radius:0;padding:12px 20px;color:var(--text-primary);font-size:0.875rem;box-shadow:0 12px 32px rgba(0,0,0,0.4);pointer-events:auto;animation:toast-in 0.4s var(--ease-out-quint) forwards}
+.toast.removing{animation:toast-out 0.3s var(--ease-out-quint) forwards}
+@keyframes toast-in{from{transform:translateX(120%);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes toast-out{from{transform:translateX(0);opacity:1}to{transform:translateX(120%);opacity:0}}
+
+/* 20. UTILITIES */
+.reveal{opacity:0;transform:translateY(48px);transition:opacity 1.5s var(--ease-out-quint),transform 1.5s var(--ease-out-quint)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.fade-in{opacity:1}
+
+/* 21. THEME - DARK MODE */
+[data-theme="dark"]{--bg-deep:#0D0D0D;--bg-surface:#141414;--bg-elevated:#1A1A1A;--text-primary:#E6E6E6;--text-secondary:#999999;--text-muted:#666666;--accent:#E6E6E6;--accent-mid:#999999;--accent-light:#333333;--border-subtle:rgba(255,255,255,0.1);--border-active:rgba(255,255,255,0.2);--shadow-sm:none;--shadow-md:none;--shadow-lg:none}
+[data-theme="dark"] .site-header{background:var(--bg-deep);border-bottom-color:var(--text-primary)}
+[data-theme="dark"] .modal-overlay{background:rgba(0,0,0,0.8)}
+[data-theme="dark"] .arch-tier-content{background:var(--bg-elevated)}
+[data-theme="dark"] .sec-item{background:var(--bg-surface)}
+[data-theme="dark"] .btn-primary:hover{background:transparent;color:var(--text-primary);border-color:var(--text-primary)}
+[data-theme="dark"] .btn-primary{background:var(--bg-elevated);color:var(--text-primary);border-color:var(--text-primary)}
+[data-theme="dark"] .btn-outline{color:var(--text-primary);border-color:var(--text-primary)}
+[data-theme="dark"] .btn-outline:hover{background:var(--text-primary);color:var(--bg-deep)}
+[data-theme="dark"] .faq-q:hover{background:var(--bg-surface)}
+[data-theme="dark"] .theme-toggle:hover{background:rgba(255,255,255,0.06)}
+[data-theme="dark"] .modal-close:hover{background:rgba(255,255,255,0.06)}
+[data-theme="dark"] .btn-ghost:hover{color:var(--text-primary)}
+[data-theme="dark"] .product-card:hover{background:var(--bg-deep)}
+[data-theme="dark"] .solution-card:hover{background:var(--bg-elevated)}
+[data-theme="dark"] .trust-section{background:var(--bg-surface);border-top:1px solid var(--text-primary);border-bottom:1px solid var(--text-primary)}
+[data-theme="dark"] .footer-social a:hover{background:rgba(255,255,255,0.06)}
+[data-theme="dark"] .mobile-nav-bg{background:var(--bg-elevated)}
+[data-theme="dark"] .bg-texture{opacity:0.03}
+
+/* 22. REDUCED MOTION */
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important;scroll-behavior:auto!important}
+.reveal{opacity:1;transform:none}
+.motion-track{transform:none!important}}
+
+/* 24. RESPONSIVE */
+@media(max-width:1024px){.footer-grid{grid-template-columns:1fr 1fr}
+.about-grid{grid-template-columns:1fr}
+.about-image{max-height:360px}
+.contact-grid{grid-template-columns:1fr}
+.product-card.featured{grid-template-columns:1fr}}
+@media(max-width:860px){.footer-grid{grid-template-columns:1fr}
+.cases-grid{grid-template-columns:1fr}
+.news-grid{grid-template-columns:1fr}}
+@media(max-width:640px){.hamburger{display:flex}
+.nav-links{position:fixed;top:0;right:-100%;width:280px;height:100vh;flex-direction:column;align-items:flex-start;gap:0;padding:80px 32px 32px;background:var(--bg-elevated);border-left:1px solid var(--border-subtle);transition:right 0.35s var(--ease-out-quint);z-index:199}
+.nav-links.mobile-open{right:0}
+.nav-links a{padding:12px 0;font-size:1rem;width:100%}
+.nav-actions .btn{display:none}
+.hero-capabilities{gap:12px}
+.hero-cap-item{font-size:0.8125rem}
+.products-grid{grid-template-columns:1fr}
+.solutions-grid{grid-template-columns:1fr}
+.security-grid{grid-template-columns:1fr}
+.timeline{padding-left:20px}
+.timeline-item::before{left:-24px}}
+
+/* 25. CONTENT FLOAT — content blocks float, structure static */
+.hero-content,.product-card,.solution-card,.news-card,.metric-card,.sec-item,.faq-item,.about-text,.about-image,.contact-form,.contact-info,.footer-grid,.footer-bottom,.arch-diagram{will-change:transform}
+@media(prefers-reduced-motion:reduce){.hero-content,.product-card,.solution-card,.news-card,.metric-card,.sec-item,.faq-item,.about-text,.about-image,.contact-form,.contact-info,.footer-grid,.footer-bottom,.arch-diagram{transform:none!important}}
+
+/* 25a. PHOTO STRIP */
+.photo-strip{width:100%;height:clamp(200px,32vh,400px);overflow:hidden;border-top:1px solid var(--text-primary);border-bottom:1px solid var(--text-primary)}
+.photo-strip img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(100%) contrast(1.15)}
+@media(prefers-reduced-motion:reduce){.photo-strip img{filter:none}}
+
+/* 26. SPLASH SCREEN */
+#splash{position:fixed;inset:0;z-index:9999;background:var(--bg-deep);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:0;pointer-events:all;transition:opacity 0.5s cubic-bezier(0.22,1,0.36,1),transform 0.5s cubic-bezier(0.22,1,0.36,1)}
+#splash.exiting{opacity:0;transform:translateY(-80px);pointer-events:none}
+.splash-mark{width:clamp(56px,8vw,80px);height:clamp(56px,8vw,80px);color:var(--text-primary);margin-bottom:clamp(20px,3vh,28px);opacity:0;transform:translateY(28px) scale(0.8);animation:splash-mark-in 2.0s cubic-bezier(0.16,1,0.3,1) 0.1s forwards}
+.splash-mark svg{width:100%;height:100%;display:block}
+.splash-logo{font-family:var(--font-display);font-size:clamp(2.5rem,6vw,4rem);font-weight:700;color:var(--text-primary);letter-spacing:0.1em;line-height:1;opacity:0;transform:translateY(20px);animation:splash-text-up 2.0s cubic-bezier(0.16,1,0.3,1) 0.3s forwards}
+.splash-rule{width:0;height:1px;background:var(--text-primary);margin:16px 0;animation:splash-rule-expand 2.0s cubic-bezier(0.16,1,0.3,1) 0.6s forwards}
+.splash-sub{font-family:var(--font-mono);font-size:0.625rem;font-weight:500;color:var(--text-muted);letter-spacing:0.25em;opacity:0;transform:translateY(14px);animation:splash-text-up 2.0s cubic-bezier(0.16,1,0.3,1) 0.9s forwards}
+.splash-hint{position:absolute;bottom:clamp(32px,6vh,56px);display:flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:0.625rem;color:var(--text-muted);letter-spacing:0.2em;opacity:0;transform:translateY(10px);animation:splash-text-up 2.0s cubic-bezier(0.16,1,0.3,1) 1.2s forwards}
+.splash-hint i{font-size:0.75rem;animation:splash-bounce 2s ease-in-out infinite}
+@keyframes splash-mark-in{to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes splash-text-up{to{opacity:1;transform:translateY(0)}}
+@keyframes splash-rule-expand{to{width:80px}}
+@keyframes splash-bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@media(prefers-reduced-motion:reduce){#splash{display:none!important}}
+
+/* 26a. PAGE ENTRANCE — slides down as splash exits */
+#main-content{opacity:0;transform:translateY(80px);transition:opacity 1.5s cubic-bezier(0.16,1,0.3,1) 0.1s,transform 1.5s cubic-bezier(0.16,1,0.3,1) 0.1s}
+#main-content.revealed{opacity:1;transform:translateY(0)}
+@media(prefers-reduced-motion:reduce){#main-content{opacity:1;transform:none;transition:none}}
+
+/* 26b. SPLASH PARTICLES */
+#splash-particles{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:0.78}
+
+</style>
+</head>
+<body>
+
+<!-- SPLASH SCREEN -->
+<div id="splash" aria-hidden="true">
+  <canvas id="splash-particles"></canvas>
+  <div class="splash-mark">
+    <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="40,6 74,23 74,57 40,74 6,57 6,23" fill="none" stroke="currentColor" stroke-width="2"/>
+      <polygon points="40,18 58,40 40,62 22,40" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <circle cx="40" cy="40" r="5" fill="currentColor"/>
+    </svg>
+  </div>
+  <div class="splash-logo">端孚科技</div>
+  <div class="splash-rule"></div>
+  <div class="splash-sub">DUANFU TECH · AI DATA SERVICES</div>
+  <div class="splash-hint"><i class="ri-arrow-up-line"></i> 向上滚动</div>
+</div>
+
+<a href="#main-content" class="skip-link">跳到主要内容</a>
+
+<!-- A. NAVIGATION -->
+<header class="site-header" role="banner">
+  <div class="header-inner">
+    <a href="#" class="logo" aria-label="端孚科技首页">
+      <span class="logo-mark"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><polygon points="20,3 37,13 37,27 20,37 3,27 3,13" fill="none" stroke="currentColor" stroke-width="2.5"/><polygon points="20,10 30,20 20,30 10,20" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="20" cy="20" r="3.5" fill="currentColor"/></svg></span>
+      <span class="logo-text"><span class="logo-cn">端孚科技</span><span class="logo-en">DUANFU TECH</span></span>
+    </a>
+    <nav class="nav-links" id="main-nav" aria-label="主导航">
+      <a href="#about">关于我们</a>
+      <a href="#products">数据服务</a>
+      <a href="#solutions">解决方案</a>
+      <a href="#cases">服务能力</a>
+      <a href="#news">新闻中心</a>
+      <a href="#contact">联系我们</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="#contact" class="btn btn-primary btn-sm">商务合作</a>
+      <button class="theme-toggle" id="theme-toggle" aria-label="切换主题">
+        <i class="ri-sun-line" id="theme-icon-sun"></i>
+        <i class="ri-moon-line" id="theme-icon-moon" style="display:none"></i>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+<div class="mobile-overlay" id="mobile-overlay"></div>
+
+<main id="main-content">
+
+<!-- ============================================
+     HERO
+     ============================================ -->
+<section class="hero section" id="hero" aria-labelledby="hero-heading">
+  <div class="container">
+    <div class="hero-content">
+      <span class="section-label">AI DATA SERVICES</span>
+      <div class="section-rule"></div>
+      <h1 id="hero-heading">以高质量数据服务<br>助推AI更好发展</h1>
+      <p class="hero-subtitle">河南端孚科技有限公司，专注为人工智能企业与研发机构提供数据标注、数据采集与内容审核服务。100%自建团队，业务不转包。</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-primary btn-lg">商务合作咨询</a>
+        <a href="#products" class="btn btn-outline btn-lg">了解数据服务</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     TRUST BADGES
+     ============================================ -->
+<section class="trust-section" aria-label="信任标识">
+  <div class="container">
+    <div class="trust-grid">
+      <div class="trust-badge highlight"><i class="ri-team-fill"></i> 100%自建团队</div>
+      <div class="trust-badge motion-float"><i class="ri-shield-check-fill"></i> 业务不转包</div>
+      <div class="trust-badge motion-float"><i class="ri-stack-fill"></i> 多层质检体系</div>
+      <div class="trust-badge motion-float"><i class="ri-timer-fill"></i> 稳定准时交付</div>
+    </div>
+    <p class="trust-note">管理 + 技术双轮驱动，以质量和效率为核心竞争力</p>
+  </div>
+</section>
+
+<!-- ============================================
+     ABOUT (right after Hero, per ASR layout)
+     ============================================ -->
+<section class="section section-alt" id="about" aria-labelledby="about-heading">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image reveal" aria-hidden="true">
+        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80" alt="端孚科技办公环境" style="width:100%;height:100%;object-fit:cover;filter:grayscale(100%) contrast(1.1)">
+      </div>
+      <div class="about-text reveal">
+        <span class="section-label">ABOUT US</span>
+        <h2 id="about-heading">关于端孚科技</h2>
+        <p>河南端孚科技有限公司是一家专注于<strong>人工智能数据服务</strong>的技术型企业，致力于为AI产业链上下游企业提供高质量、高精度的数据标注、数据采集及内容审核服务。</p>
+        <p>公司总部位于河南，坚持<strong>100%自建团队</strong>的业务模式，拥有专业的数据处理人员和审核团队，从源头把控数据质量。我们深信高质量的训练数据是AI模型性能的基础，以"管理"和"技术"双轮驱动，为每一位客户提供稳定、可靠的数据解决方案。</p>
+        <p>与依赖外包模式的服务商不同，端孚科技通过自主团队管理与<strong>多层质检体系</strong>，确保数据标注的一致性与准确率，真正替客户解决数据难题，成人达己。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     METRICS (ASR-style big numbers)
+     ============================================ -->
+<section class="section" aria-labelledby="metrics-heading">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">BY THE NUMBERS</span>
+      <div class="section-rule"></div>
+      <h2 id="metrics-heading">核心数据能力</h2>
+    </div>
+    <div class="metrics-grid reveal">
+      <div class="metric-card motion-float">
+        <div class="metric-value">100<span style="font-size:1.5rem">%</span></div>
+        <div class="metric-label">自建全职团队</div>
+      </div>
+      <div class="metric-card motion-float">
+        <div class="metric-value">3<span style="font-size:1.5rem">大</span></div>
+        <div class="metric-label">核心业务板块</div>
+      </div>
+      <div class="metric-card motion-float">
+        <div class="metric-value">4<span style="font-size:1.5rem">层</span></div>
+        <div class="metric-label">质检流程保障</div>
+      </div>
+      <div class="metric-card motion-float">
+        <div class="metric-value">99<span style="font-size:1.5rem">%+</span></div>
+        <div class="metric-label">数据标注准确率</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     PRODUCTS / SERVICES
+     ============================================ -->
+<section class="section section-alt" id="products" aria-labelledby="products-heading">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">SERVICES</span>
+      <div class="section-rule"></div>
+      <h2 id="products-heading">数据服务</h2>
+      <p>覆盖AI数据需求全链路：从数据采集、标注到内容审核</p>
+    </div>
+    <div class="products-grid">
+
+      <!-- Featured: 数据标注 -->
+      <div class="product-card featured motion-float reveal">
+        <div class="product-visual">
+          <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1200&q=80" alt="数据标注示意" style="width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(100%) contrast(1.1)">
+        </div>
+        <div>
+          <div class="product-icon"><i class="ri-checkbox-multiple-fill"></i></div>
+          <h3>数据标注</h3>
+          <p class="product-desc">为机器学习模型提供高质量的结构化训练数据，覆盖图像、语音、文本、3D点云等多种数据类型。</p>
+          <ul class="product-points">
+            <li><i class="ri-arrow-right-s-fill"></i> 图像标注：分类、检测框、语义分割、关键点标注</li>
+            <li><i class="ri-arrow-right-s-fill"></i> 语音标注：ASR语音转写、说话人分离、情感标注</li>
+            <li><i class="ri-arrow-right-s-fill"></i> 文本标注：命名实体识别、情感分类、关系抽取</li>
+            <li><i class="ri-arrow-right-s-fill"></i> 3D点云标注：自动驾驶场景、激光雷达数据标注</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 数据采集 -->
+      <div class="product-card motion-float reveal">
+        <div class="product-icon"><i class="ri-camera-lens-fill"></i></div>
+        <h3>数据采集</h3>
+        <p class="product-desc">根据客户AI模型需求，按场景定制化采集真实有效的训练数据。</p>
+        <ul class="product-points">
+          <li><i class="ri-arrow-right-s-fill"></i> 图片采集：特定场景、特定物体拍摄</li>
+          <li><i class="ri-arrow-right-s-fill"></i> 视频采集：指定场景动作、行为录制</li>
+          <li><i class="ri-arrow-right-s-fill"></i> 语音采集：多语种、多方言、多场景录音</li>
+          <li><i class="ri-arrow-right-s-fill"></i> 文本采集：特定领域语料收集</li>
+        </ul>
+      </div>
+
+      <!-- 内容审核 -->
+      <div class="product-card motion-float reveal">
+        <div class="product-icon"><i class="ri-shield-check-fill"></i></div>
+        <h3>内容审核</h3>
+        <p class="product-desc">基于人工审核团队，对平台内容进行合规性筛查与风险识别。</p>
+        <ul class="product-points">
+          <li><i class="ri-arrow-right-s-fill"></i> 图文审核：违禁内容识别、敏感信息过滤</li>
+          <li><i class="ri-arrow-right-s-fill"></i> 视频审核：帧级审核、违规片段标记</li>
+          <li><i class="ri-arrow-right-s-fill"></i> 直播审核：实时监控、快速响应</li>
+          <li><i class="ri-arrow-right-s-fill"></i> 自定义规则：按客户要求定制审核标准</li>
+        </ul>
+      </div>
+
+      <!-- 医学影像标注 -->
+      <div class="product-card motion-float reveal">
+        <div class="product-icon"><i class="ri-heart-pulse-fill"></i></div>
+        <h3>医学影像标注</h3>
+        <p class="product-desc">专业医学影像数据标注服务，辅助AI医疗影像模型的训练与开发。</p>
+        <ul class="product-points">
+          <li><i class="ri-arrow-right-s-fill"></i> CT/MRI影像病灶标注与分割</li>
+          <li><i class="ri-arrow-right-s-fill"></i> X光片异常区域标记</li>
+          <li><i class="ri-arrow-right-s-fill"></i> 病理切片细胞级标注</li>
+          <li><i class="ri-arrow-right-s-fill"></i> 专业医学背景标注人员</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     SOLUTIONS
+     ============================================ -->
+<section class="section" id="solutions" aria-labelledby="solutions-heading">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">SOLUTIONS</span>
+      <div class="section-rule"></div>
+      <h2 id="solutions-heading">行业解决方案</h2>
+      <p>针对不同AI应用场景，提供定制化的数据服务方案</p>
+    </div>
+    <div class="solutions-grid">
+      <div class="solution-card motion-float reveal">
+        <div class="sol-header">
+          <div class="sol-icon"><i class="ri-car-fill"></i></div>
+          <h3>自动驾驶</h3>
+        </div>
+        <div class="sol-flow">
+          <div class="sol-step"><span>数据采集：</span>多场景道路图像与激光雷达点云采集</div>
+          <div class="sol-step"><span>数据标注：</span>2D/3D目标检测、车道线标注、可行驶区域分割</div>
+          <div class="sol-step"><span>质量保障：</span>逐帧审核、场景一致性校验、多轮交叉验证</div>
+        </div>
+      </div>
+      <div class="solution-card motion-float reveal">
+        <div class="sol-header">
+          <div class="sol-icon"><i class="ri-message-3-fill"></i></div>
+          <h3>智能语音</h3>
+        </div>
+        <div class="sol-flow">
+          <div class="sol-step"><span>数据采集：</span>多语种、多场景语音样本采集</div>
+          <div class="sol-step"><span>数据标注：</span>语音转写、说话人标注、情感与意图标注</div>
+          <div class="sol-step"><span>质量保障：</span>多人交叉校对、发音准确度验证</div>
+        </div>
+      </div>
+      <div class="solution-card motion-float reveal">
+        <div class="sol-header">
+          <div class="sol-icon"><i class="ri-eye-2-fill"></i></div>
+          <h3>计算机视觉</h3>
+        </div>
+        <div class="sol-flow">
+          <div class="sol-step"><span>数据标注：</span>图像分类、目标检测、语义/实例分割</div>
+          <div class="sol-step"><span>数据采集：</span>多角度、多光照条件真实场景采集</div>
+          <div class="sol-step"><span>质量保障：</span>像素级精度校验、标注一致性审核</div>
+        </div>
+      </div>
+      <div class="solution-card motion-float reveal">
+        <div class="sol-header">
+          <div class="sol-icon"><i class="ri-brain-fill"></i></div>
+          <h3>自然语言处理</h3>
+        </div>
+        <div class="sol-flow">
+          <div class="sol-step"><span>数据标注：</span>命名实体识别、关系抽取、文本分类</div>
+          <div class="sol-step"><span>数据采集：</span>特定领域语料、多语种平行语料</div>
+          <div class="sol-step"><span>质量保障：</span>语言专家审核、上下文一致性检验</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     SERVICE CAPABILITY (Process)
+     ============================================ -->
+<section class="section section-alt" id="cases" aria-labelledby="capability-heading">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">QUALITY ASSURANCE</span>
+      <div class="section-rule"></div>
+      <h2 id="capability-heading">质量保障体系</h2>
+      <p>多层质检、全流程管控，确保每一次交付都值得信赖</p>
+    </div>
+    <div class="tech-arch reveal">
+      <div class="arch-diagram">
+        <div class="arch-tier">
+          <span class="arch-tier-label">第一层</span>
+          <div class="arch-tier-content">标注人员自检 — 完成标注后对自身作业进行首次复核</div>
+        </div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-tier">
+          <span class="arch-tier-label">第二层</span>
+          <div class="arch-tier-content">质检专员交叉审核 — 独立质检人员对标注结果进行逐条校验</div>
+        </div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-tier">
+          <span class="arch-tier-label">第三层</span>
+          <div class="arch-tier-content">项目经理抽检 — 项目负责人按比例抽样检查，把控整体质量</div>
+        </div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-tier">
+          <span class="arch-tier-label">第四层</span>
+          <div class="arch-tier-content">客户验收反馈 — 交付成果由客户最终确认，反馈意见纳入优化闭环</div>
+        </div>
+      </div>
+    </div>
+    <div class="security-grid reveal">
+      <div class="sec-item motion-float">
+        <i class="ri-lock-2-fill"></i>
+        <div>
+          <h4>数据安全保密</h4>
+          <p>签署保密协议，建立数据隔离机制，保障客户数据资产安全</p>
+        </div>
+      </div>
+      <div class="sec-item motion-float">
+        <i class="ri-refresh-fill"></i>
+        <div>
+          <h4>持续优化迭代</h4>
+          <p>基于质检数据与客户反馈，持续优化标注规范与作业流程</p>
+        </div>
+      </div>
+      <div class="sec-item motion-float">
+        <i class="ri-file-list-3-fill"></i>
+        <div>
+          <h4>标准化作业规范</h4>
+          <p>为每个项目建立详细的标注规范文档，确保团队执行一致性</p>
+        </div>
+      </div>
+      <div class="sec-item motion-float">
+        <i class="ri-bar-chart-grouped-fill"></i>
+        <div>
+          <h4>实时进度追踪</h4>
+          <p>提供项目进度可视化看板，客户可随时了解数据生产状态</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     NEWS
+     ============================================ -->
+<section class="section" id="news" aria-labelledby="news-heading">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">NEWS</span>
+      <div class="section-rule"></div>
+      <h2 id="news-heading">新闻中心</h2>
+    </div>
+    <div class="news-grid">
+      <div class="news-card motion-float reveal">
+        <div class="news-date">2025-03-15</div>
+        <h3>端孚科技乔迁新址，团队规模与产能同步升级</h3>
+        <p>为满足日益增长的AI数据服务需求，端孚科技正式迁入新办公场地，进一步扩充标注与审核团队规模。</p>
+      </div>
+      <div class="news-card motion-float reveal">
+        <div class="news-date">2025-01-08</div>
+        <h3>端孚科技通过ISO 9001质量管理体系认证</h3>
+        <p>公司正式通过ISO 9001质量管理体系认证，质量管理能力获得国际标准化组织认可。</p>
+      </div>
+      <div class="news-card motion-float reveal">
+        <div class="news-date">2024-10-20</div>
+        <h3>端孚科技完成新一轮数据标注员技能培训考核</h3>
+        <p>公司举办全员标注技能培训与考核，进一步提升团队专业素质与标注准确率。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Photo Strip -->
+<section class="photo-strip" aria-hidden="true">
+  <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1600&q=80" alt="" loading="lazy">
+</section>
+
+<!-- ============================================
+     CONTACT
+     ============================================ -->
+<section class="section section-alt" id="contact" aria-labelledby="contact-heading">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">CONTACT</span>
+      <div class="section-rule"></div>
+      <h2 id="contact-heading">联系我们</h2>
+      <p>欢迎AI企业及研发机构联系咨询数据服务合作</p>
+    </div>
+    <div class="contact-grid reveal">
+      <form class="contact-form" id="contact-form" novalidate>
+        <div class="form-group">
+          <label for="contact-name">姓名</label>
+          <input type="text" id="contact-name" name="name" placeholder="请输入姓名" required autocomplete="name">
+          <span class="error-msg">请输入姓名</span>
+        </div>
+        <div class="form-group">
+          <label for="contact-email">邮箱</label>
+          <input type="email" id="contact-email" name="email" placeholder="请输入邮箱地址" required autocomplete="email">
+          <span class="error-msg">请输入有效邮箱</span>
+        </div>
+        <div class="form-group">
+          <label for="contact-company">公司名称</label>
+          <input type="text" id="contact-company" name="company" placeholder="请输入公司名称" required autocomplete="organization">
+          <span class="error-msg">请输入公司名称</span>
+        </div>
+        <div class="form-group">
+          <label for="contact-service">需求类型</label>
+          <select id="contact-service" name="service" style="width:100%;padding:12px 16px;background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:0;color:var(--text-primary);font-size:0.9375rem">
+            <option value="">请选择需求类型</option>
+            <option value="annotation">数据标注</option>
+            <option value="collection">数据采集</option>
+            <option value="audit">内容审核</option>
+            <option value="medical">医学影像标注</option>
+            <option value="other">其他合作咨询</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="contact-message">需求描述</label>
+          <textarea id="contact-message" name="message" placeholder="请简要描述您的数据需求（数据类型、数量、标注要求等）" required></textarea>
+          <span class="error-msg">请输入需求描述</span>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg" style="align-self:flex-start">提交咨询</button>
+      </form>
+      <div class="contact-info">
+        <div class="contact-info-item">
+          <i class="ri-building-2-fill"></i>
+          <div>
+            <h4>公司名称</h4>
+            <p>河南端孚科技有限公司</p>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <i class="ri-map-pin-2-fill"></i>
+          <div>
+            <h4>公司地址</h4>
+            <p>河南省郑州市<span id="address-text"></span><button class="copy-btn" data-copy-target="address-text" aria-label="复制地址"><i class="ri-file-copy-line"></i></button></p>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <i class="ri-mail-fill"></i>
+          <div>
+            <h4>电子邮箱</h4>
+            <p><span id="email-text"></span><button class="copy-btn" data-copy-target="email-text" aria-label="复制邮箱"><i class="ri-file-copy-line"></i></button></p>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <i class="ri-phone-fill"></i>
+          <div>
+            <h4>联系电话</h4>
+            <p><span id="phone-text"></span><button class="copy-btn" data-copy-target="phone-text" aria-label="复制电话"><i class="ri-file-copy-line"></i></button></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="faq-list reveal" style="max-width:760px;margin:clamp(48px,8vh,72px) auto 0" aria-label="常见问题">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">数据标注的准确率如何保障？<i class="ri-arrow-down-s-line"></i></button>
+        <div class="faq-a"><p>通过四层质检体系保障：标注人员自检 + 质检专员交叉审核 + 项目经理抽检 + 客户验收反馈。每一层都有明确的质量标准和校验流程，确保标注结果的一致性和准确性。</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">数据安全如何保障？<i class="ri-arrow-down-s-line"></i></button>
+        <div class="faq-a"><p>我们与每位客户签署保密协议，建立数据隔离机制，采用严格的权限管理和访问控制。100%自建团队模式也避免了外包转包带来的数据泄露风险。</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">是否支持定制化标注需求？<i class="ri-arrow-down-s-line"></i></button>
+        <div class="faq-a"><p>支持。我们会根据客户的AI模型和应用场景，定制标注规范、质检标准及交付格式。无论是特殊的数据类型还是复杂的标注要求，均可按需定制方案。</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+
+<!-- ============================================
+     FOOTER
+     ============================================ -->
+<footer class="site-footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="logo-cn">端孚科技</span>
+        <p>河南端孚科技有限公司 · AI数据服务商<br>以高质量数据服务助推AI更好发展<br>100%自建团队 · 业务不转包</p>
+      </div>
+      <div class="footer-col">
+        <h4>数据服务</h4>
+        <a href="#products">数据标注</a>
+        <a href="#products">数据采集</a>
+        <a href="#products">内容审核</a>
+        <a href="#products">医学影像标注</a>
+      </div>
+      <div class="footer-col">
+        <h4>解决方案</h4>
+        <a href="#solutions">自动驾驶</a>
+        <a href="#solutions">智能语音</a>
+        <a href="#solutions">计算机视觉</a>
+        <a href="#solutions">自然语言处理</a>
+      </div>
+      <div class="footer-col">
+        <h4>关于我们</h4>
+        <a href="#about">公司介绍</a>
+        <a href="#cases">质量保障</a>
+        <a href="#news">新闻中心</a>
+        <a href="#contact">联系我们</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="current-year"></span> 河南端孚科技有限公司. All rights reserved.</span>
+      <div class="footer-social">
+        <a href="#" aria-label="微信公众号"><i class="ri-wechat-fill"></i></a>
+        <a href="#" aria-label="微博"><i class="ri-weibo-fill"></i></a>
+        <a href="#" aria-label="邮箱联系"><i class="ri-mail-fill"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- MODAL CONTAINER -->
+<div class="modal-overlay" id="modal-overlay" aria-hidden="true">
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <button class="modal-close" id="modal-close" aria-label="关闭"><i class="ri-close-line"></i></button>
+    <h2 id="modal-title"></h2>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div id="toast-container" aria-live="polite"></div>
+
+<script>
+'use strict';
+
+// ============================================================
+// 1. DOM REFS
+// ============================================================
+const $$ = (s, p) => (p || document).querySelector(s);
+const $A = (s, p) => [...(p || document).querySelectorAll(s)];
+
+// ============================================================
+// 2. SPLASH SCREEN — scroll to enter + particles
+// ============================================================
+(function splash() {
+  var el = document.getElementById('splash');
+  if (!el) return;
+  var accumulated = 0;
+  var threshold = 100;
+  var exited = false;
+
+  // --- particle system ---
+  var canvas = document.getElementById('splash-particles');
+  var ctx = canvas ? canvas.getContext('2d') : null;
+  var particles = [];
+  var animId = null;
+  var PARTICLE_COUNT = 75;
+  var COLORS = ['rgba(13,13,13,', 'rgba(13,13,13,', 'rgba(85,85,85,', 'rgba(119,119,119,', 'rgba(213,213,213,'];
+
+  function resize() {
+    if (!canvas) return;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
+  function initParticles() {
+    particles = [];
+    var w = canvas.width;
+    var h = canvas.height;
+    for (var i = 0; i < PARTICLE_COUNT; i++) {
+      particles.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: Math.random() * 3.5 + 1.2,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: -(Math.random() * 0.4 + 0.12),
+        alpha: Math.random() * 0.55 + 0.2,
+        alphaDir: Math.random() > 0.5 ? 1 : -1,
+        alphaSpeed: Math.random() * 0.005 + 0.003,
+        colorIdx: Math.floor(Math.random() * COLORS.length)
+      });
+    }
+  }
+
+  function animate() {
+    if (!canvas || !ctx || exited) return;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    var w = canvas.width;
+    var h = canvas.height;
+    for (var i = 0; i < particles.length; i++) {
+      var p = particles[i];
+      // move
+      p.x += p.vx;
+      p.y += p.vy;
+      // wrap
+      if (p.x < -10) p.x = w + 10;
+      if (p.x > w + 10) p.x = -10;
+      if (p.y < -10) p.y = h + 10;
+      if (p.y > h + 10) p.y = -10;
+      // pulse alpha
+      p.alpha += p.alphaDir * p.alphaSpeed;
+      if (p.alpha > 0.75) { p.alpha = 0.75; p.alphaDir = -1; }
+      if (p.alpha < 0.12) { p.alpha = 0.12; p.alphaDir = 1; }
+      // draw
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = COLORS[p.colorIdx] + p.alpha.toFixed(2) + ')';
+      ctx.fill();
+    }
+    animId = requestAnimationFrame(animate);
+  }
+
+  function startParticles() {
+    if (!canvas || !ctx) return;
+    resize();
+    initParticles();
+    animate();
+    window.addEventListener('resize', function() {
+      resize();
+      initParticles();
+    });
+  }
+
+  startParticles();
+
+  var remove = function() {
+    if (exited) return;
+    exited = true;
+    if (animId) cancelAnimationFrame(animId);
+    el.classList.add('exiting');
+    var main = document.getElementById('main-content');
+    if (main) main.classList.add('revealed');
+    setTimeout(function() { el.remove(); }, 500);
+  };
+  el.addEventListener('wheel', function(e) {
+    if (e.deltaY > 0) {
+      accumulated += e.deltaY;
+      if (accumulated > threshold) remove();
+      e.preventDefault();
+    }
+  }, { passive: false });
+  // Touch swipe-up support
+  var touchStartY = 0;
+  el.addEventListener('touchstart', function(e) {
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+  el.addEventListener('touchmove', function(e) {
+    var dy = touchStartY - e.touches[0].clientY;
+    if (dy > 40) remove();
+  }, { passive: true });
+})();
+
+// ============================================================
+// 3. FOOTER YEAR
+// ============================================================
+(function footerYear() {
+  var el = document.getElementById('current-year');
+  if (el) el.textContent = new Date().getFullYear();
+})();
+
+// ============================================================
+// 4. CONTACT INFO
+// ============================================================
+(function setContactInfo() {
+  var addr = document.getElementById('address-text');
+  var email = document.getElementById('email-text');
+  var phone = document.getElementById('phone-text');
+  if (addr) addr.textContent = '郑州市金水区';
+  if (email) email.textContent = 'contact@duanfukeji.com';
+  if (phone) phone.textContent = '0371-XXXXXXXX';
+})();
+
+// ============================================================
+// 5. MOBILE NAV
+// ============================================================
+(function mobileNav() {
+  var hamburger = document.getElementById('hamburger');
+  var nav = document.getElementById('main-nav');
+  var overlay = document.getElementById('mobile-overlay');
+  if (!hamburger || !nav) return;
+  var open = false;
+  var close = function() {
+    open = false;
+    hamburger.classList.remove('active');
+    hamburger.setAttribute('aria-expanded', 'false');
+    nav.classList.remove('mobile-open');
+    if (overlay) overlay.classList.remove('show');
+    document.body.style.overflow = '';
+  };
+  var toggle = function() {
+    open = !open;
+    hamburger.classList.toggle('active', open);
+    hamburger.setAttribute('aria-expanded', String(open));
+    nav.classList.toggle('mobile-open', open);
+    if (overlay) overlay.classList.toggle('show', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  };
+  hamburger.addEventListener('click', toggle);
+  if (overlay) overlay.addEventListener('click', close);
+  $A('.nav-links a').forEach(function(a) { a.addEventListener('click', close); });
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && open) close(); });
+})();
+
+// ============================================================
+// 6. THEME TOGGLE
+// ============================================================
+(function themeToggle() {
+  var btn = document.getElementById('theme-toggle');
+  var sun = document.getElementById('theme-icon-sun');
+  var moon = document.getElementById('theme-icon-moon');
+  if (!btn) return;
+  var stored = localStorage.getItem('theme');
+  var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  var dark = stored ? stored === 'dark' : prefersDark;
+  var apply = function() {
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    if (sun && moon) { sun.style.display = dark ? 'none' : ''; moon.style.display = dark ? '' : 'none'; }
+    localStorage.setItem('theme', dark ? 'dark' : 'light');
+  };
+  apply();
+  btn.addEventListener('click', function() { dark = !dark; apply(); });
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+    if (!localStorage.getItem('theme')) { dark = e.matches; apply(); }
+  });
+})();
+
+// ============================================================
+// 7. SCROLLSPY
+// ============================================================
+(function scrollspy() {
+  var sectionIds = ['hero', 'about', 'products', 'solutions', 'cases', 'news', 'contact'];
+  var navLinks = $A('.nav-links a');
+  if (!navLinks.length) return;
+  var idToHref = function(id) { return '#' + id; };
+  var observer = new IntersectionObserver(function(entries) {
+    var active = null;
+    entries.forEach(function(e) { if (e.isIntersecting) active = e.target.id; });
+    if (active) {
+      navLinks.forEach(function(a) {
+        a.classList.toggle('active', a.getAttribute('href') === idToHref(active));
+      });
+    }
+  }, { rootMargin: '-30% 0px -65% 0px', threshold: 0 });
+  sectionIds.forEach(function(id) { var el = document.getElementById(id); if (el) observer.observe(el); });
+})();
+
+// ============================================================
+// 8. SMOOTH SCROLL
+// ============================================================
+(function smoothScroll() {
+  document.addEventListener('click', function(e) {
+    var a = e.target.closest('a[href^="#"]');
+    if (!a || a.getAttribute('href') === '#') return;
+    var target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+})();
+
+// ============================================================
+// 9. CONTENT FLOAT — only content blocks move, structure stays
+// ============================================================
+(function contentFloat() {
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced) return;
+  var mx = 0, my = 0, tx = 0, ty = 0;
+  document.addEventListener('mousemove', function(e) {
+    tx = (e.clientX / window.innerWidth - 0.5) * 2;
+    ty = (e.clientY / window.innerHeight - 0.5) * 2;
+  });
+  var sel = '.hero-content,.product-card,.solution-card,.news-card,.metric-card,.sec-item,.faq-item,.about-text,.about-image,.contact-form,.contact-info,.footer-grid,.footer-bottom,.arch-diagram,.solutions-grid,.products-grid,.news-grid,.metrics-grid,.security-grid,.faq-list,.contact-grid,.case-card-image img,.tech-arch';
+  var items = document.querySelectorAll(sel);
+  (function lerp() {
+    mx += (tx - mx) * 0.05;
+    my += (ty - my) * 0.05;
+    var dx = (mx * 10).toFixed(2);
+    var dy = (my * 10).toFixed(2);
+    var t = 'translate(' + dx + 'px,' + dy + 'px)';
+    for (var i = 0; i < items.length; i++) {
+      items[i].style.transform = t;
+    }
+    requestAnimationFrame(lerp);
+  })();
+})();
+
+// ============================================================
+// 10. SCROLL REVEAL
+// ============================================================
+(function scrollReveal() {
+  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reducedMotion) { $A('.reveal').forEach(function(el) { el.classList.add('visible'); }); return; }
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { rootMargin: '0px 0px -40px 0px', threshold: 0.1 });
+  $A('.reveal').forEach(function(el) { observer.observe(el); });
+})();
+
+// ============================================================
+// 11. MODAL SYSTEM
+// ============================================================
+(function modal() {
+  var overlay = document.getElementById('modal-overlay');
+  var modalEl = document.getElementById('modal');
+  var titleEl = document.getElementById('modal-title');
+  var bodyEl = document.getElementById('modal-body');
+  var closeBtn = document.getElementById('modal-close');
+  if (!overlay || !modalEl) return;
+
+  var focusBefore = null;
+
+  var open = function(title, bodyHTML) {
+    focusBefore = document.activeElement;
+    titleEl.textContent = title;
+    bodyEl.innerHTML = bodyHTML;
+    overlay.classList.add('active');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    closeBtn.focus();
+  };
+
+  var close = function() {
+    overlay.classList.remove('active');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if (focusBefore) focusBefore.focus();
+  };
+
+  closeBtn.addEventListener('click', close);
+  overlay.addEventListener('click', function(e) { if (e.target === overlay) close(); });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && overlay.classList.contains('active')) {
+      e.preventDefault();
+      close();
+    }
+    if (e.key === 'Tab' && overlay.classList.contains('active')) {
+      var focusable = modalEl.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      if (!focusable.length) return;
+      var first = focusable[0];
+      var last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  });
+
+  window._openModal = open;
+})();
+
+// ============================================================
+// 12. NEWS CLICK
+// ============================================================
+(function newsClick() {
+  $A('.news-card').forEach(function(card) {
+    card.addEventListener('click', function() {
+      var title = (card.querySelector('h3') || {}).textContent || '';
+      var desc = (card.querySelector('p') || {}).textContent || '';
+      var date = (card.querySelector('.news-date') || {}).textContent || '';
+      window._openModal(title, '<p style="color:var(--text-muted);margin-bottom:16px">' + date + '</p><p>' + desc + '</p>');
+    });
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('role', 'button');
+    card.addEventListener('keydown', function(e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click(); } });
+  });
+})();
+
+// ============================================================
+// 13. FAQ ACCORDION
+// ============================================================
+(function faq() {
+  $A('.faq-q').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!expanded));
+      var panel = btn.nextElementSibling;
+      if (panel) panel.classList.toggle('open', !expanded);
+    });
+  });
+})();
+
+// ============================================================
+// 14. CONTACT FORM VALIDATION
+// ============================================================
+(function formValidation() {
+  var form = document.getElementById('contact-form');
+  if (!form) return;
+
+  var validateField = function(field) {
+    var group = field.closest('.form-group');
+    if (!group) return true;
+    var valid = true;
+    if (field.required && !field.value.trim()) valid = false;
+    if (field.type === 'email' && field.value.trim()) {
+      valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(field.value);
+    }
+    group.classList.toggle('error', !valid);
+    return valid;
+  };
+
+  $A('input, textarea, select', form).forEach(function(field) {
+    field.addEventListener('blur', function() { validateField(field); });
+    field.addEventListener('input', function() { if (field.closest('.form-group') && field.closest('.form-group').classList.contains('error')) validateField(field); });
+  });
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var allValid = true;
+    $A('input, textarea', form).forEach(function(f) { if (!validateField(f)) allValid = false; });
+    if (!allValid) return;
+    showToast('咨询已提交，我们将尽快与您联系！', 'success');
+    form.reset();
+    $A('.form-group', form).forEach(function(g) { g.classList.remove('error'); });
+  });
+})();
+
+// ============================================================
+// 15. TOAST
+// ============================================================
+function showToast(message, type) {
+  var container = document.getElementById('toast-container');
+  if (!container) return;
+  var toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.innerHTML = '<i class="ri-' + (type === 'success' ? 'check-line' : 'error-warning-line') + '" style="margin-right:8px;color:' + (type === 'success' ? 'var(--accent-mid)' : '#F87171') + '"></i>' + message;
+  container.appendChild(toast);
+  setTimeout(function() {
+    toast.classList.add('removing');
+    toast.addEventListener('animationend', function() { toast.remove(); }, { once: true });
+  }, 4000);
+}
+
+// ============================================================
+// 16. COPY TO CLIPBOARD
+// ============================================================
+(function copyToClipboard() {
+  document.addEventListener('click', function(e) {
+    var btn = e.target.closest('.copy-btn');
+    if (!btn) return;
+    var targetId = btn.dataset.copyTarget;
+    var target = targetId ? document.getElementById(targetId) : null;
+    var text = target ? target.textContent.trim() : '';
+    if (!text) return;
+    navigator.clipboard.writeText(text).then(function() {
+      showToast('已复制到剪贴板', 'success');
+    }).catch(function() {
+      showToast('复制失败，请手动复制', 'error');
+    });
+  });
+})();
+
+</script>
+<div class="bg-texture" aria-hidden="true"></div>
+</body>
+</html>
