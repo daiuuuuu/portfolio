@@ -152,8 +152,11 @@ export function XcuShowcase() {
     const strip = section.querySelector<HTMLElement>('[data-animate="horizontal-scroll-strip"]')
     if (!track || !strip) return
 
-    // Desktop only: pin the section and map vertical scroll to horizontal drift.
-    // Mobile keeps native touch scrolling on the (un-pinned) strip.
+    // Desktop only: pin ONLY the horizontal-scroll track and map vertical scroll
+    // to horizontal drift. The trigger is the track, NOT the whole section —
+    // after the design-spec block was added above, pinning the section pinned
+    // the spec + the strip together, pushing the strip off-screen and misplacing
+    // its geometry. Mobile keeps native touch scrolling on the (un-pinned) strip.
     const mm = gsap.matchMedia()
     mm.add('(min-width: 768px)', () => {
       const distance = () => Math.max(0, strip.scrollWidth - track.clientWidth)
@@ -161,7 +164,7 @@ export function XcuShowcase() {
         x: () => -distance(),
         ease: 'none', // required: 1:1 scroll↔position mapping
         scrollTrigger: {
-          trigger: section,
+          trigger: track,
           start: 'top top',
           end: () => `+=${distance()}`,
           pin: true,
@@ -197,6 +200,167 @@ export function XcuShowcase() {
         <p className="font-label-micro text-label-micro uppercase text-on-surface-variant tracking-widest">
           VISUAL SHOWCASE · 多场景物料矩阵
         </p>
+      </div>
+
+      {/* ══ DESIGN SPEC · AI 设计规范提取 ══ */}
+      <div className="px-margin-outer pt-6 pb-8 border-b border-outline-variant" data-reveal>
+        <p className="font-label-micro text-label-micro uppercase text-brand-accent tracking-widest mb-1">
+          DESIGN SPEC · AI 设计规范提取
+        </p>
+        <p className="font-mono-technical text-[10px] text-on-surface-variant uppercase tracking-widest mb-8">
+          VIS PDF → AI 逐页提取 → 可编程设计 TOKEN
+        </p>
+
+        <div className="flex items-stretch gap-2 font-mono-technical text-[10px] text-on-surface mb-10">
+          <span className="border border-outline px-3 py-2">VIS PDF<br/><span className="text-on-surface-variant">47 页</span></span>
+          <span className="text-brand-accent self-center">→</span>
+          <span className="border border-outline px-3 py-2">AI 逐页分析<br/><span className="text-on-surface-variant">Qwen-VL</span></span>
+          <span className="text-brand-accent self-center">→</span>
+          <span className="bg-brand-accent text-surface px-3 py-2">设计 TOKEN<br/><span className="text-surface/60">可编程</span></span>
+          <span className="self-center text-on-surface-variant ml-2">· 颜色精确到 hex · 字体精确到 family · 改一处全量级联</span>
+        </div>
+
+        {/* ── 01 LOGO SYSTEM ── */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-10">
+          <div className="md:col-span-5">
+            <p className="font-label-micro text-label-micro uppercase text-on-surface-variant tracking-widest mb-3">
+              01 · LOGO SYSTEM / 标志系统
+            </p>
+            <div className="bg-white border border-outline-variant p-10 flex items-center justify-center mb-3">
+              <img src="/portfolio/images/科技园-logo.png" alt="许昌大学科技园 logo" className="w-24 h-24" />
+            </div>
+            <p className="font-mono-technical text-[9px] text-on-surface-variant tracking-widest">
+              五条水平线 · 上浅下深 · 波浪收尾 · 负形设计 · 象征"莲城"水系
+            </p>
+          </div>
+          <div className="md:col-span-7">
+            <div className="grid grid-cols-2 gap-3 mb-3">
+              <div className="border border-outline-variant p-5">
+                <div className="border border-dashed border-brand-accent p-4 inline-block"><img src="/portfolio/images/科技园-logo.png" alt="" className="w-12 h-12" /></div>
+                <p className="font-mono-technical text-[9px] text-on-surface-variant mt-3">安全空间 · 四周留白 ≥ 0.5× 高</p>
+              </div>
+              <div className="border border-outline-variant p-5 flex flex-col justify-between">
+                <div className="flex items-end gap-4"><img src="/portfolio/images/科技园-logo.png" alt="" className="w-6 h-6" /><img src="/portfolio/images/科技园-logo.png" alt="" className="w-10 h-10" /><img src="/portfolio/images/科技园-logo.png" alt="" className="w-16 h-16" /></div>
+                <p className="font-mono-technical text-[9px] text-on-surface-variant mt-3">最小尺寸 · 印刷 ≥12mm / 屏幕 ≥24px</p>
+              </div>
+            </div>
+            <div className="border border-outline-variant p-5">
+              <p className="font-mono-technical text-[9px] text-on-surface-variant mb-4">MISUSE / 错误示范</p>
+              <div className="flex items-end gap-8">
+                <div className="text-center">
+                  <div className="overflow-hidden h-10"><img src="/portfolio/images/科技园-logo.png" alt="" className="w-10 h-10 origin-top" style={{ transform: 'scaleX(1.8)' }} /></div>
+                  <p className="font-mono-technical text-[9px] text-error mt-2">✕ 拉伸</p>
+                </div>
+                <div className="text-center">
+                  <div className="h-10"><img src="/portfolio/images/科技园-logo.png" alt="" className="w-10 h-10" style={{ transform: 'rotate(20deg)' }} /></div>
+                  <p className="font-mono-technical text-[9px] text-error mt-2">✕ 旋转</p>
+                </div>
+                <div className="text-center">
+                  <div className="h-10"><img src="/portfolio/images/科技园-logo.png" alt="" className="w-10 h-10" style={{ filter: 'hue-rotate(120deg)' }} /></div>
+                  <p className="font-mono-technical text-[9px] text-error mt-2">✕ 改色</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ── 02 COLOR SYSTEM · 色带（无描边） ── */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-10">
+          <div className="md:col-span-7">
+            <p className="font-label-micro text-label-micro uppercase text-on-surface-variant tracking-widest mb-3">
+              02 · COLOR SYSTEM / 色彩系统
+            </p>
+            <div className="flex flex-col">
+              <div className="flex items-center justify-between bg-[#2DAA9E] px-5 py-4">
+                <span className="font-mono-technical text-[13px] text-white font-bold">科技青 · 主色</span>
+                <span className="font-mono-technical text-[11px] text-white/85">#2DAA9E · C75 M0 Y25 K0</span>
+              </div>
+              <div className="flex items-center justify-between bg-[#2D82B2] px-5 py-4">
+                <span className="font-mono-technical text-[13px] text-white font-bold">智慧蓝 · 辅1</span>
+                <span className="font-mono-technical text-[11px] text-white/85">#2D82B2 · C80 M40 Y0 K0</span>
+              </div>
+              <div className="flex items-center justify-between bg-[#2D5A91] px-5 py-4">
+                <span className="font-mono-technical text-[13px] text-white font-bold">深邃蓝 · 辅2</span>
+                <span className="font-mono-technical text-[11px] text-white/85">#2D5A91 · C85 M60 Y15 K10</span>
+              </div>
+            </div>
+            <div className="flex flex-col mt-2">
+              <div className="flex items-center justify-between bg-white border-t border-outline-variant px-5 py-2.5">
+                <span className="font-mono-technical text-[11px] text-on-surface">纯白 #FFFFFF</span>
+                <span className="font-mono-technical text-[9px] text-on-surface-variant">页面背景 · 负空间</span>
+              </div>
+              <div className="flex items-center justify-between bg-[#F5F5F7] px-5 py-2.5">
+                <span className="font-mono-technical text-[11px] text-on-surface">浅灰 #F5F5F7</span>
+                <span className="font-mono-technical text-[9px] text-on-surface-variant">背景层次 · 装饰</span>
+              </div>
+              <div className="flex items-center justify-between bg-[#666666] px-5 py-2.5">
+                <span className="font-mono-technical text-[11px] text-white">中灰 #666666</span>
+                <span className="font-mono-technical text-[9px] text-white/70">辅助说明文字</span>
+              </div>
+              <div className="flex items-center justify-between bg-[#333333] px-5 py-2.5">
+                <span className="font-mono-technical text-[11px] text-white">深灰 #333333</span>
+                <span className="font-mono-technical text-[9px] text-white/70">正文文字</span>
+              </div>
+            </div>
+          </div>
+          <div className="md:col-span-5">
+            {/* ── 03 TYPOGRAPHY ── */}
+            <p className="font-label-micro text-label-micro uppercase text-on-surface-variant tracking-widest mb-3">
+              03 · TYPOGRAPHY / 字体系统
+            </p>
+            <div className="border border-outline-variant">
+              <div className="flex items-baseline justify-between px-4 py-3 border-b border-outline-variant">
+                <span className="font-bold text-[19px]">思源黑体</span>
+                <span className="font-mono-technical text-[9px] text-on-surface-variant">L1 · BOLD · 32-64pt</span>
+              </div>
+              <div className="flex items-baseline justify-between px-4 py-3 border-b border-outline-variant">
+                <span className="font-medium text-[15px]">许昌大学科技园 · 品牌视觉</span>
+                <span className="font-mono-technical text-[9px] text-on-surface-variant">L2 · MEDIUM · 20-24pt</span>
+              </div>
+              <div className="flex items-baseline justify-between px-4 py-3 border-b border-outline-variant">
+                <span className="text-[13px]">正文字体 · 专业 · 系统化 · 当代性</span>
+                <span className="font-mono-technical text-[9px] text-on-surface-variant">L3 · REGULAR · 14-16pt</span>
+              </div>
+              <div className="flex items-baseline justify-between px-4 py-3">
+                <span className="text-[11px] text-on-surface-variant">Source Sans Pro · 注释说明</span>
+                <span className="font-mono-technical text-[9px] text-on-surface-variant">L4 · LIGHT · 10-12pt</span>
+              </div>
+            </div>
+            <p className="font-mono-technical text-[9px] text-on-surface-variant mt-2 tracking-widest">
+              行距 1.5-1.7 倍 · 英文 Tracking +20~50 · 中英基线对齐
+            </p>
+          </div>
+        </div>
+
+        {/* ── 04 GRID + 05 APPLICATION ── */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+          <div className="md:col-span-5">
+            <p className="font-label-micro text-label-micro uppercase text-on-surface-variant tracking-widest mb-3">
+              04 · GRID / 网格系统
+            </p>
+            <div className="border border-outline-variant p-5 mb-2">
+              <div className="grid grid-cols-12 gap-px bg-outline-variant h-16">
+                {Array.from({ length: 12 }).map((_, i) => <div key={i} className="bg-surface" />)}
+              </div>
+              <div className="flex items-center gap-5 mt-3">
+                <div className="flex items-center gap-2"><div className="w-10 h-1 bg-[#2DAA9E]" /><span className="font-mono-technical text-[9px] text-on-surface-variant">基线</span></div>
+                <div className="flex items-center gap-2"><div className="w-10 h-1 bg-[#333333]" /><span className="font-mono-technical text-[9px] text-on-surface-variant">列</span></div>
+              </div>
+            </div>
+            <p className="font-mono-technical text-[9px] text-on-surface-variant tracking-widest">基线 + 模块化列网格 · Z 型动线 · 页面利用率 ~60%</p>
+          </div>
+          <div className="md:col-span-7">
+            <p className="font-label-micro text-label-micro uppercase text-on-surface-variant tracking-widest mb-3">
+              05 · APPLICATION / 应用系统
+            </p>
+            <div className="border border-outline-variant divide-y divide-outline-variant">
+              <div className="flex justify-between px-4 py-3"><span className="text-[12px]">名片 · 白底 + 标志左对齐</span><span className="font-mono-technical text-[9px] text-on-surface-variant">B-16</span></div>
+              <div className="flex justify-between px-4 py-3"><span className="text-[12px]">档案袋 · 青绿袋口覆膜</span><span className="font-mono-technical text-[9px] text-on-surface-variant">250-300g</span></div>
+              <div className="flex justify-between px-4 py-3"><span className="text-[12px]">马克杯 · 标志居中安全距 ≥15mm</span><span className="font-mono-technical text-[9px] text-on-surface-variant">陶瓷</span></div>
+              <div className="flex justify-between px-4 py-3"><span className="text-[12px]">网站 / APP · 标志 ≥24px · 青色交互</span><span className="font-mono-technical text-[9px] text-on-surface-variant">DIGITAL</span></div>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Horizontal scroll track — full bleed; desktop: fills viewport while pinned */}

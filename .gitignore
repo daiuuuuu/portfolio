@@ -37,3 +37,11 @@ sections-check.png
 tree-check.png
 next-check.png
 audit-shots/
+
+# 本地交付产物（体积大、可重新生成，不入仓库）
+portfolio-pdf/
+site-longimg/
+site-pdf-tmp/
+作品集交付/
+简历/
+作品集-网站完整版长图.png
