@@ -71,7 +71,14 @@ export function useScrollReveals(): void {
       }
 
       window.addEventListener('load', refresh)
-      document.fonts?.ready.then(rebuild) // A3: re-split after font metrics settle
+      // A3: re-split after font metrics settle — with a hard timeout fallback.
+      // If the fonts' .ready promise never resolves (blocked CDN in China), the
+      // rebuild must still run so content never stays stuck in hidden states.
+      let fontTimer = 0
+      if (document.fonts?.ready) {
+        document.fonts.ready.then(() => { clearTimeout(fontTimer); rebuild() }).catch(() => {})
+        fontTimer = window.setTimeout(rebuild, 3000)
+      }
 
       let resizeTimer: ReturnType<typeof setTimeout> | undefined
       const onResize = () => {
@@ -95,7 +102,7 @@ export function useScrollReveals(): void {
       return () => {
         if (onEnd) window.removeEventListener('transition:curtain-complete', onEnd)
         window.removeEventListener('load', refresh)
-        document.fonts?.ready.then(rebuild) // cancel pending font-ready rebuild? just remove listener
+        clearTimeout(fontTimer)
         window.removeEventListener('resize', onResize)
         clearTimeout(resizeTimer)
         document.removeEventListener('load', onMediaLoad, true)

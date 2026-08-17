@@ -46,8 +46,10 @@ export default function ProjectHorizontalPipeline({ project }: ProjectHorizontal
         </span>
        </div>
        <div className="p-6 flex flex-col gap-4 flex-1">
-        <span className="material-symbols-outlined text-4xl text-on-surface-variant">
-         {['download', 'memory', 'output', 'verified', 'analytics'][idx] || 'hub'}
+        {/* Mono step marker replaces the Material Symbols icon (that font was a
+            Google-Fonts CDN dependency — blocked in China; self-hosted fonts only). */}
+        <span className="font-mono-technical text-3xl font-black text-on-surface-variant leading-none">
+         {String(idx + 1).padStart(2, '0')}
         </span>
         <div>
          <p className="font-label-micro uppercase text-on-surface-variant mb-1">{step.phase}</p>

@@ -1,4 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Geologica:wght@400;600;700;800;900&family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap');
+/* ── Self-hosted fonts — NO Google Fonts CDN (blocked in mainland China).
+       woff2 files live in public/fonts/, served same-origin as the site. ── */
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; src: url('/portfolio/fonts/inter-400.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 600; src: url('/portfolio/fonts/inter-600.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 700; src: url('/portfolio/fonts/inter-700.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 800; src: url('/portfolio/fonts/inter-800.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 900; src: url('/portfolio/fonts/inter-900.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'Geologica'; font-style: normal; font-weight: 400; src: url('/portfolio/fonts/geologica-400.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'Geologica'; font-style: normal; font-weight: 600; src: url('/portfolio/fonts/geologica-600.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'Geologica'; font-style: normal; font-weight: 700; src: url('/portfolio/fonts/geologica-700.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'Geologica'; font-style: normal; font-weight: 800; src: url('/portfolio/fonts/geologica-800.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'Geologica'; font-style: normal; font-weight: 900; src: url('/portfolio/fonts/geologica-900.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 400; src: url('/portfolio/fonts/jetbrains-mono-400.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 700; src: url('/portfolio/fonts/jetbrains-mono-700.woff2') format('woff2'); font-display: swap; }
+
 @import "tailwindcss";
 
 /*

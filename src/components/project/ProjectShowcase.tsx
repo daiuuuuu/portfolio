@@ -134,7 +134,7 @@ export function DuanfuShowcase() {
 }
 
 const XCU_IMAGES = [
-  { src: '/portfolio/images/科技园-三折页正面设计稿.png', alt: '科技园三折页正面设计稿' },
+  { src: '/portfolio/images/科技园-三折页正面设计稿.webp', alt: '科技园三折页正面设计稿' },
   { src: '/portfolio/images/科技园-三折页反面设计稿.png', alt: '科技园三折页反面设计稿' },
   { src: '/portfolio/images/科技园-竞赛大屏亮色版.png', alt: '科技园竞赛大屏亮色版' },
   { src: '/portfolio/images/科技园-竞赛大屏暗色版.png', alt: '科技园竞赛大屏暗色版' },
@@ -409,7 +409,7 @@ export function GujiShowcase() {
             </span>
           </div>
           <img
-            src="/portfolio/images/古籍-原始扫描页.png"
+            src="/portfolio/images/古籍-原始扫描页.webp"
             alt="古籍原始扫描页"
             className="w-full object-contain"
             style={{ maxHeight: '70vh' }}
@@ -706,7 +706,7 @@ export function ImageWorkflowShowcase() {
       label: 'M1 抠图',
       desc: '背景移除 → 产品主体提取',
       detail: 'BiRefNet 深度学习模型自动识别产品轮廓，剥离杂乱背景，输出透明通道产品主体 + 精准遮罩。',
-      src: '/portfolio/images/啤酒工作流-02抠图.png',
+      src: '/portfolio/images/啤酒工作流-02抠图.webp',
     },
     {
       label: '后2+3 超分调色',
