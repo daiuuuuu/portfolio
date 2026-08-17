@@ -5,7 +5,7 @@ export const SITE_CONFIG = {
     handle: 'daiu',
     role: 'AIGC DESIGNER',
     location: 'SUZHOU / 苏州',
-    email: '15893791173@163.com',
+    email: 'daiuuu@agent.qq.com',
     phone: '15893791173',
     wechat: '15893791173',
     qq: '1970143631',
